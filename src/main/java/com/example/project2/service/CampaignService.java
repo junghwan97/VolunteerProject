@@ -28,4 +28,9 @@ public class CampaignService {
         int cnt = campaignMapper.addCampaign(campaign);
         return cnt == 1;
     }
+
+    public boolean modifyCampaign(Campaign campaign) {
+        int cnt = campaignMapper.modifyCampaign(campaign);
+        return cnt == 1;
+    }
 }

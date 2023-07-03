@@ -56,4 +56,21 @@ public class CampaignController {
             return "redirect:/campaign/addCampaign";
         }
     }
+
+    @GetMapping("/modify/{id}")
+    public String modifyCampaignForm(@PathVariable("id") Integer id, Model model){
+        Campaign campaign = campaignService.getCampaign(id);
+        model.addAttribute("campaign", campaign);
+        return "campaign/modifyCampaign";
+    }
+
+    @PostMapping("/modify/{id}")
+    public String modifyCampaignProcess(Campaign campaign){
+        boolean ok = campaignService.modifyCampaign(campaign);
+        if(ok){
+            return "redirect:/campaign/campaignId/" + campaign.getId();
+        }else {
+            return "redirect:/campaign/modify/" + campaign.getId();
+        }
+    }
 }

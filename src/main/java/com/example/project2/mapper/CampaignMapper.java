@@ -1,10 +1,7 @@
 package com.example.project2.mapper;
 
 import com.example.project2.domain.Campaign;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -30,4 +27,14 @@ public interface CampaignMapper {
             """)
     @Options(useGeneratedKeys = true, keyProperty = "id")
     Integer addCampaign(Campaign campaign);
+
+    @Update("""
+            UPDATE Campaign
+            SET
+                title = #{title},
+                body = #{body}
+            WHERE 
+                id = #{id}
+            """)
+    Integer modifyCampaign(Campaign campaign);
 }
