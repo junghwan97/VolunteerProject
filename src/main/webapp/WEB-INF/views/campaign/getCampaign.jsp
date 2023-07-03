@@ -19,9 +19,9 @@
 <h3>${campaign.title }</h3>
 
 <div>
-    <!--                <div class="mb-3"> -->
-    <%--                   <label for="" class="form-label">제목</label> <input type="text" class="form-control" value="${notice.title }" readonly /> --%>
-    <!--                </div> -->
+    <div class="mb-3">
+         <label for="" class="form-label">작성자</label> <input type="text" class="form-control" value="${campaign.writer }" readonly />
+    </div>
     <div class="mb-3">
         <label for="" class="form-label">작성일시</label> <input type="text" readonly class="form-control" value="${campaign.inserted }" />
     </div>
