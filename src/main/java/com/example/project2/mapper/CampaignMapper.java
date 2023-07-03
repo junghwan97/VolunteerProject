@@ -26,7 +26,7 @@ public interface CampaignMapper {
 
     @Insert("""
             INSERT INTO Campaign(title, body, writer)
-            VALUES (#{title}, #{body}, #{writer}
+            VALUES (#{title}, #{body}, #{writer})
             """)
     @Options(useGeneratedKeys = true, keyProperty = "id")
     Integer addCampaign(Campaign campaign);
