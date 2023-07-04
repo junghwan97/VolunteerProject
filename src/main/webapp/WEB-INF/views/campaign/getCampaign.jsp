@@ -1,11 +1,7 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: jhzza
-  Date: 2023-07-03
-  Time: 오전 10:46
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <html>
 <head>
     <title>상세 캠페인</title>
@@ -35,10 +31,13 @@
             <textarea class="form-control" readonly rows="15">${campaign.body }</textarea>
         </div>
         <a href="/campaign/campaignList" class="btn btn-primary">목록보기</a>
-        <a href="/campaign/modify/${campaign.id}" class="btn btn-primary">수정하기</a>
-        <button id="removeButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">
-            삭제
-        </button>
+        <sec:authorize access="hasAuthority('admin')">
+            <a href="/campaign/modify/${campaign.id}" class="btn btn-primary">수정하기</a>
+            <button id="removeButton" class="btn btn-danger" data-bs-toggle="modal"
+                    data-bs-target="#deleteConfirmModal">
+                삭제
+            </button>
+        </sec:authorize>
 
         <div class="d-none">
             <form action="/campaign/remove/${campaign.id}" method="post" id="removeForm">

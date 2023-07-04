@@ -41,6 +41,7 @@ public class CampaignController {
     }
 
     @GetMapping("addCampaign")
+    @PreAuthorize("hasAuthority('admin')")
     public void addCampaignForm() {
 
     }
@@ -58,6 +59,7 @@ public class CampaignController {
     }
 
     @GetMapping("/modify/{id}")
+    @PreAuthorize("hasAuthority('admin')")
     public String modifyCampaignForm(@PathVariable("id") Integer id, Model model) {
         Campaign campaign = campaignService.getCampaign(id);
         model.addAttribute("campaign", campaign);
@@ -75,6 +77,7 @@ public class CampaignController {
     }
 
     @PostMapping("/remove/{id}")
+    @PreAuthorize("hasAuthority('admin')")
     public String removeCampaign(@PathVariable("id") Integer id) {
         boolean ok = campaignService.removeCampaign(id);
         if (ok) {

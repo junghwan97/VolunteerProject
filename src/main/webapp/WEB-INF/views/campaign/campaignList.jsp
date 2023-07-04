@@ -37,7 +37,9 @@
         </c:forEach>
         </tbody>
     </table>
-    <a href="/campaign/addCampaign" class="btn btn-primary">캠페인 추가</a>
+    <sec:authorize access="hasAuthority('admin')">
+        <a href="/campaign/addCampaign" class="btn btn-primary">캠페인 추가</a>
+    </sec:authorize>
 </div>
 
 
