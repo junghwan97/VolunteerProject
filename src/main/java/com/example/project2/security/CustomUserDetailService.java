@@ -5,6 +5,7 @@ import java.util.*;
 import com.example.project2.domain.Member;
 import com.example.project2.mapper.MemberMapper;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.*;
 
@@ -26,7 +27,8 @@ public class CustomUserDetailService implements UserDetailsService {
         UserDetails user = User.builder()
                 .username(member.getId())
                 .password(member.getPassword())
-                .authorities(List.of())
+//				.authorities(member.getAuthority().stream().map(SimpleGrantedAuthority::new).toList())
+                .authorities(Collections.singletonList(new SimpleGrantedAuthority(member.getAuthority())))
                 .build();
 
         return user;

@@ -37,7 +37,7 @@
         </c:forEach>
         </tbody>
     </table>
-    <a href="/campaign/addCampaign" class="btn btn-primary">캠체인 추가</a>
+    <a href="/campaign/addCampaign" class="btn btn-primary">캠페인 추가</a>
 </div>
 
 
