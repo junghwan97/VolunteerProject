@@ -4,6 +4,7 @@ import com.example.project2.domain.Campaign;
 import com.example.project2.mapper.CampaignMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -31,6 +32,11 @@ public class CampaignService {
 
     public boolean modifyCampaign(Campaign campaign) {
         int cnt = campaignMapper.modifyCampaign(campaign);
+        return cnt == 1;
+    }
+
+    public boolean removeCampaign(Integer id) {
+        int cnt = campaignMapper.removeCampaign(id);
         return cnt == 1;
     }
 }

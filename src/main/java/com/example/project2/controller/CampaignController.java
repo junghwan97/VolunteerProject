@@ -26,51 +26,61 @@ public class CampaignController {
     private MemberService memberService;
 
     @GetMapping("list")
-    @PreAuthorize("isAuthenticated()")
-    public void list(Model model){
+//    @PreAuthorize("isAuthenticated()")
+    public void list(Model model) {
 
         List<Campaign> result = campaignService.campaignList();
         model.addAttribute("campaignList", result);
     }
 
     @GetMapping("/campaignId/{id}")
-    public String list(@PathVariable("id") Integer id, Model model){
+    public String list(@PathVariable("id") Integer id, Model model) {
         Campaign campaign = campaignService.getCampaign(id);
         model.addAttribute("campaign", campaign);
         return "campaign/getCampaign";
     }
 
     @GetMapping("addCampaign")
-    public void addCampaignForm(){
+    public void addCampaignForm() {
 
     }
 
     @PostMapping("addCampaign")
-    public String addCampaignProcess(Campaign campaign, Authentication authentication) throws Exception{
+    public String addCampaignProcess(Campaign campaign, Authentication authentication) throws Exception {
         campaign.setWriter(memberService.getNickName(authentication.getName()));
 
         boolean ok = campaignService.addCampaign(campaign);
-        if(ok){
+        if (ok) {
             return "redirect:/campaign/campaignId" + campaign.getId();
-        }else{
+        } else {
             return "redirect:/campaign/addCampaign";
         }
     }
 
     @GetMapping("/modify/{id}")
-    public String modifyCampaignForm(@PathVariable("id") Integer id, Model model){
+    public String modifyCampaignForm(@PathVariable("id") Integer id, Model model) {
         Campaign campaign = campaignService.getCampaign(id);
         model.addAttribute("campaign", campaign);
         return "campaign/modifyCampaign";
     }
 
     @PostMapping("/modify/{id}")
-    public String modifyCampaignProcess(Campaign campaign){
+    public String modifyCampaignProcess(Campaign campaign) {
         boolean ok = campaignService.modifyCampaign(campaign);
-        if(ok){
+        if (ok) {
             return "redirect:/campaign/campaignId/" + campaign.getId();
-        }else {
+        } else {
             return "redirect:/campaign/modify/" + campaign.getId();
+        }
+    }
+
+    @PostMapping("/remove/{id}")
+    public String removeCampaign(@PathVariable("id") Integer id) {
+        boolean ok = campaignService.removeCampaign(id);
+        if (ok) {
+            return "redirect:/campaign/list";
+        } else {
+            return "redirect:/campaign/remove/" + id;
         }
     }
 }

@@ -37,4 +37,10 @@ public interface CampaignMapper {
                 id = #{id}
             """)
     Integer modifyCampaign(Campaign campaign);
+
+    @Delete("""
+            DELETE FROM Campaign
+            WHERE id = #{id}
+            """)
+    Integer removeCampaign(Integer id);
 }
