@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
+
 <html>
 <head>
     <title>캠페인</title>
@@ -12,6 +14,7 @@
 </head>
 <body>
 
+<my:navbar current="campaignList"/>
 
 <div class="container-lg">
     <h1>캠페인 게시판</h1>

@@ -25,7 +25,7 @@ public class CampaignController {
     @Autowired
     private MemberService memberService;
 
-    @GetMapping("list")
+    @GetMapping("campaignList")
 //    @PreAuthorize("isAuthenticated()")
     public void list(Model model) {
 
@@ -78,7 +78,7 @@ public class CampaignController {
     public String removeCampaign(@PathVariable("id") Integer id) {
         boolean ok = campaignService.removeCampaign(id);
         if (ok) {
-            return "redirect:/campaign/list";
+            return "redirect:/campaign/campaignList";
         } else {
             return "redirect:/campaign/remove/" + id;
         }

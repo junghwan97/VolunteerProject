@@ -34,7 +34,7 @@
             <label for="" class="form-label">본문</label>
             <textarea class="form-control" readonly rows="15">${campaign.body }</textarea>
         </div>
-        <a href="/campaign/list" class="btn btn-primary">목록보기</a>
+        <a href="/campaign/campaignList" class="btn btn-primary">목록보기</a>
         <a href="/campaign/modify/${campaign.id}" class="btn btn-primary">수정하기</a>
         <button id="removeButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">
             삭제
