@@ -8,10 +8,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -47,13 +46,15 @@ public class CampaignController {
     }
 
     @PostMapping("addCampaign")
-    public String addCampaignProcess(Campaign campaign, Authentication authentication) throws Exception {
+    public String addCampaignProcess(Campaign campaign, Authentication authentication, @RequestParam("files")MultipartFile[] files, RedirectAttributes rttr) throws Exception {
         campaign.setWriter(memberService.getNickName(authentication.getName()));
 
-        boolean ok = campaignService.addCampaign(campaign);
+        boolean ok = campaignService.addCampaign(campaign, files);
         if (ok) {
-            return "redirect:/campaign/campaignId" + campaign.getId();
+            rttr.addFlashAttribute("message", campaign.getId() + "번 게시물이 등록되었습니다.");
+            return "redirect:/campaign/campaignId/" + campaign.getId();
         } else {
+            rttr.addFlashAttribute("message", campaign.getId() + "번 게시물 등록중 문제가 발생하였습니다.");
             return "redirect:/campaign/addCampaign";
         }
     }
@@ -67,8 +68,10 @@ public class CampaignController {
     }
 
     @PostMapping("/modify/{id}")
-    public String modifyCampaignProcess(Campaign campaign) {
-        boolean ok = campaignService.modifyCampaign(campaign);
+    public String modifyCampaignProcess(Campaign campaign,
+                                        @RequestParam(value = "files", required = false) MultipartFile[] addFiles,
+                                        @RequestParam(value = "modifyFiles", required = false) List<String> modifyFileNames) throws Exception {
+        boolean ok = campaignService.modifyCampaign(campaign, modifyFileNames, addFiles);
         if (ok) {
             return "redirect:/campaign/campaignId/" + campaign.getId();
         } else {

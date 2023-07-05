@@ -15,10 +15,17 @@ public interface CampaignMapper {
     List<Campaign> getList();
 
     @Select("""
-            SELECT * 
-            FROM Campaign
-            WHERE id = #{id}
+            SELECT 
+                c.id,
+                c.title,
+                c.body,
+                c.inserted,
+                c.writer,
+                f.fileName
+            FROM Campaign c LEFT JOIN FileNames f ON c.id = f.campaignId
+            WHERE c.id = #{id}
             """)
+    @ResultMap("campaignResultMap")
     Campaign selectById(Integer id);
 
     @Insert("""
@@ -43,4 +50,30 @@ public interface CampaignMapper {
             WHERE id = #{id}
             """)
     Integer removeCampaign(Integer id);
+
+    @Insert("""
+            INSERT INTO FileNames(campaignId, fileName)
+            VALUES (#{campaignId}, #{fileName})
+            """)
+    Integer insertFileName(Integer campaignId, String fileName);
+
+    @Delete("""
+            DELETE FROM FileNames
+            WHERE campaignId = #{campaignId}
+                AND fileName = #{fileName}
+            """)
+    void deleteFileNameByCampaignIdAndFileName(Integer campaignId, String fileName);
+
+    @Select("""
+            SELECT *
+            FROM FileNames
+            WHERE campaignId = #{id}
+            """)
+    List<String> selectFileNamesByCampaignId(Integer id);
+
+    @Delete("""
+            DELETE FROM FileNames
+            WHERE campaignId = #{id}
+            """)
+    Integer deleteFileNameByCampaignId(Integer id);
 }

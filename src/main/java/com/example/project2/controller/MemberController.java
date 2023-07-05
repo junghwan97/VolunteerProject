@@ -94,4 +94,12 @@ public class MemberController {
         return Map.of("authentication", ok);
 
     }
+
+    @GetMapping("myPage")
+//    public void myPage(@PathVariable("id") String id, Model model){ // 왜 @PathVariable("id")를 쓰면 500 오류가 나오는지?
+    public void myPage(String id, Model model){
+        Member member = memberService.getInfo(id);
+        model.addAttribute("member", member);
+
+    }
 }

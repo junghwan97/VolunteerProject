@@ -52,4 +52,11 @@ public interface MemberMapper {
             WHERE id = #{name}
             """)
     String selectByName(String name);
+
+    @Select("""
+            SELECT *
+            FROM Member m LEFT JOIN MemberAuthority ma ON m.id = ma.memberId
+            WHERE id = #{id}
+            """)
+    Member getInfo(String id);
 }

@@ -19,17 +19,24 @@
 
     <div>
         <div class="mb-3">
-            <label for="" class="form-label">작성자</label> <input type="text" class="form-control"
-                                                                value="${campaign.writer }" readonly/>
+            <label for="" class="form-label">작성자</label> <input type="text" class="form-control" value="${campaign.writer }" readonly/>
         </div>
         <div class="mb-3">
-            <label for="" class="form-label">작성일시</label> <input type="text" readonly class="form-control"
-                                                                 value="${campaign.inserted }"/>
+            <label for="" class="form-label">작성일시</label> <input type="text" readonly class="form-control" value="${campaign.inserted }"/>
         </div>
         <div class="mb-3">
             <label for="" class="form-label">본문</label>
             <textarea class="form-control" readonly rows="15">${campaign.body }</textarea>
         </div>
+        <!-- 그림 파일 출력 -->
+        <div class="mb-3">
+            <c:forEach items="${campaign.fileName }" var="fileName">
+                <div class="mb-3">
+                    <img class="img-thumbnail img-fluid" src="${bucketUrl }/${campaign.id }/${fileName}"/>
+                </div>
+            </c:forEach>
+        </div>
+
         <a href="/campaign/campaignList" class="btn btn-primary">목록보기</a>
         <sec:authorize access="hasAuthority('admin')">
             <a href="/campaign/modify/${campaign.id}" class="btn btn-primary">수정하기</a>

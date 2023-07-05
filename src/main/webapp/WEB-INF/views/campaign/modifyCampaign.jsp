@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <html>
 <head>
     <title>Title</title>
@@ -23,6 +26,30 @@
         <label for="" class="form-label">작성일시</label>
         <input class="form-control" type="text" value="${campaign.inserted }" readonly />
     </div>
+
+    <!-- 그림 파일 출력 -->
+    <div class="mb-3">
+        <c:forEach items="${campaign.fileName }" var="fileName" varStatus="status">
+
+            <div class="form-check form-switch">
+                <input name="modifyFiles" value="${fileName }" class="form-check-input" type="checkbox"  role="switch" id="modifyCheckBox${status.index }" >
+                <label class="form-check-label" for="modifyCheckBox${status.index }">
+                    <i class="fa-solid fa-trash-can text-danger"></i>
+                </label>
+            </div>
+
+            <div class="mb-3">
+                <img class="img-thumbnail img-fluid" src="${bucketUrl }/${campaign.id }/${fileName}"/>
+            </div>
+        </c:forEach>
+    </div>
+
+    <!-- 새 그림 파일 추가 -->
+    <div class="mb-3">
+        <label for="fileInput" class="form-label">그림 파일</label>
+        <input class="form-control" type="file" id="fileInput" name="files" multiple accept="image/*">
+    </div>
+
 
     <div class="mb-3">
         <input class="btn btn-secondary" type="submit" value="수정" />

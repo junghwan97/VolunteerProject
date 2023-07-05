@@ -3,6 +3,7 @@ package com.example.project2.domain;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class Campaign {
@@ -12,5 +13,6 @@ public class Campaign {
     private String writer;
     private String body;
     private LocalDateTime inserted;
+    private List<String> fileName;
 
 }

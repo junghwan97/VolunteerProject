@@ -52,4 +52,9 @@ public class MemberService {
         String nickName = memberMapper.selectByName(name);
         return nickName;
     }
+
+    public Member getInfo(String id) {
+        Member member = memberMapper.getInfo(id);
+        return member;
+    }
 }
