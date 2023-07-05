@@ -5,7 +5,7 @@
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary mb-5">
     <div class="container-lg">
-        <a class="navbar-brand" href="">
+        <a class="navbar-brand" href="/campaign/campaignList">
             <img src="/img/volunteer.png" alt="" height="24" />
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,6 +16,9 @@
                 <sec:authorize access="isAnonymous()">
                     <li class="nav-item">
                         <a class="nav-link ${current eq 'login' ? 'active' : '' }" href="/member/login">로그인</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link ${current eq 'signup' ? 'active' : '' }" href="/member/signup">회원가입</a>
                     </li>
                 </sec:authorize>
                 <li class="nav-item">
