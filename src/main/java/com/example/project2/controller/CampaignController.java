@@ -46,10 +46,14 @@ public class CampaignController {
     }
 
     @PostMapping("addCampaign")
-    public String addCampaignProcess(Campaign campaign, Authentication authentication, @RequestParam("files")MultipartFile[] files, RedirectAttributes rttr) throws Exception {
+    public String addCampaignProcess(Campaign campaign,
+                                     Authentication authentication,
+                                     @RequestParam("files")MultipartFile[] files,
+                                     @RequestParam("repFile")MultipartFile repFile,
+                                     RedirectAttributes rttr) throws Exception {
         campaign.setWriter(memberService.getNickName(authentication.getName()));
 
-        boolean ok = campaignService.addCampaign(campaign, files);
+        boolean ok = campaignService.addCampaign(campaign, files, repFile);
         if (ok) {
             rttr.addFlashAttribute("message", campaign.getId() + "번 게시물이 등록되었습니다.");
             return "redirect:/campaign/campaignId/" + campaign.getId();

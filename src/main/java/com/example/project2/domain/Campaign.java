@@ -14,5 +14,5 @@ public class Campaign {
     private String body;
     private LocalDateTime inserted;
     private List<String> fileName;
-
+    private String repFileName;
 }

@@ -15,15 +15,18 @@ public interface CampaignMapper {
     List<Campaign> getList();
 
     @Select("""
-            SELECT 
+            SELECT\s
                 c.id,
                 c.title,
                 c.body,
                 c.inserted,
                 c.writer,
-                f.fileName
-            FROM Campaign c LEFT JOIN FileNames f ON c.id = f.campaignId
-            WHERE c.id = #{id}
+                f.fileName,
+                rf.repFileName
+            FROM Campaign c
+            LEFT JOIN FileNames f ON c.id = f.campaignId
+            LEFT JOIN RepresentFileName rf ON c.id = rf.campaignid
+            WHERE c.id = #{id}                        
             """)
     @ResultMap("campaignResultMap")
     Campaign selectById(Integer id);
@@ -78,15 +81,24 @@ public interface CampaignMapper {
     Integer deleteFileNameByCampaignId(Integer id);
 
     @Select("""
-            SELECT 
+            SELECT\s
                 c.id,
                 c.title,
-                c.writer,
                 c.body,
                 c.inserted,
-                f.fileName
-            FROM Campaign c LEFT JOIN FileNames f ON c.id = f.campaignId   
+                c.writer,
+                f.fileName,
+                rf.repFileName
+            FROM Campaign c
+            LEFT JOIN FileNames f ON c.id = f.campaignId
+            LEFT JOIN RepresentFileName rf ON c.id = rf.campaignid;
             """)
     @ResultMap("campaignResultMap")
     List<Campaign> getCampaignList();
+
+    @Insert("""
+            INSERT INTO RepresentFileName(campaignId, repFileName)
+            VALUES (#{campaignId}, #{originalFilename})
+            """)
+    Integer insertRepFileName(Integer campaignId, String originalFilename);
 }

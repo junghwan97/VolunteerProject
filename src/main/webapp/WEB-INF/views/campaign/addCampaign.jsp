@@ -22,6 +22,14 @@
   </div>
 
   <div class="mb-3">
+    <label for="repFileInput" class="form-label">그림 파일</label>
+    <input class="form-control" type="file" id="repFileInput" name="repFile" multiple accept="image/*">
+    <div class="form-text">
+      총 10MB, 하나의 파일은 1MB 크기를 초과할 수 없습니다.
+    </div>
+  </div>
+
+  <div class="mb-3">
     <label for="bodyInput" class="from-label">본문</label> <br />
     <textarea id="bodyInput" name="body" cols="80" rows="10"\>${campaign.body }</textarea>
   </div>

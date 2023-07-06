@@ -1,8 +1,11 @@
 package com.example.project2.controller;
 
 import com.example.project2.domain.Campaign;
+import com.example.project2.domain.Member;
 import com.example.project2.service.CampaignService;
+import com.example.project2.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +20,16 @@ public class MainController {
     @Autowired
     private CampaignService campaignService;
 
+    @Autowired
+    private MemberService memberService;
+
     @GetMapping("mainList")
-    public void getMainList(Model model){
+    public void getMainList(Model model, Authentication authentication){
         List<Campaign> campaignList =  campaignService.getCampaignList();
         model.addAttribute("campaign", campaignList);
+
+        Member userInfo = memberService.getUserInfo(authentication.getName());
+        model.addAttribute("user", userInfo);
     }
 
 }

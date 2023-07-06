@@ -16,6 +16,13 @@
 
 <div class="col-12 col-md-8 col-lg-6">
     <h3>${campaign.title }</h3>
+    <div>
+        <c:forEach items="${campaign.repFileName }" var="fileName">
+    </div>
+        <div class="mb-3">
+            <img class="img-thumbnail img-fluid" src="${bucketUrl }/${campaign.id }/${fileName}"/>
+        </div>
+    </c:forEach>
 
     <div>
         <div class="mb-3">
@@ -26,7 +33,7 @@
         </div>
         <div class="mb-3">
             <label for="" class="form-label">본문</label>
-            <textarea class="form-control" readonly rows="15">${campaign.body }</textarea>
+            <textarea class="form-control" readonly rows="50">${campaign.body }</textarea>
         </div>
         <!-- 그림 파일 출력 -->
         <div class="mb-3">

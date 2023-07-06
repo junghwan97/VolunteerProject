@@ -59,4 +59,11 @@ public interface MemberMapper {
             WHERE id = #{id}
             """)
     Member getInfo(String id);
+
+    @Select("""
+            SELECT *
+            FROM Member
+            WHERE id = #{name}
+            """)
+    Member getUserInfo(String name);
 }

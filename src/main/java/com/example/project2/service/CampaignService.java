@@ -39,7 +39,7 @@ public class CampaignService {
         return campaign;
     }
 
-    public boolean addCampaign(Campaign campaign, MultipartFile[] files) throws Exception {
+    public boolean addCampaign(Campaign campaign, MultipartFile[] files, MultipartFile repFile) throws Exception {
         int cnt = campaignMapper.addCampaign(campaign);
         for (MultipartFile file : files) {
             if (file.getSize() > 0) {
@@ -53,20 +53,21 @@ public class CampaignService {
                 // db에 관련 정보 저장(insert)
                 campaignMapper.insertFileName(campaign.getId(), file.getOriginalFilename());
 
-                // 파일 저장(파일 시스템에)
-                // 폴더 만들기
-//				String folder = "C:\\sutdy\\upload\\" + board.getId();
-//				File targetFolder = new File(folder);
-//				if (!targetFolder.exists()) {
-//					targetFolder.mkdirs();
-//				}
-//
-//				String path = "C:\\sutdy\\upload\\" + board.getId() + "\\" + file.getOriginalFilename();
-//				File target = new File(path);
-//				file.transferTo(target);
-//
             }
         }
+
+                String objectKey1 = "campaign/" + campaign.getId() + "/" + repFile.getOriginalFilename();
+
+                PutObjectRequest por1 = PutObjectRequest.builder().key(objectKey1).acl(ObjectCannedACL.PUBLIC_READ)
+                        .bucket(bucketName).build();
+                RequestBody rb1 = RequestBody.fromInputStream(repFile.getInputStream(), repFile.getSize());
+
+                s3.putObject(por1, rb1);
+                // db에 관련 정보 저장(insert)
+                campaignMapper.insertRepFileName(campaign.getId(), repFile.getOriginalFilename());
+
+
+
         return cnt == 1;
     }
 
