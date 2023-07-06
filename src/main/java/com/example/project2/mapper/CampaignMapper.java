@@ -65,7 +65,7 @@ public interface CampaignMapper {
     void deleteFileNameByCampaignIdAndFileName(Integer campaignId, String fileName);
 
     @Select("""
-            SELECT *
+            SELECT fileName
             FROM FileNames
             WHERE campaignId = #{id}
             """)
@@ -76,4 +76,17 @@ public interface CampaignMapper {
             WHERE campaignId = #{id}
             """)
     Integer deleteFileNameByCampaignId(Integer id);
+
+    @Select("""
+            SELECT 
+                c.id,
+                c.title,
+                c.writer,
+                c.body,
+                c.inserted,
+                f.fileName
+            FROM Campaign c LEFT JOIN FileNames f ON c.id = f.campaignId   
+            """)
+    @ResultMap("campaignResultMap")
+    List<Campaign> getCampaignList();
 }

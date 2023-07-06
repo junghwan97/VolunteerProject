@@ -122,4 +122,9 @@ public class CampaignService {
         int cnt = campaignMapper.removeCampaign(id);
         return cnt == 1;
     }
+
+    public List<Campaign> getCampaignList() {
+        List<Campaign> campaignList = campaignMapper.getCampaignList();
+        return campaignList;
+    }
 }
