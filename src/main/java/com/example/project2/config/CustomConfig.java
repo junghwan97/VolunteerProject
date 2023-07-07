@@ -46,9 +46,9 @@ public class CustomConfig {
 //      http.authorizeHttpRequests().anyRequest().permitAll();
 
         http.formLogin().loginPage("/member/login")
-                .defaultSuccessUrl("/campaign/campaignList", true);
+                .defaultSuccessUrl("/main/mainList", true);
         http.logout().logoutUrl("/member/logout")
-                .logoutSuccessUrl("/campaign/campaignList");
+                .logoutSuccessUrl("/main/mainList");
         return http.build();
 
     }

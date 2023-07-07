@@ -5,6 +5,7 @@ import com.example.project2.domain.Member;
 import com.example.project2.service.CampaignService;
 import com.example.project2.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,8 +29,11 @@ public class MainController {
         List<Campaign> campaignList =  campaignService.getCampaignList();
         model.addAttribute("campaign", campaignList);
 
-        Member userInfo = memberService.getUserInfo(authentication.getName());
-        model.addAttribute("user", userInfo);
+        if(authentication != null){
+            Member userInfo = memberService.getUserInfo(authentication.getName());
+            System.out.println(userInfo);
+            model.addAttribute("user", userInfo);
+        }
     }
 
 }

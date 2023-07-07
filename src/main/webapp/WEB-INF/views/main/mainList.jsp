@@ -20,10 +20,11 @@
     }
     .sideMenu{
         margin-top: 55px;
-        margin-right: 300px;
+        margin-right: 170px;
         position: fixed;
         top: 100px;
         right: 20px;
+        background-color: #F7F4F3;
     }
 
     .box {
@@ -87,7 +88,11 @@
     </div>
 </div>
 <div class="sideMenu">
-    <h3>마이페이지</h3>
+    <sec:authorize access="isAuthenticated()">
+        <h3>${user.nickName}님의 정보</h3>
+    </sec:authorize>
+
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

@@ -61,7 +61,7 @@
         </div>
         <sec:authorize access="isAuthenticated()">
             <div class="nav-item">
-                <a class="nav-link">${pageContext.request.userPrincipal.name}님 환영합니다!</a>
+                <a class="nav-link">${user.nickName}님 환영합니다!</a>
             </div>
         </sec:authorize>
 
