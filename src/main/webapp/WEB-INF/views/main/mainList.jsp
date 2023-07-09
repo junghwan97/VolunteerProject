@@ -4,7 +4,7 @@
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>HI-FIVE</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -12,28 +12,43 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <style>
-    .mainContainer{
+
+    .flexbox {
         display: flex;
-        margin-top: 100px;
-        margin-left: 200px;
-        margin-right: 450px;
-    }
-    .sideMenu{
-        margin-top: 55px;
-        margin-right: 170px;
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        background-color: #F7F4F3;
+        margin-top: 150px;
+        margin-left: 150px;
+        margin-right: 115px;
     }
 
-    .box {
-        white-space: nowrap;
-        overflow-x: auto;
+    .mainContainer {
+        flex: 1; /* mainContainer가 확장 가능하도록 설정 */
+        margin-right: 40px;
+        margin-right: 40px;
+    }
+
+    .rightMenu {
+        flex: 0 0 500px; /* rightMenu의 고정 너비를 설정 */
+        margin-left: 50px; /* mainContainer와의 간격을 설정 */
+    }
+
+    .sideMenu {
+        width: 100%;
+        height: 300px;
+        background-color: #F7F4F3;
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+    .notice {
+        width: 100%;
+        height: 300px;
+        margin-top: 17px;
+        background-color: #F7F4F3;
+        padding: 20px;
+        border-radius: 5px;
     }
 
     .items {
-        /*display: inline-block;*/
         margin-right: 10px;
         white-space: normal;
         vertical-align: top;
@@ -42,41 +57,60 @@
     .items img {
         width: 300px;
         height: 300px;
-        object-fit: cover; /* 이미지 비율을 유지하며 요소에 맞춰 자르기 */
+        object-fit: cover;
         border-radius: 20%;
     }
-    .inner{
+
+    .inner {
         display: flex;
         background-color: #F7F4F3;
         border-radius: 2%;
     }
-    .inner .inner-content{
+
+    .inner .inner-content {
+        width: 500px;
         margin-top: 100px;
-        margin-left: 120px;
+        margin-left: 80px;
         margin-bottom: 20px;
         color: black;
     }
-    .items a {
+
+    a {
         text-decoration: none;
+        color: black;
     }
 
+    @media (max-width: 992px) {
+        .flexbox {
+            flex-direction: column;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
 
+        .rightMenu {
+            flex: 1; /* rightMenu가 확장 가능하도록 설정 */
+            margin-left: 0;
+            margin-top: 20px;
+        }
+    }
 </style>
 <body>
 
 <my:navbar></my:navbar>
-<div class="mainContainer">
-    <div calss="container2">
-        <div class="content">
+<div class="flexbox">
+    <div class="mainContainer">
+        <div calss="container2">
+            <div class="content">
                 <c:forEach items="${campaign}" var="campaign">
                     <ul class="items">
-                        <a href="/campaign/campaignId/${campaign.id }">
+                        <a href="/campaign/campaignId/${campaign.id}">
                             <div class="inner">
                                 <div>
-                                    <img class="img-thumbnail img-fluid" src="${bucketUrl }/${campaign.id }/${campaign.repFileName}"/>
+                                    <img class="img-thumbnail img-fluid"
+                                         src="${bucketUrl }/${campaign.id }/${campaign.repFileName}"/>
                                 </div>
                                 <div class="inner-content">
-                                    <span class="title">제목 : ${campaign.title}</span> <br>
+                                    <span class="title"> ${campaign.title}</span> <br>
                                     <span class="writer">작성자 : ${campaign.writer}</span> <br>
                                     <span class="inserted">등록일 : ${campaign.inserted}</span>
                                 </div>
@@ -84,22 +118,42 @@
                         </a>
                     </ul>
                 </c:forEach>
+            </div>
+        </div>
+    </div>
+    <div class="rightMenu">
+        <div class="sideMenu">
+            <sec:authorize access="isAuthenticated()">
+                <h3>${member.nickName}님의 정보</h3>
+                <p>간단한 나의 정보</p>
+                <p>간단한 나의 정보</p>
+                <p>간단한 나의 정보</p>
+                <p>나의 기부 금액</p>
+                <p><a href="/member/myPage?id=${member.id}">마이페이지</a></p>
+            </sec:authorize>
+            <sec:authorize access="isAnonymous()">
+                <h1>Login</h1>
+                <form method="post" action="/member/login" id="login-form">
+                    <input id="inputUsername" type="text" name="username" placeholder="ID"> <br>
+                    <input id="inputPassword" type="password" name="password" placeholder="Password"><br>
+                    <input type="submit" value="Login">
+                    <input type="button" value="Sign Up" onclick="location.href='/member/signup'"/>
+                        <%--        <div class="find-buttons">--%>
+                        <%--            <input type="button" value="아이디 찾기" onclick="location.href='/member/userSearch '" />--%>
+                        <%--            <input type="button" value="임시 비밀번호 발급" onclick="location.href='/member/sendTempPw'" />--%>
+                        <%--        </div>--%>
+                </form>
+            </sec:authorize>
+        </div>
+        <div class="notice">
+            <h3>공지사항</h3>
+            <c:forEach items="${notice}" var="notice">
+                <ul>
+                    <li><a href="/notice/noticeId/${notice.id }"> ${notice.title}</a></li>
+                </ul>
+            </c:forEach>
         </div>
     </div>
 </div>
-<div class="sideMenu">
-    <sec:authorize access="isAuthenticated()">
-        <h3>${user.nickName}님의 정보</h3>
-    </sec:authorize>
-
-
-</div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
-        integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-</body>
-</html>
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7

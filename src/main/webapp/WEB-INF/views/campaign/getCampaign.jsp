@@ -13,6 +13,7 @@
 </head>
 <body>
 
+    <my:navbar current="campaignList"></my:navbar>
 
 <div class="col-12 col-md-8 col-lg-6">
     <h3>${campaign.title }</h3>

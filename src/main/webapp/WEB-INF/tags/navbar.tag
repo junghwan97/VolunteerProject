@@ -13,14 +13,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <sec:authorize access="isAnonymous()">
-                    <li class="nav-item">
-                        <a class="nav-link ${current eq 'login' ? 'active' : '' }" href="/member/login">로그인</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link ${current eq 'signup' ? 'active' : '' }" href="/member/signup">회원가입</a>
-                    </li>
-                </sec:authorize>
+<%--                <sec:authorize access="isAnonymous()">--%>
+<%--                    <li class="nav-item">--%>
+<%--                        <a class="nav-link ${current eq 'login' ? 'active' : '' }" href="/member/login">로그인</a>--%>
+<%--                    </li>--%>
+<%--                    <li class="nav-item">--%>
+<%--                        <a class="nav-link ${current eq 'signup' ? 'active' : '' }" href="/member/signup">회원가입</a>--%>
+<%--                    </li>--%>
+<%--                </sec:authorize>--%>
                 <li class="nav-item">
                     <a class="nav-link ${current eq 'campaignList' ? 'active' : '' }" href="/campaign/campaignList">후원하기</a>
                 </li>
@@ -32,10 +32,12 @@
                 <li class="nav-item">
                     <a class="nav-link ${current eq 'noticeList' ? 'active' : '' }" href="/notice/noticeList">공지사항</a>
                 </li>
+                <sec:authorize access="isAuthenticated()">
+                    <li class="nav-item">
+                        <a class="nav-link ${current eq 'mypage' ? 'active' : '' }" href="/member/myPage?id=<sec:authentication property="name"/>">마이페이지</a>
+                    </li>
+                </sec:authorize>
 
-                <li class="nav-item">
-                    <a class="nav-link ${current eq 'mypage' ? 'active' : '' }" href="/member/myPage?id=<sec:authentication property="name"/>">마이페이지</a>
-                </li>
                 <sec:authorize access="isAuthenticated()">
                     <li class="nav-item">
                         <a class="nav-link" href="/member/logout">로그아웃</a>
@@ -61,7 +63,7 @@
         </div>
         <sec:authorize access="isAuthenticated()">
             <div class="nav-item">
-                <a class="nav-link">${user.nickName}님 환영합니다!</a>
+                <a class="nav-link">${member.nickName}님 환영합니다!</a>
             </div>
         </sec:authorize>
 

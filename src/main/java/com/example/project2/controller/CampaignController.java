@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("campaign")
@@ -26,10 +27,14 @@ public class CampaignController {
 
     @GetMapping("campaignList")
 //    @PreAuthorize("isAuthenticated()")
-    public void list(Model model) {
+    public void list(Model model,
+                     @RequestParam(value = "page", defaultValue = "1") Integer page,
+                     @RequestParam(value = "search", defaultValue = "") String search,
+                     @RequestParam(value = "type", required = false) String type) {
 
-        List<Campaign> result = campaignService.campaignList();
-        model.addAttribute("campaignList", result);
+//        List<Campaign> result = campaignService.campaignList();
+        Map<String, Object> result = campaignService.campaignList(page, search, type);
+        model.addAllAttributes(result);
     }
 
     @GetMapping("/campaignId/{id}")
