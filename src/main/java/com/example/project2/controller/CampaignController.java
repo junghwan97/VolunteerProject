@@ -1,6 +1,7 @@
 package com.example.project2.controller;
 
 import com.example.project2.domain.Campaign;
+import com.example.project2.domain.Member;
 import com.example.project2.service.CampaignService;
 import com.example.project2.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class CampaignController {
     @GetMapping("campaignList")
 //    @PreAuthorize("isAuthenticated()")
     public void list(Model model,
+                     Authentication authentication,
                      @RequestParam(value = "page", defaultValue = "1") Integer page,
                      @RequestParam(value = "search", defaultValue = "") String search,
                      @RequestParam(value = "type", required = false) String type) {
@@ -35,19 +37,32 @@ public class CampaignController {
 //        List<Campaign> result = campaignService.campaignList();
         Map<String, Object> result = campaignService.campaignList(page, search, type);
         model.addAllAttributes(result);
+
+        if (authentication != null) {
+            Member userInfo = memberService.getUserInfo(authentication.getName());
+            model.addAttribute("member", userInfo);
+        }
     }
 
     @GetMapping("/campaignId/{id}")
-    public String list(@PathVariable("id") Integer id, Model model) {
+    public String list(@PathVariable("id") Integer id, Model model, Authentication authentication) {
         Campaign campaign = campaignService.getCampaign(id);
         model.addAttribute("campaign", campaign);
-        return "campaign/getCampaign";
+        if (authentication != null) {
+            Member userInfo = memberService.getUserInfo(authentication.getName());
+            model.addAttribute("member", userInfo);
+        }
+            return "campaign/getCampaign";
     }
 
     @GetMapping("addCampaign")
     @PreAuthorize("hasAuthority('admin')")
-    public void addCampaignForm() {
+    public void addCampaignForm(Authentication authentication, Model model) {
 
+        if(authentication != null) {
+            Member userInfo = memberService.getUserInfo(authentication.getName());
+            model.addAttribute("member", userInfo);
+        }
     }
 
     @PostMapping("addCampaign")
@@ -70,9 +85,13 @@ public class CampaignController {
 
     @GetMapping("/modify/{id}")
     @PreAuthorize("hasAuthority('admin')")
-    public String modifyCampaignForm(@PathVariable("id") Integer id, Model model) {
+    public String modifyCampaignForm(@PathVariable("id") Integer id, Model model, Authentication authentication) {
         Campaign campaign = campaignService.getCampaign(id);
         model.addAttribute("campaign", campaign);
+        if(authentication != null) {
+            Member userInfo = memberService.getUserInfo(authentication.getName());
+            model.addAttribute("member", userInfo);
+        }
         return "campaign/modifyCampaign";
     }
 
