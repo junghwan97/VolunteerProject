@@ -1,10 +1,7 @@
 package com.example.project2.mapper;
 
 import com.example.project2.domain.Member;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -66,4 +63,20 @@ public interface MemberMapper {
             WHERE id = #{name}
             """)
     Member getUserInfo(String name);
+
+    @Update("""
+			<script>
+			UPDATE Member m LEFT JOIN MemberAuthority ma ON m.id = ma.memberId
+			SET
+			 	<if test="password neq null and password neq ''">
+			 		password = #{password},
+			 	</if>
+			 	m.name = #{name},
+				m.phoneNum = #{phoneNum},
+				m.nickName = #{nickName},
+				m.address = #{address}
+			WHERE id = #{id}
+			</script>
+			""")
+    Integer modify(Member member);
 }

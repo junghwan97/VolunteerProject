@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -61,5 +59,28 @@ public class MemberService {
     public Member getUserInfo(String name) {
         Member userInfo = memberMapper.getUserInfo(name);
         return userInfo;
+    }
+
+    public boolean modifyMemberInfo(Member member, String oldPassword) {
+        // 비밀번호를 바꾸기 위해 입력했다면
+        if (!member.getPassword().isBlank()) {
+
+            // 입력된 비밀번호를 암호화
+            String plain = member.getPassword();
+            member.setPassword(passwordEncoder.encode(plain));
+        }
+        Member oldMember = memberMapper.selectById(member.getId());
+        int cnt = 0;
+
+        if (passwordEncoder.matches(oldPassword, oldMember.getPassword())) {
+            // 기존 비밀번호와 같으면
+            cnt = memberMapper.modify(member);
+//         System.out.println(member);
+//            if (member.getAuthority() != null) {
+//                memberMapper.updateAuthority(member);
+//            }
+
+        }
+        return cnt == 1;
     }
 }

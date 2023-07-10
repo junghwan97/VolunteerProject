@@ -79,6 +79,23 @@ public class MemberController {
 
     }
 
+    @GetMapping("modify")
+    public void modifyForm(String id, Model model){
+        Member member = memberService.getInfo(id);
+        model.addAttribute("member", member);
+    }
+
+    @PostMapping("modify")
+    public String modifyProcess(Member member, String oldPassword){
+        boolean ok = memberService.modifyMemberInfo(member, oldPassword);
+        if(ok){
+            return "redirect:/member/myPage?id=" + member.getId();
+        }
+        else{
+            return "redirect:/member/modify?id=" + member.getId();
+
+        }
+    }
 
     @PostMapping("mail")
     public void mail(String email, HttpSession session) {
