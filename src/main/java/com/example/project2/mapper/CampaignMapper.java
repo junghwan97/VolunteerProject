@@ -13,7 +13,9 @@ public interface CampaignMapper {
 			<script>
 			<bind name="pattern" value="'%' + search + '%'" />
 			SELECT COUNT(*)
-			FROM Campaign
+            FROM Campaign c
+            LEFT JOIN FileNames f ON c.id = f.campaignId
+            LEFT JOIN RepresentFileName rf ON c.id = rf.campaignid
 			<where>
 			
 			<if test="type == 'all'">
@@ -129,23 +131,32 @@ public interface CampaignMapper {
     @Select("""
 			<script>
 			<bind name="pattern" value="'%' + search + '%'" />
-			SELECT *											
-			FROM Campaign
+			SELECT c.id,
+                c.title,
+                c.body,
+                c.inserted,
+                c.writer,
+                f.fileName,
+                rf.repFileName
+            FROM Campaign c
+            LEFT JOIN FileNames f ON c.id = f.campaignId
+            LEFT JOIN RepresentFileName rf ON c.id = rf.campaignid
 			<where>
 				<if test="(type eq 'all') or (type eq 'title')">
-				   title  LIKE #{pattern}
+				   c.title  LIKE #{pattern}
 				</if>
 				<if test="(type eq 'all') or (type eq 'body')">
-				OR body   LIKE #{pattern}
+				OR c.body   LIKE #{pattern}
 				</if>
 				<if test="(type eq 'all') or (type eq 'writer')">
-				OR writer LIKE #{pattern}
+				OR c.writer LIKE #{pattern}
 				</if>
 			</where>
 			ORDER BY id DESC
 			LIMIT #{startIndex}, #{rowPerPage}
 			</script>
 			""")
+	@ResultMap("campaignResultMap")
     List<Campaign> selectAllPaging(Integer startIndex, Integer rowPerPage, String search, String type);
 
 

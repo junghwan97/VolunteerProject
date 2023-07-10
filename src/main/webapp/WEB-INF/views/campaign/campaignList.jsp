@@ -9,11 +9,65 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* 요소들을 수직 가운데로 정렬 */
+    }
+
+    .mainContainer {
+        flex: 1; /* mainContainer가 확장 가능하도록 설정 */
+        margin-right: 40px;
+        justify-content: center;
+    }
+
+    .content{
+        display: flex;
+        justify-content: center; /* 요소들을 수평 가운데로 정렬 */
+        flex-wrap: wrap; /* 요소들이 줄 바꿈되도록 설정 */
+    }
+
+    .items {
+        margin-right: 10px;
+        /*white-space: normal;*/
+        /*vertical-align: top;*/
+    }
+
+    .items img {
+        width: 300px;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 20%;
+    }
+
+    .inner {
+        display: flex;
+        background-color: #F7F4F3;
+        border-radius: 2%;
+    }
+
+    .inner .inner-content {
+        width: 250px;
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-right: 50px;
+        margin-bottom: 20px;
+        color: black;
+        font-size: 14px;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+</style>
+
 <body>
 
 <my:navbar current="campaignList"/>
 
-<div class="container-lg">
+<div class="col-12 col-md-8 col-lg-8">
     <h1>캠페인 게시판</h1>
 
     <!-- 검색창 -->
@@ -33,30 +87,35 @@
         </form>
     </div>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>작성일시</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${campaignList}" var="campaign">
-            <tr>
-                <td><a href="/campaign/campaignId/${campaign.id }"> ${campaign.title}</a></td>
-                <td>${campaign.writer}</td>
-                <td>${campaign.inserted}</td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+    <div class="mainContainer">
+        <div calss="container2">
+            <div class="content">
+                <c:forEach items="${campaignList}" var="campaign">
+                    <ul class="items">
+                        <a href="/campaign/campaignId/${campaign.id}">
+                            <div>
+                                <img class="img-thumbnail img-fluid"
+                                     src="${bucketUrl }/${campaign.id }/${campaign.repFileName}"/>
+                            </div>
+                            <div class="inner">
+                                <div class="inner-content">
+                                    <span class="title"> ${campaign.title}</span> <br>
+                                    <span class="writer">작성자 : ${campaign.writer}</span> <br>
+                                    <span class="inserted">등록일 : ${campaign.inserted}</span>
+                                </div>
+                            </div>
+                        </a>
+                    </ul>
+                </c:forEach>
+            </div>
+        </div>
+    </div>
     <sec:authorize access="hasAuthority('admin')">
         <a href="/campaign/addCampaign" class="btn btn-primary">캠페인 추가</a>
     </sec:authorize>
 </div>
 
-<div class="container-lg" id="pagination1">
+<div class="col-12 col-md-8 col-lg-8" id="pagination1">
     <div class="row">
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">

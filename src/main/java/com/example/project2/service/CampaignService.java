@@ -36,7 +36,7 @@ public class CampaignService {
 //        return list;
 
         // 페이지 당 행의 수
-        Integer rowPerPage = 5;
+        Integer rowPerPage = 8;
         // 쿼리 LIMIT 절에 사용할 시작 인덱스
         Integer startIndex = (page - 1) * rowPerPage;
 
