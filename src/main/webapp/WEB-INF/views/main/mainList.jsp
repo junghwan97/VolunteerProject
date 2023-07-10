@@ -15,14 +15,23 @@
 
     .flexbox {
         display: flex;
-        margin-top: 150px;
+        margin-top: 70px;
         margin-left: 150px;
         margin-right: 115px;
     }
 
+    .header__center{
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+
+    .input-group{
+        width: 900px;
+    }
     .mainContainer {
         flex: 1; /* mainContainer가 확장 가능하도록 설정 */
-        margin-right: 40px;
         margin-right: 40px;
     }
 
@@ -97,11 +106,29 @@
 <body>
 
 <my:navbar></my:navbar>
+
+<!-- 검색창 -->
+<div class="header__center">
+    <form action="./mainList" class="d-flex" role="search">
+        <div class="input-group">
+            <select class="form-select flex-grow-0" style="width: 100px;" name="type" id="">
+                <option value="all">전체</option>
+                <option value="title" ${param.type eq 'title' ? 'selected' : '' }>제목</option>
+                <option value="body" ${param.type eq 'body' ? 'selected' : '' }>본문</option>
+                <option value="writer" ${param.type eq 'writer' ? 'selected' : '' }>작성자</option>
+            </select> <input value="${param.search }" name="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+    </form>
+</div>
+
 <div class="flexbox">
     <div class="mainContainer">
         <div calss="container2">
             <div class="content">
-                <c:forEach items="${campaign}" var="campaign">
+                <c:forEach items="${campaignList}" var="campaign">
                     <ul class="items">
                         <a href="/campaign/campaignId/${campaign.id}">
                             <div class="inner">

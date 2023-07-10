@@ -1,10 +1,12 @@
 package com.example.project2.controller;
 
 import com.example.project2.domain.Campaign;
+import com.example.project2.domain.Like;
 import com.example.project2.domain.Member;
 import com.example.project2.service.CampaignService;
 import com.example.project2.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -46,7 +48,7 @@ public class CampaignController {
 
     @GetMapping("/campaignId/{id}")
     public String list(@PathVariable("id") Integer id, Model model, Authentication authentication) {
-        Campaign campaign = campaignService.getCampaign(id);
+        Campaign campaign = campaignService.getCampaign(id, authentication);
         model.addAttribute("campaign", campaign);
         if (authentication != null) {
             Member userInfo = memberService.getUserInfo(authentication.getName());
@@ -115,6 +117,18 @@ public class CampaignController {
             return "redirect:/campaign/campaignList";
         } else {
             return "redirect:/campaign/remove/" + id;
+        }
+    }
+
+    @PostMapping("/like")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> like(@RequestBody Like like, Authentication authentication){
+        if (authentication == null) {
+            return ResponseEntity.status(403)
+                    .body(Map.of("message", "로그인 후 좋아요 클릭해주세요!"));
+        } else {
+            return ResponseEntity.ok()
+                    .body(campaignService.like(like, authentication));
         }
     }
 }

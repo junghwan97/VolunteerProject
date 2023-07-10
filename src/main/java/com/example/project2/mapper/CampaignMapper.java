@@ -41,19 +41,22 @@ public interface CampaignMapper {
     Integer countAll(String search, String type);
 
     @Select("""
-            SELECT\s
-                c.id,
-                c.title,
-                c.body,
-                c.inserted,
-                c.writer,
-                f.fileName,
-                rf.repFileName
-            FROM Campaign c
-            LEFT JOIN FileNames f ON c.id = f.campaignId
-            LEFT JOIN RepresentFileName rf ON c.id = rf.campaignid
-            WHERE c.id = #{id}                        
-            """)
+			SELECT\s
+			   c.id,
+			   c.title,
+			   c.body,
+			   c.inserted,
+			   c.writer,
+			   f.fileName,
+			   rf.repFileName,
+			   cl.campaignId,
+			   cl.memberId
+			   FROM Campaign c
+			   LEFT JOIN FileNames f ON c.id = f.campaignId
+			   LEFT JOIN RepresentFileName rf ON c.id = rf.campaignid
+			   LEFT JOIN CampaignLike cl on c.id = cl.campaignId
+			WHERE c.id = #{id}                        
+			""")
     @ResultMap("campaignResultMap")
     Campaign selectById(Integer id);
 
@@ -107,8 +110,9 @@ public interface CampaignMapper {
     Integer deleteFileNameByCampaignId(Integer id);
 
     @Select("""
-            SELECT\s
-                c.id,
+			<script>
+			<bind name="pattern" value="'%' + search + '%'" />
+			SELECT c.id,
                 c.title,
                 c.body,
                 c.inserted,
@@ -117,10 +121,23 @@ public interface CampaignMapper {
                 rf.repFileName
             FROM Campaign c
             LEFT JOIN FileNames f ON c.id = f.campaignId
-            LEFT JOIN RepresentFileName rf ON c.id = rf.campaignid;
-            """)
-    @ResultMap("campaignResultMap")
-    List<Campaign> getCampaignList();
+            LEFT JOIN RepresentFileName rf ON c.id = rf.campaignid
+			<where>
+				<if test="(type eq 'all') or (type eq 'title')">
+				   c.title  LIKE #{pattern}
+				</if>
+				<if test="(type eq 'all') or (type eq 'body')">
+				OR c.body   LIKE #{pattern}
+				</if>
+				<if test="(type eq 'all') or (type eq 'writer')">
+				OR c.writer LIKE #{pattern}
+				</if>
+			</where>
+			ORDER BY id DESC
+			</script>
+			""")
+	@ResultMap("campaignResultMap")
+    List<Campaign> getCampaignList(String search, String type);
 
     @Insert("""
             INSERT INTO RepresentFileName(campaignId, repFileName)

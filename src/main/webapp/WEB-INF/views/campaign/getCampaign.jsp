@@ -11,19 +11,46 @@
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
+<style>
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* 요소들을 수직 가운데로 정렬 */
+    }
+
+    .like-icon {
+        font-size: 24px;
+        margin-left: 20px;
+    }
+</style>
 <body>
 
-    <my:navbar current="campaignList"></my:navbar>
+<my:navbar current="campaignList"></my:navbar>
 
-<div class="col-12 col-md-8 col-lg-6">
-    <h3>${campaign.title }</h3>
-    <div>
-        <c:forEach items="${campaign.repFileName }" var="fileName">
-    </div>
-        <div class="mb-3">
-            <img class="img-thumbnail img-fluid" src="${bucketUrl }/${campaign.id }/${fileName}"/>
+<div class="content">
+    <div class="d-flex">
+        <div class="header">
+            <h3>${campaign.title }</h3>
+                <span id="campaignIdText" class="d-none"> ${campaign.id } </span>
+            <div>
+                <c:forEach items="${campaign.repFileName }" var="fileName">
+            </div>
+            <div class="mb-3">
+                <img class="img-thumbnail img-fluid" src="${bucketUrl }/${campaign.id }/${fileName}"/>
+            </div>
+            </c:forEach>
         </div>
-    </c:forEach>
+        <div>
+            <span id="likeIcon">
+                <c:if test="${campaign.liked}">
+                    <i class="like-icon fa-solid fa-heart"></i>
+                </c:if>
+                <c:if test="${not campaign.liked }">
+                    <i class="like-icon fa-regular fa-heart"></i>
+                </c:if>
+            </span>
+        </div>
+    </div>
 
     <div>
         <div class="mb-3">
@@ -49,8 +76,7 @@
         <sec:authorize access="hasAuthority('admin')">
             <a href="/campaign/modify/${campaign.id}" class="btn btn-primary">수정하기</a>
             <button id="removeButton" class="btn btn-danger" data-bs-toggle="modal"
-                    data-bs-target="#deleteConfirmModal">
-                삭제
+                    data-bs-target="#deleteConfirmModal">삭제
             </button>
         </sec:authorize>
 
@@ -85,5 +111,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
         integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="/js/campaign/like.js"></script>
 </body>
 </html>

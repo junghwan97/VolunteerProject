@@ -1,10 +1,12 @@
 package com.example.project2.service;
 
 import com.example.project2.domain.Campaign;
-import com.example.project2.domain.Notice;
+import com.example.project2.domain.Like;
+import com.example.project2.mapper.CampaignLikeMapper;
 import com.example.project2.mapper.CampaignMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,6 +32,9 @@ public class CampaignService {
 
     @Autowired
     private CampaignMapper campaignMapper;
+
+    @Autowired
+    private CampaignLikeMapper campaignLikeMapper;
 
     public Map<String, Object> campaignList(Integer page, String search, String type) {
 //        List<Campaign> list = campaignMapper.getList();
@@ -75,9 +80,21 @@ public class CampaignService {
 
     }
 
-    public Campaign getCampaign(Integer id) {
+    public Campaign getCampaign(Integer id, Authentication authentication) {
         Campaign campaign = campaignMapper.selectById(id);
+
+        // 현재 로그인한 사람이 좋아요를 누른 게시물인지?
+        if(authentication != null){
+            Like like = campaignLikeMapper.select(id, authentication.getName());
+            if(like != null){
+                campaign.setLiked(true);
+            }
+        }
         return campaign;
+    }
+
+    public Campaign getCampaign(Integer id){
+        return getCampaign(id, null);
     }
 
     public boolean addCampaign(Campaign campaign, MultipartFile[] files, MultipartFile repFile) throws Exception {
@@ -166,8 +183,26 @@ public class CampaignService {
         return cnt == 1;
     }
 
-    public List<Campaign> getCampaignList() {
-        List<Campaign> campaignList = campaignMapper.getCampaignList();
-        return campaignList;
+    public Map<String, Object> getCampaignList(String search, String type) {
+        List<Campaign> campaignList = campaignMapper.getCampaignList(search, type);
+        return Map.of("campaignList", campaignList);
+    }
+
+    public Map<String, Object> like(Like like, Authentication authentication) {
+        Map<String, Object> result = new HashMap<>();
+
+        result.put("like", false);
+
+        like.setMemberId(authentication.getName());
+        Integer deleteCnt = campaignLikeMapper.delete(like);
+
+        if (deleteCnt != 1) {
+            Integer insertCnt = campaignLikeMapper.insert(like);
+            result.put("like", true);
+        }
+        Integer count = campaignLikeMapper.countByBoardId(like.getCampaignId());
+        result.put("count", count);
+
+        return result;
     }
 }

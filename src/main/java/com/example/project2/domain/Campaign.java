@@ -15,4 +15,5 @@ public class Campaign {
     private LocalDateTime inserted;
     private List<String> fileName;
     private String repFileName;
+    private Boolean liked;
 }

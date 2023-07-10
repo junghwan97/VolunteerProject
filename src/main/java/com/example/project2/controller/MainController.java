@@ -13,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("main")
@@ -30,9 +32,13 @@ public class MainController {
     private NoticeService noticeService;
 
     @GetMapping("mainList")
-    public void getMainList(Model model, Authentication authentication){
-        List<Campaign> campaignList =  campaignService.getCampaignList();
-        model.addAttribute("campaign", campaignList);
+    public void getMainList(Model model,
+                            Authentication authentication,
+                            @RequestParam(value = "search", defaultValue = "") String search,
+                            @RequestParam(value = "type", required = false) String type){
+//        List<Campaign> campaignList =  campaignService.getCampaignList();
+        Map<String, Object> campaignList =  campaignService.getCampaignList(search, type);
+        model.addAllAttributes(campaignList);
 
         List<Notice> noticeList = noticeService.noticeList();
         model.addAttribute("notice", noticeList);

@@ -24,10 +24,12 @@ function init(){
 		document.form.resultType.value = resultType;
 		document.form.action="https://business.juso.go.kr/addrlink/addrLinkUrl.do"; //인터넷망		
 		document.form.submit();
+
 	}else{
 		opener.jusoCallBack("<%=roadFullAddr%>", "<%=siNm%>", "<%=sggNm%>");
 		window.close();
 		}
+
 }
 </script>
 <body onload="init();">
