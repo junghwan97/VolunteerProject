@@ -36,4 +36,10 @@ public interface CampaignLikeMapper {
              AND  memberId = #{name}
             """)
     Like select(Integer id, String name);
+
+    @Delete("""
+            DELETE FROM CampaignLike
+            WHERE memberId = #{id}
+            """)
+    void deleteByMemberId(String id);
 }

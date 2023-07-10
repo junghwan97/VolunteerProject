@@ -3,6 +3,7 @@ package com.example.project2.controller;
 import com.example.project2.domain.Member;
 import com.example.project2.service.MailService;
 import com.example.project2.service.MemberService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -94,6 +95,18 @@ public class MemberController {
         else{
             return "redirect:/member/modify?id=" + member.getId();
 
+        }
+    }
+
+    @PostMapping("remove")
+    public String removeProcess(Member member, HttpServletRequest request) throws Exception{
+        Member oldMember = memberService.getInfo(member.getId());
+        boolean ok = memberService.removeAccount(member, oldMember);
+        if(ok){
+            request.logout();
+            return "redirect:/main/mainList";
+        }else{
+            return "redirect:/member/remove";
         }
     }
 

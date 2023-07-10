@@ -79,4 +79,17 @@ public interface MemberMapper {
 			</script>
 			""")
     Integer modify(Member member);
+
+    @Delete("""
+            DELETE FROM Member
+            WHERE id = #{id}
+            """)
+    Integer deleteMember(String id);
+
+    @Delete("""
+            DELETE FROM MemberAuthority
+            WHERE memberId = #{id}
+            """)
+    void deleteAuthority(String id);
+
 }

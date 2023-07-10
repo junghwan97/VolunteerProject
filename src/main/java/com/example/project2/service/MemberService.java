@@ -1,6 +1,7 @@
 package com.example.project2.service;
 
 import com.example.project2.domain.Member;
+import com.example.project2.mapper.CampaignLikeMapper;
 import com.example.project2.mapper.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,31 +20,34 @@ public class MemberService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private CampaignLikeMapper campaignLikeMapper;
+
     public boolean signup(Member member) {
 
         String plain = member.getPassword();
         member.setPassword(passwordEncoder.encode(plain));
 
-        int user =  memberMapper.signupInsert(member);
-                    memberMapper.insertAuthority(member);
+        int user = memberMapper.signupInsert(member);
+        memberMapper.insertAuthority(member);
         return user == 1;
     }
 
 
     public Map<String, Object> checkId(String id) {
         Member member = memberMapper.selectById(id);
-        return Map.of("available", member==null );
+        return Map.of("available", member == null);
     }
 
     public Map<String, Object> checkPhoneNum(String phoneNum) {
 
         Member member = memberMapper.selectByPhoneNum(phoneNum);
-        return Map.of("available", member==null);
+        return Map.of("available", member == null);
     }
 
     public Map<String, Object> checkNickName(String nickName) {
         Member member = memberMapper.selectByNickName(nickName);
-        return Map.of("available", member==null);
+        return Map.of("available", member == null);
     }
 
     public String getNickName(String name) {
@@ -80,6 +84,25 @@ public class MemberService {
 //                memberMapper.updateAuthority(member);
 //            }
 
+        }
+        return cnt == 1;
+    }
+
+    public boolean removeAccount(Member member, Member oldMember) {
+        int cnt = 0;
+        if (passwordEncoder.matches(member.getPassword(), oldMember.getPassword())) {
+            // 암호가 같다면
+
+            // 이 회원이 작성한 게시물 row 삭제
+
+
+            // 이 회원이 좋아요한 레코드 삭제
+            campaignLikeMapper.deleteByMemberId(member.getId()); // 자유게시판
+
+
+            // 회원 테이블 삭제
+            memberMapper.deleteAuthority(member.getId());
+            cnt = memberMapper.deleteMember(member.getId());
         }
         return cnt == 1;
     }
