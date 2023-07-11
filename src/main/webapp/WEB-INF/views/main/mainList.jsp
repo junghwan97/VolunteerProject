@@ -15,7 +15,7 @@
 
     .flexbox {
         display: flex;
-        margin-top: 70px;
+        margin-top: 120px;
         margin-left: 150px;
         margin-right: 115px;
     }
@@ -23,7 +23,7 @@
     .header__center{
         display: flex;
         justify-content: center;
-        margin-top: 30px;
+        margin-top: 10px;
         margin-bottom: 20px;
     }
 

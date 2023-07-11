@@ -23,10 +23,16 @@
             <label for="" class="form-label">본문</label>
             <textarea class="form-control" readonly rows="15">${notice.body }</textarea>
         </div>
+        <div class="mb-3">
+            <c:forEach items="${notice.fileName}">
+                <div class="mb-3">
+                    <a href="${bucketUrl}/${notice.id}/${notice.fileName}" download>문서 보기: ${notice.fileName}
+                </div>
+            </c:forEach>
+        </div>
         <a href="/notice/noticeList" class="btn btn-primary">목록보기</a>
         <a href="/notice/modify/${notice.id}" class="btn btn-primary">수정하기</a>
-        <button id="removeButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">
-            삭제
+        <button id="removeButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">삭제
         </button>
 
         <div class="d-none">

@@ -170,19 +170,21 @@
           </div>
         </div>
 
+        <%--증빙 서류 업로드--%>
         <div class="mb-3">
-          <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" name="authority" id="volunteer" autocomplete="off" value="volunteer">
-            <label class="btn btn-outline-success" for="volunteer">자원 봉사자 / 후원자</label>
-            <input type="radio" class="btn-check" name="authority" id="needVolunteer" autocomplete="off" value="needVolunteer">
-            <label class="btn btn-outline-success" for="needVolunteer">봉사 수혜기관 / 수혜기관</label>
-          </div>
+          <label for="add-file" class="form-label"></label>
+          <span style="font-weight: 600;">증빙자료</span>
+          <input id="add-file" class="form-control" type="file"  name="fileList" multiple accept=".pdf, .doc, .docx"/>
         </div>
 
+
 <%--        <div class="mb-3">--%>
-<%--          <label for="add-file" class="form-label"></label>--%>
-<%--          <span style="font-weight: 600;">증빙자료</span>--%>
-<%--          <input id="add-file" class="form-control" type="file"  name="fileList" multiple accept=".pdf, .doc, .docx"/>--%>
+<%--          <div class="btn-group" role="group" aria-label="Basic radio toggle button group">--%>
+<%--            <input type="radio" class="btn-check" name="authority" id="volunteer" autocomplete="off" value="volunteer">--%>
+<%--            <label class="btn btn-outline-success" for="volunteer">자원 봉사자 / 후원자</label>--%>
+<%--            <input type="radio" class="btn-check" name="authority" id="needVolunteer" autocomplete="off" value="needVolunteer">--%>
+<%--            <label class="btn btn-outline-success" for="needVolunteer">봉사 수혜기관 / 수혜기관</label>--%>
+<%--          </div>--%>
 <%--        </div>--%>
 
         <div class="mb-3">

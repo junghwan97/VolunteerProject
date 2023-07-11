@@ -10,10 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <style>
-    body {
-        display: flex;
-        flex-direction: column;
-        align-items: center; /* 요소들을 수직 가운데로 정렬 */
+    .box {
+        margin-left: 300px;
     }
 
     .mainContainer {
@@ -67,7 +65,7 @@
 
 <my:navbar current="campaignList"/>
 
-<div class="col-12 col-md-8 col-lg-8">
+<div class="col-12 col-md-8 col-lg-8 box">
     <h1>캠페인 게시판</h1>
 
     <!-- 검색창 -->
@@ -115,7 +113,7 @@
     </sec:authorize>
 </div>
 
-<div class="col-12 col-md-8 col-lg-8" id="pagination1">
+<div class="col-12 col-md-8 col-lg-8 box" id="pagination1">
     <div class="row">
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">

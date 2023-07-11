@@ -14,16 +14,24 @@ public interface NoticeMapper {
     List<Notice> getNoticeList();
 
     @Select("""
-            SELECT *
-            FROM Notice
-            WHERE id = #{id}
+            SELECT 
+                n.id,
+                n.title,
+                n.body,
+                n.writer,
+                n.inserted,
+                dfn.fileName
+            FROM Notice n LEFT JOIN DocuForNotice dfn ON n.id = dfn.noticeId
+            WHERE n.id = #{id}
             """)
+    @ResultMap("noticeResultMap")
     Notice getNotice(Integer id);
 
     @Insert("""
             INSERT INTO Notice(title, body, writer)
             VALUES (#{title}, #{body}, #{writer})
             """)
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     Integer addNotice(Notice notice);
 
     @Update("""
@@ -41,4 +49,10 @@ public interface NoticeMapper {
             WHERE id = #{id}
             """)
     Integer removeNotice(Integer id);
+
+    @Insert("""
+            INSERT INTO DocuForNotice(noticeId, FileName)
+            VALUES (#{id}, #{originalFilename})
+            """)
+    Integer insertFileName(Integer id, String originalFilename);
 }
