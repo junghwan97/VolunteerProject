@@ -38,6 +38,7 @@
     .rightMenu {
         flex: 0 0 500px; /* rightMenu의 고정 너비를 설정 */
         margin-left: 50px; /* mainContainer와의 간격을 설정 */
+        text-align: center;
     }
 
     .sideMenu {

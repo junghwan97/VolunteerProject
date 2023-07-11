@@ -32,9 +32,14 @@
                 <li class="nav-item">
                     <a class="nav-link ${current eq 'noticeList' ? 'active' : '' }" href="/notice/noticeList">공지사항</a>
                 </li>
-                <sec:authorize access="isAuthenticated()">
+                <sec:authorize access="isAuthenticated() AND !hasAuthority('admin')">
                     <li class="nav-item">
                         <a class="nav-link ${current eq 'mypage' ? 'active' : '' }" href="/member/myPage?id=<sec:authentication property="name"/>">마이페이지</a>
+                    </li>
+                </sec:authorize>
+                <sec:authorize access="hasAuthority('admin')">
+                    <li class="nav-item">
+                        <a class="nav-link ${current eq 'mypage' ? 'active' : '' }" href="/member/myPage?id=<sec:authentication property="name"/>">운영자 페이지</a>
                     </li>
                 </sec:authorize>
 

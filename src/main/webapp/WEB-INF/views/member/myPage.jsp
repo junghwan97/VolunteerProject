@@ -90,7 +90,7 @@
       </table>
     </div>
     <div class="col-12 col-md-10 col-lg-8 detailPage">
-      <h1>${member.id }님의 페이지</h1>
+      <h1>${member.nickName }님의 페이지</h1>
       <table class="table table-no-border">
         <tbody>
         <tr>
