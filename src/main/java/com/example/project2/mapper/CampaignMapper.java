@@ -50,7 +50,10 @@ public interface CampaignMapper {
 			   f.fileName,
 			   rf.repFileName,
 			   cl.campaignId,
-			   cl.memberId
+			   cl.memberId,
+			   (SELECT COUNT(*)\s
+			   				FROM CampaignLike\s
+			   				WHERE campaignId = c.id) likeCount
 			   FROM Campaign c
 			   LEFT JOIN FileNames f ON c.id = f.campaignId
 			   LEFT JOIN RepresentFileName rf ON c.id = rf.campaignid
@@ -182,4 +185,11 @@ public interface CampaignMapper {
             WHERE campaignId = #{id}
             """)
 	void deleteRepFileNameByCampaignId(Integer id);
+
+	@Select("""
+            SELECT repFileName
+            FROM RepresentFileName
+            WHERE campaignId = #{id}
+            """)
+	String selectRepFileNameByCampaignId(Integer id);
 }

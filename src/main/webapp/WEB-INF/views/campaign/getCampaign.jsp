@@ -23,11 +23,6 @@
         width: 65%; /* Set the width to 100% */
     }
 
-    .like-icon {
-        font-size: 24px;
-        margin-left: 20px;
-    }
-
     .campaign-image {
         width: 100%; /* 너비를 100%로 설정합니다 */
         height: auto; /* 가로 세로 비율을 유지합니다 */
@@ -49,6 +44,7 @@
     }
 
     .sideMenu {
+        /*display: flex;*/
         position: fixed;
         top: 147px;
         right: 85px;
@@ -58,12 +54,11 @@
         background-color: #f1f1f1;
     }
 
-    /* 아래는 기본 래퍼 설정 */
-    /*#wrapper {*/
-    /*    margin: 0 auto;*/
-    /*    padding: 10px 20%;*/
-    /*    max-width: 1170px;*/
-    /*}*/
+    .sideMenuInner{
+        display: flex;
+        font-size: 25px;
+        /*text-align: center;*/
+    }
 
 </style>
 <body>
@@ -146,16 +141,22 @@
     <div class="sideMenu">
         <sec:authorize access="isAuthenticated()">
             <%--좋아요 버튼--%>
-            <div>
-                <div id="likeIcon">
-                    <c:if test="${campaign.liked}">
-                        <i class="like-icon fa-solid fa-heart"></i>
-                    </c:if>
-                    <c:if test="${not campaign.liked }">
-                        <i class="like-icon fa-regular fa-heart"></i>
-                    </c:if>
-                </div>
+            <div class="sideMenuInner">
+                <p>
+                <h3 id="likeNumber">${campaign.likeCount}</h3>번의
+                <h2 id="likeIcon">
+                    <c:if test="${campaign.liked}"><i class="like-icon fa-solid fa-heart"></i></c:if>
+                    <c:if test="${not campaign.liked}"><i class="like-icon fa-regular fa-heart"></i></c:if>
+                </h2>
+                 을 받고 있습니다!
+                </p>
+
             </div>
+                <div class="donation" id="donation">
+                    <button class="btn btn-primary">
+                        기부하기
+                    </button>
+                </div>
 
 
         </sec:authorize>
@@ -188,6 +189,15 @@
 
     window.addEventListener("load", resize);
     window.onresize = resize;
+</script>
+<script>
+    $(function(){
+        #('donation').click(function(){
+            $.ajax({
+                url:'/cls.'
+            })
+        })
+    })
 </script>
 
 </body>

@@ -16,4 +16,5 @@ public class Campaign {
     private List<String> fileName;
     private String repFileName;
     private Boolean liked;
+    private Integer likeCount;
 }

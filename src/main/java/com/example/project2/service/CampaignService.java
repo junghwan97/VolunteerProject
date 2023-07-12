@@ -167,10 +167,14 @@ public class CampaignService {
 
         // 파일명 조회
         List<String> fileNames = campaignMapper.selectFileNamesByCampaignId(id);
+        String repFileName = campaignMapper.selectRepFileNameByCampaignId(id);
 
         // FileName 테이블의 데이터 지우기
         campaignMapper.deleteFileNameByCampaignId(id);
         campaignMapper.deleteRepFileNameByCampaignId(id);
+
+        // 좋아요 데이터 지우기
+        campaignLikeMapper.deleteByCampaignId(id);
 
         // s3 bucket의 파일 지우기
         for (String fileName : fileNames) {
@@ -178,6 +182,9 @@ public class CampaignService {
             DeleteObjectRequest dor = DeleteObjectRequest.builder().bucket(bucketName).key(objectKey).build();
             s3.deleteObject(dor);
         }
+        String objectkey1 = "campaign/" + id + "/" + repFileName;
+        DeleteObjectRequest dor1 = DeleteObjectRequest.builder().bucket(bucketName).key(objectkey1).build();
+        s3.deleteObject(dor1);
 
         int cnt = campaignMapper.removeCampaign(id);
         return cnt == 1;

@@ -42,4 +42,10 @@ public interface CampaignLikeMapper {
             WHERE memberId = #{id}
             """)
     void deleteByMemberId(String id);
+
+    @Delete("""
+            DELETE FROM CampaignLike
+            WHERE campaignId = #{id}
+            """)
+    void deleteByCampaignId(Integer id);
 }

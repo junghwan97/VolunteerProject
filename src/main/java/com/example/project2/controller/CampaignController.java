@@ -54,6 +54,7 @@ public class CampaignController {
             Member userInfo = memberService.getUserInfo(authentication.getName());
             model.addAttribute("member", userInfo);
         }
+        System.out.println(campaign.getLikeCount());
             return "campaign/getCampaign";
     }
 
