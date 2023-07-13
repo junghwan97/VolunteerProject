@@ -14,7 +14,7 @@ $("#likeIcon").click(function() {
         success: function(data) {
             if (data.like) {
                 // 꽉찬 하트
-                $("#likeIcon").html(`<i class="fa-solid fa-heart"></i>`);
+                $("#likeIcon").html(`<i class="fa-solid fa-heart" style="color: crimson"></i>`);
             } else {
                 // 빈 하트
                 $("#likeIcon").html(`<i class="fa-regular fa-heart"></i>`);

@@ -145,7 +145,7 @@
                 <p>
                 <h3 id="likeNumber">${campaign.likeCount}</h3>번의
                 <h2 id="likeIcon">
-                    <c:if test="${campaign.liked}"><i class="like-icon fa-solid fa-heart"></i></c:if>
+                    <c:if test="${campaign.liked}"><i class="like-icon fa-solid fa-heart" style="color: crimson"></i></c:if>
                     <c:if test="${not campaign.liked}"><i class="like-icon fa-regular fa-heart"></i></c:if>
                 </h2>
                  을 받고 있습니다!
@@ -153,9 +153,7 @@
 
             </div>
                 <div class="donation" id="donation">
-                    <button class="btn btn-primary">
-                        기부하기
-                    </button>
+                    <a href="/kakaoPay" class="btn btn-primary"> 기부하기</a>
                 </div>
 
 
@@ -190,15 +188,5 @@
     window.addEventListener("load", resize);
     window.onresize = resize;
 </script>
-<script>
-    $(function(){
-        #('donation').click(function(){
-            $.ajax({
-                url:'/cls.'
-            })
-        })
-    })
-</script>
-
 </body>
 </html>
