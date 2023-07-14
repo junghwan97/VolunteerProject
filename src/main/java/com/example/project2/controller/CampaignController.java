@@ -15,10 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
@@ -58,7 +54,6 @@ public class CampaignController {
             Member userInfo = memberService.getUserInfo(authentication.getName());
             model.addAttribute("member", userInfo);
         }
-        System.out.println(campaign.getLikeCount());
             return "campaign/getCampaign";
     }
     @GetMapping("addCampaign")

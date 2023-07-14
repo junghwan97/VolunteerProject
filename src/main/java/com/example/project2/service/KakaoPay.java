@@ -1,8 +1,11 @@
 package com.example.project2.service;
 
+import com.example.project2.domain.DonationForm;
 import com.example.project2.domain.KakaoPayApprovalVO;
 import com.example.project2.domain.KakaoPayReadyVO;
+import com.example.project2.mapper.KakaoMapper;
 import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -24,7 +27,12 @@ public class KakaoPay {
     private KakaoPayReadyVO kakaoPayReadyVO;
     private KakaoPayApprovalVO kakaoPayApprovalVO;
 
-    public String kakaoPayReady() {
+    @Autowired
+    private KakaoMapper kakaoMapper;
+
+    Integer basicOrderId = 1000;
+
+    public String kakaoPayReady(DonationForm donationForm1) {
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -37,11 +45,15 @@ public class KakaoPay {
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
-        params.add("partner_order_id", "1001");
-        params.add("partner_user_id", "gorany");
-        params.add("item_name", "HI-FIVE 기부금");
-        params.add("quantity", "1");
-        params.add("total_amount", "2100");
+//        params.add("partner_order_id", donationForm.getPartner_order_id());
+        params.add("partner_order_id", donationForm1.getPartner_order_id());
+//        params.add("partner_user_id", "gorany");
+        params.add("partner_user_id", donationForm1.getPartner_user_id());
+//        params.add("item_name", "HI-FIVE 기부금");
+        params.add("item_name", donationForm1.getItem_name());
+        params.add("quantity", "2");
+//        params.add("total_amount", "2100");
+        params.add("total_amount", donationForm1.getTotal_amount());
         params.add("tax_free_amount", "100");
         params.add("approval_url", "http://localhost:8085/kakaoPaySuccess");
         params.add("cancel_url", "http://localhost:8085/kakaoPayCancel");
@@ -66,7 +78,7 @@ public class KakaoPay {
 
         return "/pay";
     }
-    public KakaoPayApprovalVO kakaoPayInfo(String pg_token) {
+    public KakaoPayApprovalVO kakaoPayInfo(String pg_token, DonationForm donationForm1) {
 
         log.info("KakaoPayInfoVO............................................");
         log.info("-----------------------------");
@@ -83,10 +95,11 @@ public class KakaoPay {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
         params.add("tid", kakaoPayReadyVO.getTid());
-        params.add("partner_order_id", "1001");
-        params.add("partner_user_id", "gorany");
+        params.add("partner_order_id", donationForm1.getPartner_order_id());
+        params.add("partner_user_id", donationForm1.getPartner_user_id());
         params.add("pg_token", pg_token);
-        params.add("total_amount", "2100");
+        params.add("total_amount", donationForm1.getTotal_amount());
+//        params.add("total_amount", donationForm.getTotal_amount());
 
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 
@@ -105,5 +118,21 @@ public class KakaoPay {
         }
 
         return null;
+    }
+
+    public DonationForm insertDonationInfo(DonationForm donationForm, String campaignName, String donor, String total_amount) {
+
+//        String orderId = String.valueOf(++basicOrderId);
+        donationForm.setPartner_order_id(Integer.toString(++basicOrderId));
+        donationForm.setPartner_user_id(donor);
+        donationForm.setItem_name(campaignName);
+        donationForm.setTotal_amount(total_amount);
+        kakaoMapper.insertDonationInfo(donationForm);
+        return donationForm;
+    }
+
+    public DonationForm selectDonation(String partner_order_id) {
+
+        return kakaoMapper.selectDonationByOrderId(partner_order_id);
     }
 }

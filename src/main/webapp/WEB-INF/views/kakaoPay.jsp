@@ -16,6 +16,10 @@
     <h1> kakaoPay api 이용하기 </h1>
 
     <form method="post" action="/kakaoPay">
+        <input type="text" class="form-control" name="campaignId" value="${campaignId}" readonly>
+        <input type="text" class="form-control" name="campaignName" value="${campaignName}" />
+        <input type="text" class="form-control" name="donor" value="${donor}" />
+        <input type="text" class="form-control" name="total_amount" value="${total_amount}" placeholder="기부금액" />
       <button>카카오페이로 결제하기</button>
     </form>
 

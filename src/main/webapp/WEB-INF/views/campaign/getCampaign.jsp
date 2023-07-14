@@ -153,7 +153,12 @@
 
             </div>
                 <div class="donation" id="donation">
-                    <a href="/kakaoPay" class="btn btn-primary"> 기부하기</a>
+                    <form action="/kakaoPay">
+                        <input id="" type="hidden" class="form-control" name="campaignId" value="${campaign.id }" readonly />
+                        <input id="" type="hidden" class="form-control" name="campaignName" value="${campaign.title }" readonly />
+                        <input id="donationSubmit" type="submit" class="btn btn-outline-success" value="기부하기" />
+                    </form>
+<%--                    <a href="/kakaoPay" class="btn btn-primary"> 기부하기</a>--%>
                 </div>
 
 

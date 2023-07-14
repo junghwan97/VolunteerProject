@@ -1,12 +1,18 @@
 package com.example.project2.controller;
 
+import com.example.project2.domain.Campaign;
+import com.example.project2.domain.DonationForm;
+import com.example.project2.service.CampaignService;
 import com.example.project2.service.KakaoPay;
+import com.example.project2.service.MemberService;
 import lombok.Setter;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -14,28 +20,45 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class SampleController {
 
+    @Autowired
+    private CampaignService campaignService;
+
     @Setter(onMethod_ = @Autowired)
     private KakaoPay kakaopay;
 
 
     @GetMapping("/kakaoPay")
-    public void kakaoPayGet() {
-
+    public String kakaoPayGet(Model model,
+                              Authentication authentication,
+                              @RequestParam("campaignId") String campaignId,
+                              @RequestParam("campaignName") String campaignName) {
+        model.addAttribute("campaignId", campaignId);
+        model.addAttribute("campaignName", campaignName);
+        model.addAttribute("donor", authentication.getName()) ;
+        return "kakaoPay";
     }
 
     @PostMapping("/kakaoPay")
-    public String kakaoPay() {
+    public String kakaoPay(@RequestParam("campaignName") String campaignName,
+                           @RequestParam("donor") String donor,
+                           @RequestParam("total_amount") String total_amount,
+                           DonationForm donationForm){
         log.info("kakaoPay post............................................");
-
-        return "redirect:" + kakaopay.kakaoPayReady();
+        DonationForm donationForm1 = kakaopay.insertDonationInfo(donationForm,campaignName, donor, total_amount);
+        return "redirect:" + kakaopay.kakaoPayReady(donationForm1);
 
     }
 
     @GetMapping("/kakaoPaySuccess")
-    public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) {
+    public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token,
+                                Model model,
+                                Authentication authentication,
+                                @RequestParam("partner_order_id") String partner_order_id) {
         log.info("kakaoPaySuccess get............................................");
         log.info("kakaoPaySuccess pg_token : " + pg_token);
-        model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token));
+        System.out.println(partner_order_id);
+        DonationForm donationForm1 = kakaopay.selectDonation(partner_order_id);
+        model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token, donationForm1));
     }
 
 }
