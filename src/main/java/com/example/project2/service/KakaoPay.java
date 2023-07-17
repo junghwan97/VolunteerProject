@@ -17,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 @Service
 @Log
@@ -121,10 +122,11 @@ public class KakaoPay {
         return null;
     }
 
-    public DonationForm insertDonationInfo(DonationForm donationForm, String campaignName, String donor, String total_amount) {
+    public DonationForm insertDonationInfo(Integer campaignId, DonationForm donationForm, String campaignName, String donor, String total_amount) {
 
 //        String orderId = String.valueOf(++basicOrderId);
         Integer orderId = kakaoMapper.selectOrderId();
+        donationForm.setCampaignId(campaignId);
         donationForm.setPartner_order_id(Integer.toString(++orderId));
         kakaoMapper.insertOrderId(donationForm.getPartner_order_id());
         donationForm.setPartner_user_id(donor);
@@ -137,5 +139,10 @@ public class KakaoPay {
     public DonationForm selectDonation(String orderId) {
 
         return kakaoMapper.selectDonationByOrderId(orderId);
+    }
+
+    public List<DonationForm> findMyDonation(String id) {
+        List<DonationForm> donationForm = kakaoMapper.findMyDonation(id);
+       return donationForm;
     }
 }

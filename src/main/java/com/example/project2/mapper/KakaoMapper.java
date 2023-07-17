@@ -6,12 +6,14 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.security.core.Authentication;
 
+import java.util.List;
+
 @Mapper
 public interface KakaoMapper {
 
     @Insert("""
-            INSERT INTO DonationForm (partner_order_id, partner_user_id, item_name, total_amount)
-            VALUES (#{partner_order_id}, #{partner_user_id}, #{item_name}, #{total_amount})
+            INSERT INTO DonationForm (campaignId, partner_order_id, partner_user_id, item_name, total_amount)
+            VALUES (#{campaignId}, #{partner_order_id}, #{partner_user_id}, #{item_name}, #{total_amount})
             """)
     Integer insertDonationInfo(DonationForm donationForm);
 
@@ -35,4 +37,15 @@ public interface KakaoMapper {
             LIMIT 1
             """)
     Integer selectOrderId();
+
+    @Select("""
+            SELECT\s
+                d.campaignId,
+            	d.partner_order_id,
+                d.item_name,
+                d.total_amount
+            FROM DonationForm d LEFT JOIN OrderNum o ON d.partner_order_id = o.orderId
+            WHERE partner_user_id = #{id}
+            """)
+    List<DonationForm> findMyDonation(String id);
 }

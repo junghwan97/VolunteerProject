@@ -1,16 +1,20 @@
 package com.example.project2.controller;
 
+import com.example.project2.domain.DonationForm;
 import com.example.project2.domain.Member;
+import com.example.project2.service.KakaoPay;
 import com.example.project2.service.MailService;
 import com.example.project2.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -22,6 +26,9 @@ public class MemberController {
 
     @Autowired
     private MailService mailService;
+
+    @Autowired
+    private KakaoPay kakaoPay;
 
     @GetMapping("signup")
     public void signupForm() {
@@ -131,5 +138,14 @@ public class MemberController {
         Member member = memberService.getInfo(id);
         model.addAttribute("member", member);
 
+    }
+    @GetMapping("sponsored")
+//    public void sponsored(@PathVariable("id") String id, Model model){
+    public void sponsored(String id, Model model){
+        Member member = memberService.getInfo(id);
+        model.addAttribute("member", member);
+
+        List<DonationForm> donationForm = kakaoPay.findMyDonation(id);
+        model.addAttribute("donationForm", donationForm);
     }
 }

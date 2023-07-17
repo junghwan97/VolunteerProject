@@ -45,9 +45,10 @@ public class SampleController {
                            @RequestParam("total_amount") String total_amount,
                            DonationForm donationForm,
                            Model model,
-                           HttpSession session){
+                           HttpSession session,
+                           @RequestParam("campaignId") Integer campaignId){
         log.info("kakaoPay post............................................");
-        DonationForm donationForm1 = kakaopay.insertDonationInfo(donationForm,campaignName, donor, total_amount);
+        DonationForm donationForm1 = kakaopay.insertDonationInfo(campaignId,donationForm,campaignName, donor, total_amount);
         model.addAttribute("donation", donationForm1);
         String orderId = donationForm1.getPartner_order_id();
 
