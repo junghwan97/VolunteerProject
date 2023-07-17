@@ -1,10 +1,8 @@
 package com.example.project2.controller;
 
-import com.example.project2.domain.Campaign;
 import com.example.project2.domain.DonationForm;
 import com.example.project2.service.CampaignService;
 import com.example.project2.service.KakaoPay;
-import com.example.project2.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -13,13 +11,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Log
 @Controller
-public class SampleController {
+public class KakapPayController {
 
     @Autowired
     private CampaignService campaignService;
