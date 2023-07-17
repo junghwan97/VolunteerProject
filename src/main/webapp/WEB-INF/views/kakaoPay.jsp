@@ -19,7 +19,18 @@
         <input type="text" class="form-control" name="campaignId" value="${campaignId}" readonly>
         <input type="text" class="form-control" name="campaignName" value="${campaignName}" />
         <input type="text" class="form-control" name="donor" value="${donor}" />
-        <input type="text" class="form-control" name="total_amount" value="${total_amount}" placeholder="기부금액" />
+        <input type='button' id="100" onclick='count("plus")' value='100'/>
+        <input type='button' id="500" onclick='count("plus")' value='500'/>
+        <input type='button' id="1000" onclick='count("plus")' value='1000'/>
+        <input type='button' id="5000" onclick='count("plus")' value='5000'/>
+        <input type='button' id="10000" onclick='count("plus")' value='10000'/>
+        <input type='button' id="50000" onclick='count("plus")' value='50000'/>
+<%--        <input type='button' onclick='count("minus")' value='-'/>--%>
+        <input id="result" type="text" class="form-control" name="total_amount" value="0" placeholder="기부금액" />
+
+<%--        <div id='result'>0</div>--%>
+
+
       <button>카카오페이로 결제하기</button>
     </form>
 
@@ -70,6 +81,36 @@
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    function count(type) {
+        const resultElement = document.getElementById('result');
+
+        let number = parseInt(resultElement.value);
+
+        if (type === 'plus') {
+            const id = event.target.id;
+            console.log(id)
+            if (id === '100') {
+                number += 100;
+            } else if (id === '500') {
+                number += 500;
+            } else if (id === '1000') {
+                number += 1000;
+            } else if (id === '5000') {
+                number += 5000;
+            } else if (id === '10000') {
+                number += 10000;
+            } else if (id === '50000') {
+                number += 50000;
+            }
+        }
+
+        resultElement.value = number.toString();
+        // console.log(resultElement.innerText = number.toString());
+        }
+
+
+</script>
 
 </body>
 </html>

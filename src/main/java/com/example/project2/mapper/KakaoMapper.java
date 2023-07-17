@@ -21,4 +21,18 @@ public interface KakaoMapper {
             WHERE partner_order_id = #{partner_order_id}
             """)
     DonationForm selectDonationByOrderId(String orderId);
+
+    @Insert("""
+            INSERT INTO OrderNum
+            VALUES(#{partner_order_id})
+            """)
+    void insertOrderId(String partner_order_id);
+
+    @Select("""
+            SELECT orderId
+            FROM OrderNum
+            ORDER BY orderId DESC
+            LIMIT 1
+            """)
+    Integer selectOrderId();
 }

@@ -50,7 +50,7 @@ public class SampleController {
         DonationForm donationForm1 = kakaopay.insertDonationInfo(donationForm,campaignName, donor, total_amount);
         model.addAttribute("donation", donationForm1);
         String orderId = donationForm1.getPartner_order_id();
-        System.out.println(orderId); // orderId 출력됨
+
         session.setAttribute("orderId", orderId);
         return "redirect:" + kakaopay.kakaoPayReady(donationForm1);
 
@@ -63,9 +63,9 @@ public class SampleController {
         log.info("kakaoPaySuccess get............................................");
         log.info("kakaoPaySuccess pg_token : " + pg_token);
         String orderId = (String) session.getAttribute("orderId");
-        System.out.println(orderId); //null 나옴
+
         DonationForm donationForm1 = kakaopay.selectDonation(orderId);
-        System.out.println(donationForm1); // null 나옴
+
         model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token, donationForm1));
     }
 

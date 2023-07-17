@@ -30,7 +30,8 @@ public class KakaoPay {
     @Autowired
     private KakaoMapper kakaoMapper;
 
-    Integer basicOrderId = 1000;
+
+
 
     public String kakaoPayReady(DonationForm donationForm1) {
 
@@ -123,7 +124,9 @@ public class KakaoPay {
     public DonationForm insertDonationInfo(DonationForm donationForm, String campaignName, String donor, String total_amount) {
 
 //        String orderId = String.valueOf(++basicOrderId);
-        donationForm.setPartner_order_id(Integer.toString(++basicOrderId));
+        Integer orderId = kakaoMapper.selectOrderId();
+        donationForm.setPartner_order_id(Integer.toString(++orderId));
+        kakaoMapper.insertOrderId(donationForm.getPartner_order_id());
         donationForm.setPartner_user_id(donor);
         donationForm.setItem_name(campaignName);
         donationForm.setTotal_amount(total_amount);
