@@ -5,6 +5,7 @@ import com.example.project2.domain.DonationForm;
 import com.example.project2.service.CampaignService;
 import com.example.project2.service.KakaoPay;
 import com.example.project2.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +43,15 @@ public class SampleController {
     public String kakaoPay(@RequestParam("campaignName") String campaignName,
                            @RequestParam("donor") String donor,
                            @RequestParam("total_amount") String total_amount,
-                           DonationForm donationForm){
+                           DonationForm donationForm,
+                           Model model,
+                           HttpSession session){
         log.info("kakaoPay post............................................");
         DonationForm donationForm1 = kakaopay.insertDonationInfo(donationForm,campaignName, donor, total_amount);
+        model.addAttribute("donation", donationForm1);
+        String orderId = donationForm1.getPartner_order_id();
+        System.out.println(orderId); // orderId 출력됨
+        session.setAttribute("orderId", orderId);
         return "redirect:" + kakaopay.kakaoPayReady(donationForm1);
 
     }
@@ -52,12 +59,13 @@ public class SampleController {
     @GetMapping("/kakaoPaySuccess")
     public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token,
                                 Model model,
-                                Authentication authentication,
-                                @RequestParam("partner_order_id") String partner_order_id) {
+                                HttpSession session) {
         log.info("kakaoPaySuccess get............................................");
         log.info("kakaoPaySuccess pg_token : " + pg_token);
-        System.out.println(partner_order_id);
-        DonationForm donationForm1 = kakaopay.selectDonation(partner_order_id);
+        String orderId = (String) session.getAttribute("orderId");
+        System.out.println(orderId); //null 나옴
+        DonationForm donationForm1 = kakaopay.selectDonation(orderId);
+        System.out.println(donationForm1); // null 나옴
         model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token, donationForm1));
     }
 

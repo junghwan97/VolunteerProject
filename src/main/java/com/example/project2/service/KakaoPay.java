@@ -131,8 +131,8 @@ public class KakaoPay {
         return donationForm;
     }
 
-    public DonationForm selectDonation(String partner_order_id) {
+    public DonationForm selectDonation(String orderId) {
 
-        return kakaoMapper.selectDonationByOrderId(partner_order_id);
+        return kakaoMapper.selectDonationByOrderId(orderId);
     }
 }

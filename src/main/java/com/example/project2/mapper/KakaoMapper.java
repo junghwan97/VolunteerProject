@@ -20,5 +20,5 @@ public interface KakaoMapper {
             FROM DonationForm
             WHERE partner_order_id = #{partner_order_id}
             """)
-    DonationForm selectDonationByOrderId(String partner_order_id);
+    DonationForm selectDonationByOrderId(String orderId);
 }
