@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Log
 @Controller
@@ -40,10 +41,10 @@ public class KakapPayController {
     public String kakaoPay(@RequestParam("campaignName") String campaignName,
                            @RequestParam("donor") String donor,
                            @RequestParam("total_amount") String total_amount,
+                           @RequestParam("campaignId") Integer campaignId,
                            DonationForm donationForm,
-                           Model model,
                            HttpSession session,
-                           @RequestParam("campaignId") Integer campaignId){
+                           Model model){
         log.info("kakaoPay post............................................");
         DonationForm donationForm1 = kakaopay.insertDonationInfo(campaignId,donationForm,campaignName, donor, total_amount);
         model.addAttribute("donation", donationForm1);
@@ -53,14 +54,15 @@ public class KakapPayController {
         return "redirect:" + kakaopay.kakaoPayReady(donationForm1);
 
     }
-
     @GetMapping("/kakaoPaySuccess")
     public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token,
+                                HttpSession session,
                                 Model model,
-                                HttpSession session) {
+                                RedirectAttributes rttr) {
         log.info("kakaoPaySuccess get............................................");
         log.info("kakaoPaySuccess pg_token : " + pg_token);
         String orderId = (String) session.getAttribute("orderId");
+        rttr.addFlashAttribute("message", "결제가 정상적으로 완료되었습니다.");
 
         DonationForm donationForm1 = kakaopay.selectDonation(orderId);
 

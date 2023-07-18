@@ -155,9 +155,8 @@
                 <h3>${member.nickName}님의 정보</h3>
                 <p>간단한 나의 정보</p>
                 <p>간단한 나의 정보</p>
-                <p>간단한 나의 정보</p>
-                <p>나의 기부 금액</p>
-                <p><a href="/member/myPage?id=${member.id}">마이페이지</a></p>
+                <h4>나의 총 기부금액 : ${allDonation}원</h4>
+                <h4><a href="/member/myPage?id=${member.id}">마이페이지 바로 가기</a></h4>
             </sec:authorize>
             <sec:authorize access="isAnonymous()">
                 <h1>Login</h1>

@@ -48,4 +48,12 @@ public interface KakaoMapper {
             WHERE partner_user_id = #{id}
             """)
     List<DonationForm> findMyDonation(String id);
+
+    @Select("""
+            SELECT\s     
+            	d.total_amount               
+            FROM DonationForm d LEFT JOIN OrderNum o ON d.partner_order_id = o.orderId
+            WHERE partner_user_id = #{id}
+            """)
+    List<String> findMyDonationMoney(String id);
 }

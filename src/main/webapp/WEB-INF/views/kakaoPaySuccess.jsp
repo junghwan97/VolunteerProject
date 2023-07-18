@@ -15,15 +15,17 @@
 
 <body>
 
-카카오페이 결제가 정상적으로 완료되었습니다. <br>
+<%--카카오페이 결제가 정상적으로 완료되었습니다. <br>--%>
 
 결제일시:     ${info.approved_at}<br/>
-주문번호:    ${info.partner_order_id}<br/>
-상품명:    ${info.item_name}<br/>
-결제금액:    ${info.amount.total}<br/>
+결제번호:    ${info.partner_order_id}<br/>
+캠페인명:    ${info.item_name}<br/>
+기부금액:    ${info.amount.total}<br/>
 결제방법:    ${info.payment_method_type}<br/>
 
-
+<script>
+    alert("결제가 정상적으로 완료되었습니다!");
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 

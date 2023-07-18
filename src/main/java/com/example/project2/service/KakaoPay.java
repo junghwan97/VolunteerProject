@@ -145,4 +145,13 @@ public class KakaoPay {
         List<DonationForm> donationForm = kakaoMapper.findMyDonation(id);
        return donationForm;
     }
+
+    public Integer findMyDonationMoney(String id) {
+        Integer donation = 0;
+        List<String> moneys = kakaoMapper.findMyDonationMoney(id);
+        for(String money : moneys){
+            donation += Integer.parseInt(money);
+        }
+        return donation;
+    }
 }

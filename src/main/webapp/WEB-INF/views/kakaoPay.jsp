@@ -25,6 +25,7 @@
         <input type='button' id="5000" onclick='count("plus")' value='5000'/>
         <input type='button' id="10000" onclick='count("plus")' value='10000'/>
         <input type='button' id="50000" onclick='count("plus")' value='50000'/>
+        <input type='button' id="50000" onclick='count("minus")' value='X'/>
 <%--        <input type='button' onclick='count("minus")' value='-'/>--%>
         <input id="result" type="text" class="form-control" name="total_amount" value="0" placeholder="기부금액" />
 
@@ -103,6 +104,8 @@
             } else if (id === '50000') {
                 number += 50000;
             }
+        }else if(type === 'minus'){
+           number = 0;
         }
 
         resultElement.value = number.toString();
