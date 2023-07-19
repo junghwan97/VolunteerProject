@@ -26,7 +26,7 @@
         <div class="mb-3">
             <c:forEach items="${notice.fileName}">
                 <div class="mb-3">
-                    <a href="${bucketUrl}/${notice.id}/${notice.fileName}" download>문서 보기: ${notice.fileName}
+                    <a href="${bucketUrl}/notice/${notice.id}/${notice.fileName}" download>문서 보기: ${notice.fileName}
                 </div>
             </c:forEach>
         </div>

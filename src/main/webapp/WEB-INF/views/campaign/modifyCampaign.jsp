@@ -41,7 +41,7 @@
             </div>
 
             <div class="mb-3">
-                <img class="img-thumbnail img-fluid" src="${bucketUrl }/${campaign.id }/${fileName}"/>
+                <img class="img-thumbnail img-fluid" src="${bucketUrl }/campaign/${campaign.id }/${fileName}"/>
             </div>
         </c:forEach>
     </div>

@@ -135,7 +135,7 @@
                             <div class="inner">
                                 <div>
                                     <img class="img-thumbnail img-fluid"
-                                         src="${bucketUrl }/${campaign.id }/${campaign.repFileName}"/>
+                                         src="${bucketUrl }/campaign/${campaign.id }/${campaign.repFileName}"/>
                                 </div>
                                 <div class="inner-content">
                                     <span class="title"> ${campaign.title}</span> <br>

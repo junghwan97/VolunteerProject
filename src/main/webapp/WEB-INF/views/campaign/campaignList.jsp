@@ -93,7 +93,7 @@
                         <a href="/campaign/campaignId/${campaign.id}">
                             <div>
                                 <img class="img-thumbnail img-fluid"
-                                     src="${bucketUrl }/${campaign.id }/${campaign.repFileName}"/>
+                                     src="${bucketUrl }/campaign/${campaign.id }/${campaign.repFileName}"/>
                             </div>
                             <div class="inner">
                                 <div class="inner-content">

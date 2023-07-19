@@ -46,6 +46,7 @@ public interface KakaoMapper {
                 d.total_amount
             FROM DonationForm d LEFT JOIN OrderNum o ON d.partner_order_id = o.orderId
             WHERE partner_user_id = #{id}
+            ORDER BY d.partner_order_id DESC
             """)
     List<DonationForm> findMyDonation(String id);
 

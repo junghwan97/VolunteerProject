@@ -75,7 +75,7 @@
                     <c:forEach items="${campaign.repFileName }" var="fileName">
                 </div>
                 <div class="mb-3">
-                    <img class="img-thumbnail img-fluid campaign-image" src="${bucketUrl }/${campaign.id }/${fileName}"/>
+                    <img class="img-thumbnail img-fluid campaign-image" src="${bucketUrl }/campaign/${campaign.id }/${fileName}"/>
                 </div>
                 </c:forEach>
             </div>
@@ -99,7 +99,7 @@
                 <c:forEach items="${campaign.fileName }" var="fileName">
                     <div class="mb-3">
                         <img class="img-thumbnail img-fluid campaign-image"
-                             src="${bucketUrl }/${campaign.id }/${fileName}"/>
+                             src="${bucketUrl }/campaign/${campaign.id }/${fileName}"/>
                     </div>
                 </c:forEach>
             </div>
