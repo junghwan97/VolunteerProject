@@ -55,4 +55,11 @@ public interface NoticeMapper {
             VALUES (#{id}, #{originalFilename})
             """)
     Integer insertFileName(Integer id, String originalFilename);
+
+    @Delete("""
+            DELETE FROM DocuForNotice
+            WHERE noticeId = #{id}
+                AND fileName = #{fileName}
+            """)
+    void deleteFileNameByNoticeIdAndFileName(Integer id, String fileName);
 }

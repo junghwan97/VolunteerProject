@@ -1,6 +1,7 @@
 package com.example.project2.controller;
 
 import com.example.project2.domain.Campaign;
+import com.example.project2.domain.Member;
 import com.example.project2.domain.Notice;
 import com.example.project2.service.MemberService;
 import com.example.project2.service.NoticeService;
@@ -26,10 +27,15 @@ public class NoticeController {
     private MemberService memberService;
 
     @GetMapping("noticeList")
-    public void list(Model model){
+    public void list(Model model, Authentication authentication){
 
         List<Notice> result = noticeService.noticeList();
         model.addAttribute("noticeList", result);
+
+        if(authentication != null) {
+            Member userInfo = memberService.getUserInfo(authentication.getName());
+            model.addAttribute("member", userInfo);
+        }
     }
 
     @GetMapping("/noticeId/{id}")
@@ -62,15 +68,22 @@ public class NoticeController {
 
     @GetMapping("/modify/{id}")
     @PreAuthorize("hasAuthority('admin')")
-    public String modifyNoticeForm(@PathVariable("id") Integer id, Model model){
+    public String modifyNoticeForm(@PathVariable("id") Integer id, Model model, Authentication authentication){
         Notice notice = noticeService.getNotice(id);
         model.addAttribute("notice", notice);
+
+        if(authentication != null) {
+            Member userInfo = memberService.getUserInfo(authentication.getName());
+            model.addAttribute("member", userInfo);
+        }
         return "notice/modifyNotice";
     }
 
     @PostMapping("/modify/{id}")
-    public String modifyNoticeProcess(Notice notice){
-        boolean ok = noticeService.modifyNotice(notice);
+    public String modifyNoticeProcess(@RequestParam("addDocu") MultipartFile addDocu,
+                                      @RequestParam(value = "modifyFiles", required = false) List<String> modifyFileNames,
+                                      Notice notice) throws Exception{
+        boolean ok = noticeService.modifyNotice(notice, addDocu, modifyFileNames);
         if(ok){
             return "redirect:/notice/noticeId/" + notice.getId();
         }else{

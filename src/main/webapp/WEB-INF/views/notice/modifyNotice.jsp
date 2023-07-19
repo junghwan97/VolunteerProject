@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <html>
 <head>
     <title>공지사항 수정</title>
@@ -22,6 +25,24 @@
   <div class="mb-3">
     <label for="" class="form-label">작성일시</label>
     <input class="form-control" type="text" value="${notice.inserted }" readonly />
+  </div>
+  <div class="mb-3">
+    <c:forEach items="${notice.fileName}">
+      <div class="form-check form-switch">
+        <input name="modifyFiles" value="${notice.fileName }" class="form-check-input" type="checkbox"  role="switch" id="modifyCheckBox${status.index }" >
+        <label class="form-check-label" for="modifyCheckBox${status.index }">
+          <i class="fa-solid fa-trash-can text-danger"></i>
+        </label>
+      </div>
+
+      <div class="mb-3">
+        <a href="${bucketUrl}/notice/${notice.id}/${notice.fileName}" download>문서 보기: ${notice.fileName}
+      </div>
+    </c:forEach>
+  </div>
+  <div class="mb-3">
+    <label for="fileInput" class="form-label">그림 파일</label>
+    <input class="form-control" type="file" id="fileInput" name="addDocu" multiple accept=".pdf, .doc, .docx"/>
   </div>
 
   <div class="mb-3">
