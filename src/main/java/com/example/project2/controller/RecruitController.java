@@ -95,4 +95,14 @@ public class RecruitController {
             return "redirect:/recruit/modify/" + recruit.getId();
         }
     }
+
+    @PostMapping("remove/{id}")
+    public String removeRecruit(@PathVariable("id") String id){
+        boolean ok = recruitService.removeRecruit(id);
+            if(ok){
+                return "redirect:/recruit/recruitList";
+        }else{
+                return "redirect:/recruit/remove" + id;
+            }
+    }
 }

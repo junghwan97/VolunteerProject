@@ -57,4 +57,23 @@ public interface RecruitMapper {
                 AND fileName = #{fileName}
             """)
     void deleteFileNameByRecruitIdAndFileName(Integer id, String fileName);
+
+    @Delete("""
+            DELETE FROM Recruit
+            WHERE id = #{id}
+            """)
+    Integer removeRecruit(String id);
+
+    @Select("""
+            SELECT fileName
+            FROM FileNamesForRecruit
+            WHERE recruitId = #{id}
+            """)
+    List<String> selectFileNamesByRecruitId(String id);
+
+    @Delete("""
+            DELETE FROM FileNamesForRecruit
+            WHERE recruitId = #{id}
+            """)
+    void deleteFileNameByRecruitId(String id);
 }

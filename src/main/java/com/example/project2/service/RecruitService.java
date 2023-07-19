@@ -33,7 +33,6 @@ public class RecruitService {
 
     public Recruit getRecruit(String id) {
         Recruit recruit = recruitMapper.getRecruitById(id);
-        System.out.println(recruit);
         return recruit;
     }
 
@@ -87,6 +86,25 @@ public class RecruitService {
         }
 
         int cnt = recruitMapper.modifyRecruit(recruit);
+        return cnt == 1;
+    }
+
+    public boolean removeRecruit(String id) {
+
+        // 파일명 조회
+        List<String> fileNames = recruitMapper.selectFileNamesByRecruitId(id);
+
+        // FileNames 테이블의 파일명 데이터 지우기
+        recruitMapper.deleteFileNameByRecruitId(id);
+
+        // s3 bucket의 파일 지우기
+        for (String fileName : fileNames) {
+            String objectKey = "recruit/" + id + "/" + fileName;
+            DeleteObjectRequest dor = DeleteObjectRequest.builder().bucket(bucketName).key(objectKey).build();
+            s3.deleteObject(dor);
+        }
+
+        int cnt = recruitMapper.removeRecruit(id);
         return cnt == 1;
     }
 }
