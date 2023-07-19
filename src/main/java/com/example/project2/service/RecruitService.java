@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
@@ -52,6 +53,40 @@ public class RecruitService {
 
             }
         }
+        return cnt == 1;
+    }
+
+    public boolean modifyRecruit(Recruit recruit, List<String> modifyFileNames, MultipartFile[] addFiles) throws Exception {
+
+        // FileName 테이블 삭제
+        if (modifyFileNames != null && !modifyFileNames.isEmpty()) {
+            for (String fileName : modifyFileNames) {
+                // s3에서 파일(객체) 삭제
+                String objectKey = "recruit/" + recruit.getId() + "/" + fileName;
+                DeleteObjectRequest dor = DeleteObjectRequest.builder().bucket(bucketName).key(objectKey).build();
+                s3.deleteObject(dor);
+                // 테이블에서 삭제
+                recruitMapper.deleteFileNameByRecruitIdAndFileName(recruit.getId(), fileName);
+            }
+        }
+
+        // 새 파일 추가
+        for (MultipartFile newFile : addFiles) {
+            if (newFile.getSize() > 0) {
+                // 테이블에 파일명 추가
+                recruitMapper.insertFileName(recruit.getId(), newFile.getOriginalFilename());
+
+                // s3에 파일(객체) 업로드
+                String objectKey = "recruit/" + recruit.getId() + "/" + newFile.getOriginalFilename();
+                PutObjectRequest por = PutObjectRequest.builder().acl(ObjectCannedACL.PUBLIC_READ).bucket(bucketName)
+                        .key(objectKey).build();
+
+                RequestBody rb = RequestBody.fromInputStream(newFile.getInputStream(), newFile.getSize());
+                s3.putObject(por, rb);
+            }
+        }
+
+        int cnt = recruitMapper.modifyRecruit(recruit);
         return cnt == 1;
     }
 }

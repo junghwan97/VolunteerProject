@@ -65,16 +65,15 @@
                     <input type="text" readonly class="form-control" value="${recruit.inserted }" />
                 </div>
 
-<%--                <sec:authorize access="isAuthenticated()">--%>
-<%--                    <sec:authentication property="name" var="userId" />--%>
-<%--                    <c:if test="${userId eq board.writer }">--%>
-<%--                        <div>--%>
+                <sec:authorize access="isAuthenticated()">
+                    <c:if test="${member.nickName eq recruit.writer }">
+                        <div>
 
-<%--                            <a class="btn btn-secondary" href="/modify/${board.id }">수정</a>--%>
-<%--                            <button id="removeButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">삭제</button>--%>
-<%--                        </div>--%>
-<%--                    </c:if>--%>
-<%--                </sec:authorize>--%>
+                            <a class="btn btn-secondary" href="/recruit/modify/${recruit.id }">수정</a>
+                            <button id="removeButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">삭제</button>
+                        </div>
+                    </c:if>
+                </sec:authorize>
 
                 <hr />
 

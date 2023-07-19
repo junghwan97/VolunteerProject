@@ -40,4 +40,21 @@ public interface RecruitMapper {
             VALUES(#{id}, #{originalFilename})
             """)
     void insertFileName(Integer id, String originalFilename);
+
+    @Update("""
+            UPDATE Recruit
+            SET 
+               title = #{title},
+               body = #{body}
+            WHERE 
+                id = #{id}
+            """)
+    Integer modifyRecruit(Recruit recruit);
+
+    @Delete("""
+            DELETE FROM FileNamesForRecruit
+            WHERE recruitId = #{id}
+                AND fileName = #{fileName}
+            """)
+    void deleteFileNameByRecruitIdAndFileName(Integer id, String fileName);
 }

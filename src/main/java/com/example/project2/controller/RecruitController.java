@@ -71,12 +71,28 @@ public class RecruitController {
         }
     }
 
-    @GetMapping("modifyRecruit")
-    public void modifyRecruitFoem(Authentication authentication, Model model){
+    @GetMapping("/modify/{id}")
+    public String modifyRecruitForm(@PathVariable("id") String id,
+                                    Authentication authentication,
+                                    Model model){
         if (authentication != null) {
             Member userInfo = memberService.getUserInfo(authentication.getName());
             model.addAttribute("member", userInfo);
         }
+        Recruit recruit = recruitService.getRecruit(id);
+        model.addAttribute("recruit", recruit);
+        return "recruit/modifyRecruit";
+    }
 
+    @PostMapping("modify/{id}")
+    public String modifyRecruitProcess(Recruit recruit,
+                                       @RequestParam(value = "files", required = false) MultipartFile[] addFiles,
+                                       @RequestParam(value = "modifyFiles", required = false) List<String> modifyFileNames) throws Exception{
+        boolean ok = recruitService.modifyRecruit(recruit, modifyFileNames, addFiles);
+        if(ok){
+            return "redirect:/recruit/recruitId/" + recruit.getId();
+        }else{
+            return "redirect:/recruit/modify/" + recruit.getId();
+        }
     }
 }
