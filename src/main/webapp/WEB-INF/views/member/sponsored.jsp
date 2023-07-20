@@ -77,7 +77,7 @@
                 <sec:authorize access="isAuthenticated() and !hasAuthority('admin')">
                     <tbody>
                     <tr>
-                        <td><a href="/member/info?id=${member.id}" style="color: #55A44E">내 정보</a></td>
+                        <td><a href="/member/myPage?id=${member.id}" style="color: #55A44E">내 정보</a></td>
                     </tr>
                     <tr>
                         <td><a href="/member/sponsored?id=${member.id }" style="color: #55A44E">내가 후원한 캠페인</a></td>

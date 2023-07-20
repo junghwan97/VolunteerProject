@@ -24,8 +24,6 @@
 
         <label for="endDate">종료 날짜:</label>
         <input type="date" id="endDate" name="vEndDate" value="${recruit.vEndDate}" required><br>
-
-<%--        <button type="button" onclick="showDateRange()">표시</button>--%>
     </div>
     <div>
         <label for="startTime">시작 시간:</label>
@@ -71,32 +69,6 @@
 
 </form>
 
-<%--<script>--%>
-<%--    function showDateRange() {--%>
-<%--        const startDateInput = document.getElementById('startDate');--%>
-<%--        const endDateInput = document.getElementById('endDate');--%>
-
-<%--        // 입력받은 날짜 값을 문자열로 가져옵니다.--%>
-<%--        const startDateStr = startDateInput.value;--%>
-<%--        const endDateStr = endDateInput.value;--%>
-
-<%--        // Date 객체를 생성하여 입력받은 날짜들을 파싱합니다.--%>
-<%--        const startDate = new Date(startDateStr);--%>
-<%--        const endDate = new Date(endDateStr);--%>
-
-<%--        // 원하는 형식으로 날짜 범위를 표시합니다.--%>
-<%--        const startYear = startDate.getFullYear();--%>
-<%--        const startMonth = String(startDate.getMonth() + 1).padStart(2, '0');--%>
-<%--        const startDay = String(startDate.getDate()).padStart(2, '0');--%>
-
-<%--        const endYear = endDate.getFullYear();--%>
-<%--        const endMonth = String(endDate.getMonth() + 1).padStart(2, '0');--%>
-<%--        const endDay = String(endDate.getDate()).padStart(2, '0');--%>
-
-<%--        const dateRangeText = `${startYear}.${startMonth}.${startDay} ~ ${endYear}.${endMonth}.${endDay}`;--%>
-<%--        document.getElementById('dateRangeResult').textContent = dateRangeText;--%>
-<%--    }--%>
-<%--</script>--%>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
