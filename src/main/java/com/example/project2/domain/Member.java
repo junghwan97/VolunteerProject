@@ -13,4 +13,5 @@ public class Member {
     private String nickName;
     private String address;
     private String authority;
+    private String addressSggNm;
 }

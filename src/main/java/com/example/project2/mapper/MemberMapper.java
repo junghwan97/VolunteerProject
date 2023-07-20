@@ -32,8 +32,8 @@ public interface MemberMapper {
     Member selectByNickName(String nickName);
 
     @Insert("""
-            INSERT INTO Member(id, password, name, gender, email, phoneNum, nickName, address)
-            VALUES(#{id}, #{password}, #{name}, #{gender}, #{email}, #{phoneNum}, #{nickName}, #{address})
+            INSERT INTO Member(id, password, name, gender, email, phoneNum, nickName, address, addressSggNm)
+            VALUES(#{id}, #{password}, #{name}, #{gender}, #{email}, #{phoneNum}, #{nickName}, #{address}, #{addressSggNm})
             """)
     Integer signupInsert(Member member);
 

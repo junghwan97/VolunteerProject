@@ -21,6 +21,12 @@ public interface RecruitMapper {
                 r.body,
                 r.writer,
                 r.inserted,
+                r.vStartDate,
+                r.vEndDate,
+                r.vStartTime,
+                r.vEndTime,
+                r.vField,
+                r.vPlace,
                 fr.fileName
             FROM Recruit r LEFT JOIN FileNamesForRecruit fr ON r.id = fr.recruitId
             WHERE r.id = #{id}
@@ -29,8 +35,8 @@ public interface RecruitMapper {
     Recruit getRecruitById(String id);
 
     @Insert("""
-            INSERT INTO Recruit(title, writer,body)
-            VALUES(#{title}, #{writer}, #{body})
+            INSERT INTO Recruit(title, writer, body, vStartDate, vEndDate, vStartTime, vEndTime, vField, vPlace)
+            VALUES(#{title}, #{writer}, #{body}, #{vStartDate}, #{vEndDate}, #{vStartTime}, #{vEndTime}, #{vField}, #{vPlace})
             """)
     @Options(useGeneratedKeys = true, keyProperty = "id")
     Integer addRecruit(Recruit recruit);

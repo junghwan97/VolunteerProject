@@ -10,6 +10,12 @@
         <result column="body" property="body"/>
         <result column="inserted" property="inserted"/>
         <result column="writer" property="writer"/>
+        <result column="vStartDate" property="vStartDate"/>
+        <result column="vEndDate" property="vEndDate"/>
+        <result column="vStartTime" property="vStartTime"/>
+        <result column="vEndTime" property="vEndTime"/>
+        <result column="vField" property="vField"/>
+        <result column="vPlace" property="vPlace"/>
 <!--        <result column="likeCount" property="likeCount"/>-->
         <collection property="fileName" ofType="string">
             <result column='fileName'/>

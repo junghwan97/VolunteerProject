@@ -168,14 +168,19 @@
           <div class="input-group">
             <input name="address" id="inputAddress" type="text" class="form-control" placeholder="Enter Address" required readonly />
           </div>
+          <div class="d-none">
+            <input name="addressSggNm" id="inputAddressSggNm" type="text" class="form-control" placeholder="Enter Address" required />
+          </div>
         </div>
-
-        <%--증빙 서류 업로드--%>
-        <div class="mb-3">
-          <label for="add-file" class="form-label"></label>
-          <span style="font-weight: 600;">증빙자료</span>
-          <input id="add-file" class="form-control" type="file"  name="fileList" multiple accept=".pdf, .doc, .docx"/>
+        <div class="d-none">
+          <input type="text" class="form-control" name="authority" value="user">
         </div>
+<%--        &lt;%&ndash;증빙 서류 업로드&ndash;%&gt;--%>
+<%--        <div class="mb-3">--%>
+<%--          <label for="add-file" class="form-label"></label>--%>
+<%--          <span style="font-weight: 600;">증빙자료</span>--%>
+<%--          <input id="add-file" class="form-control" type="file"  name="fileList" multiple accept=".pdf, .doc, .docx"/>--%>
+<%--        </div>--%>
 
 
 <%--        <div class="mb-3">--%>

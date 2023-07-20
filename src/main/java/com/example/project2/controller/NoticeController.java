@@ -1,6 +1,5 @@
 package com.example.project2.controller;
 
-import com.example.project2.domain.Campaign;
 import com.example.project2.domain.Member;
 import com.example.project2.domain.Notice;
 import com.example.project2.service.MemberService;
