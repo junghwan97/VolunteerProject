@@ -84,4 +84,11 @@ public interface KakaoMapper {
             WHERE campaignId = #{campaignId}
             """)
     Integer selectPartnerOrderId(Integer campaignId);
+
+    @Select("""
+            SELECT targetAmount
+            FROM DonationForm
+            WHERE campaignId = #{id}
+            """)
+    Integer findCampaignTarget(Integer id);
 }

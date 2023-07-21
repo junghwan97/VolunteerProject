@@ -176,4 +176,9 @@ public class KakaoPay {
         System.out.println(partnerOrderId);
         kakaoMapper.insertDonationTargetAmount(partnerOrderId, targetAmount, id);
     }
+
+    public Integer findCampaignTarget(Integer id) {
+       Integer targetAmount = kakaoMapper.findCampaignTarget(id);
+       return targetAmount;
+    }
 }

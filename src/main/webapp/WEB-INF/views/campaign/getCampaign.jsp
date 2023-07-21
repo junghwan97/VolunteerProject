@@ -58,7 +58,7 @@
     .sideMenuInner{
         display: flex;
         font-size: 25px;
-        /*text-align: center;*/
+        text-align: center;
     }
 
     .graph{
@@ -76,7 +76,7 @@
         text-align: right;
         /*width: 75%;*/
         background-color: aquamarine;
-        color: #fff;
+        color: black;
         border-radius: 40px;
         box-sizing: border-box;
         animation: stack 2s 1;
@@ -198,7 +198,7 @@
             <h4>기부 금액 현황 : ${allDonation}원</h4>
         </div>
         <div class="graph">
-            <span style="width: 10%">10%</span>
+            <span style="width: ${percent}%">${percent}%</span>
         </div>
     </div>
 </div>

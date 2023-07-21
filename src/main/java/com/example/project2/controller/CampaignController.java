@@ -59,8 +59,15 @@ public class CampaignController {
             Member userInfo = memberService.getUserInfo(authentication.getName());
             model.addAttribute("member", userInfo);
         }
-        Integer donation = kakaoPay.findMyDonationMoneyByCampaignId(id);
-        model.addAttribute("allDonation", donation);
+        int allDonation = kakaoPay.findMyDonationMoneyByCampaignId(id);
+        int targetAmount = kakaoPay.findCampaignTarget(id);
+        double percent = ((double) allDonation / targetAmount) * 100;
+        System.out.println(allDonation);
+        System.out.println(targetAmount);
+        System.out.println(percent);
+        model.addAttribute("allDonation", allDonation);
+        model.addAttribute("percent", percent);
+
             return "campaign/getCampaign";
     }
     @GetMapping("addCampaign")
