@@ -47,7 +47,7 @@
         </select>
     </div>
     <div>
-        <label for="vPlaceInput" class="form-label">제목 : </label>
+        <label for="vPlaceInput" class="form-label">봉사 장소 : </label>
         <input id="vPlaceInput" type="form-control" name="vPlace" value="${recruit.vPlace }" />
     </div>
     <div class="mb-3">

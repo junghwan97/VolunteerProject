@@ -52,6 +52,7 @@
         height: 50vh;
         padding: 20px;
         background-color: #f1f1f1;
+        text-align: center;
     }
 
     .sideMenuInner{
@@ -59,6 +60,36 @@
         font-size: 25px;
         /*text-align: center;*/
     }
+
+    .graph{
+        background-color: white;
+        border-color: black;
+        height: 40px;
+        border-radius: 40px;
+    }
+
+    .graph span{
+        display: block;
+        padding: 0 10px;
+        height: 40px;
+        line-height: 40px;
+        text-align: right;
+        /*width: 75%;*/
+        background-color: aquamarine;
+        color: #fff;
+        border-radius: 40px;
+        box-sizing: border-box;
+        animation: stack 2s 1;
+
+    }
+
+        @keyframes stack {
+            0% {width: 0; color: rgba(25,255,255,0);}
+            40% {color: rgba(25,255,255,1);}
+            100% {width: 100%;}
+
+        }
+
 
 </style>
 <body>
@@ -75,7 +106,8 @@
                     <c:forEach items="${campaign.repFileName }" var="fileName">
                 </div>
                 <div class="mb-3">
-                    <img class="img-thumbnail img-fluid campaign-image" src="${bucketUrl }/campaign/${campaign.id }/${fileName}"/>
+                    <img class="img-thumbnail img-fluid campaign-image"
+                         src="${bucketUrl }/campaign/${campaign.id }/${fileName}"/>
                 </div>
                 </c:forEach>
             </div>
@@ -139,33 +171,35 @@
     </div>
 
     <div class="sideMenu">
-        <sec:authorize access="isAuthenticated()">
             <%--좋아요 버튼--%>
             <div class="sideMenuInner">
                 <p>
                 <h3 id="likeNumber">${campaign.likeCount}</h3>번의
                 <h2 id="likeIcon">
-                    <c:if test="${campaign.liked}"><i class="like-icon fa-solid fa-heart" style="color: crimson"></i></c:if>
+                    <c:if test="${campaign.liked}"><i class="like-icon fa-solid fa-heart"
+                                                      style="color: crimson"></i></c:if>
                     <c:if test="${not campaign.liked}"><i class="like-icon fa-regular fa-heart"></i></c:if>
                 </h2>
-                 을 받고 있습니다!
+                을 받고 있습니다!
                 </p>
 
             </div>
-                <div class="donation" id="donation">
-                    <form action="/kakaoPay">
-                        <input id="" type="hidden" class="form-control" name="campaignId" value="${campaign.id }" readonly />
-                        <input id="" type="hidden" class="form-control" name="campaignName" value="${campaign.title }" readonly />
-                        <input id="donationSubmit" type="submit" class="btn btn-outline-success" value="기부하기" />
-                    </form>
-<%--                    <a href="/kakaoPay" class="btn btn-primary"> 기부하기</a>--%>
-                </div>
-
-
+        <sec:authorize access="isAuthenticated()">
+            <div class="donation" id="donation">
+                <form action="/kakaoPay">
+                    <input id="" type="hidden" class="form-control" name="campaignId" value="${campaign.id }" readonly/>
+                    <input id="" type="hidden" class="form-control" name="campaignName" value="${campaign.title }"
+                           readonly/>
+                    <input id="donationSubmit" type="submit" class="btn btn-outline-success" value="기부하기"/>
+                </form>
+            </div>
         </sec:authorize>
-        <sec:authorize access="isAnonymous()">
-
-        </sec:authorize>
+        <div>
+            <h4>기부 금액 현황 : ${allDonation}원</h4>
+        </div>
+        <div class="graph">
+            <span style="width: 10%">10%</span>
+        </div>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

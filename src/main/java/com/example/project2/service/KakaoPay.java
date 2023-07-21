@@ -125,10 +125,13 @@ public class KakaoPay {
     public DonationForm insertDonationInfo(Integer campaignId, DonationForm donationForm, String campaignName, String donor, String total_amount) {
 
 //        String orderId = String.valueOf(++basicOrderId);
-        Integer orderId = kakaoMapper.selectOrderId();
         donationForm.setCampaignId(campaignId);
-        donationForm.setPartner_order_id(Integer.toString(++orderId));
-        kakaoMapper.insertOrderId(donationForm.getPartner_order_id());
+//        Integer orderId = kakaoMapper.selectOrderId();
+//        donationForm.setPartner_order_id(Integer.toString(++orderId));
+        Integer orderId = kakaoMapper.selectPartnerOrderId(campaignId);
+//        kakaoMapper.insertOrderId(donationForm.getPartner_order_id());
+        kakaoMapper.insertOrderId(Integer.toString(orderId));
+        donationForm.setPartner_order_id(Integer.toString(orderId));
         donationForm.setPartner_user_id(donor);
         donationForm.setItem_name(campaignName);
         donationForm.setTotal_amount(total_amount);
@@ -153,5 +156,24 @@ public class KakaoPay {
             donation += Integer.parseInt(money);
         }
         return donation;
+    }
+
+    public Integer findMyDonationMoneyByCampaignId(Integer id) {
+        Integer donation = 0;
+        List<String> moneys = kakaoMapper.findMyDonationMoneyByCampaiginId(id);
+        for(String money : moneys){
+            if(money != null){
+                donation += Integer.parseInt(money);
+            }
+        }
+        return donation;
+    }
+
+    public void insertDonationTargetAmount(String targetAmount, Integer id) {
+        Integer orderId = kakaoMapper.selectOrderId();
+        String partnerOrderId = Integer.toString(++orderId);
+//        donationForm.setPartner_order_id(Integer.toString(++orderId));
+        System.out.println(partnerOrderId);
+        kakaoMapper.insertDonationTargetAmount(partnerOrderId, targetAmount, id);
     }
 }

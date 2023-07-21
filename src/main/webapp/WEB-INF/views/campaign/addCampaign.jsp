@@ -20,11 +20,16 @@
   </div>
 
   <div class="mb-3">
-    <label for="repFileInput" class="form-label">그림 파일</label>
+    <label for="repFileInput" class="form-label">메인 사진 파일</label>
     <input class="form-control" type="file" id="repFileInput" name="repFile" multiple accept="image/*">
     <div class="form-text">
       총 10MB, 하나의 파일은 1MB 크기를 초과할 수 없습니다.
     </div>
+  </div>
+
+  <div>
+    <label for="targetAmountInput" class="form-label">목표금액 : </label>
+    <input id="targetAmountInput" type="form-control" name="targetAmount" value="${donationForm.targetAmount }" />
   </div>
 
   <div class="mb-3">

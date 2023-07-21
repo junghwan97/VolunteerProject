@@ -10,5 +10,5 @@ public class DonationForm {
     private String partner_user_id;
     private String item_name;
     private String total_amount;
-    private Integer donationSum;
+    private String targetAmount;
 }

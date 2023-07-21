@@ -1,9 +1,11 @@
 package com.example.project2.controller;
 
 import com.example.project2.domain.Campaign;
+import com.example.project2.domain.DonationForm;
 import com.example.project2.domain.Like;
 import com.example.project2.domain.Member;
 import com.example.project2.service.CampaignService;
+import com.example.project2.service.KakaoPay;
 import com.example.project2.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,9 @@ public class CampaignController {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private KakaoPay kakaoPay;
 
     @GetMapping("campaignList")
 //    @PreAuthorize("isAuthenticated()")
@@ -54,6 +59,8 @@ public class CampaignController {
             Member userInfo = memberService.getUserInfo(authentication.getName());
             model.addAttribute("member", userInfo);
         }
+        Integer donation = kakaoPay.findMyDonationMoneyByCampaignId(id);
+        model.addAttribute("allDonation", donation);
             return "campaign/getCampaign";
     }
     @GetMapping("addCampaign")
@@ -68,15 +75,18 @@ public class CampaignController {
 
     @PostMapping("addCampaign")
     public String addCampaignProcess(Campaign campaign,
+//                                     DonationForm donationForm,
                                      Authentication authentication,
                                      @RequestParam("files")MultipartFile[] files,
                                      @RequestParam("repFile")MultipartFile repFile,
+                                     @RequestParam("targetAmount")String targetAmount,
                                      RedirectAttributes rttr) throws Exception {
-        campaign.setWriter(memberService.getNickName(authentication.getName()));
 
+        campaign.setWriter(memberService.getNickName(authentication.getName()));
         boolean ok = campaignService.addCampaign(campaign, files, repFile);
         if (ok) {
             rttr.addFlashAttribute("message", campaign.getId() + "번 게시물이 등록되었습니다.");
+            kakaoPay.insertDonationTargetAmount(targetAmount, campaign.getId());
             return "redirect:/campaign/campaignId/" + campaign.getId();
         } else {
             rttr.addFlashAttribute("message", campaign.getId() + "번 게시물 등록중 문제가 발생하였습니다.");
