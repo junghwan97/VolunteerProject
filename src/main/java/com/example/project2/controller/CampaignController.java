@@ -61,11 +61,7 @@ public class CampaignController {
         }
         int allDonation = kakaoPay.findMyDonationMoneyByCampaignId(id);
         int targetAmount = kakaoPay.findCampaignTarget(id);
-        double percent = ((double) allDonation / targetAmount) * 100;
-
-        System.out.println(allDonation);
-        System.out.println(targetAmount);
-        System.out.println(percent);
+        double percent = Math.round(((double) allDonation / targetAmount) * 100 * 100) / 100;
 
         model.addAttribute("allDonation", allDonation);
         model.addAttribute("percent", percent);
