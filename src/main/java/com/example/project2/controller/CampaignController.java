@@ -62,9 +62,11 @@ public class CampaignController {
         int allDonation = kakaoPay.findMyDonationMoneyByCampaignId(id);
         int targetAmount = kakaoPay.findCampaignTarget(id);
         double percent = ((double) allDonation / targetAmount) * 100;
+
         System.out.println(allDonation);
         System.out.println(targetAmount);
         System.out.println(percent);
+
         model.addAttribute("allDonation", allDonation);
         model.addAttribute("percent", percent);
 
@@ -82,7 +84,6 @@ public class CampaignController {
 
     @PostMapping("addCampaign")
     public String addCampaignProcess(Campaign campaign,
-//                                     DonationForm donationForm,
                                      Authentication authentication,
                                      @RequestParam("files")MultipartFile[] files,
                                      @RequestParam("repFile")MultipartFile repFile,

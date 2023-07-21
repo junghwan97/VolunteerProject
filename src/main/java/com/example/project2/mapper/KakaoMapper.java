@@ -11,15 +11,9 @@ import java.util.List;
 @Mapper
 public interface KakaoMapper {
 
-    @Update("""
-            UPDATE DonationForm
-            SET
-                partner_order_id = #{partner_order_id},
-                partner_user_id = #{partner_user_id},
-                item_name = #{item_name},
-                total_amount = #{total_amount}
-            WHERE 
-                campaignId = #{campaignId}           
+    @Insert("""
+            INSERT INTO DonationForm (campaignId, partner_order_id, partner_user_id, item_name, total_amount)
+            VALUES (#{campaignId}, #{partner_order_id}, #{partner_user_id}, #{item_name}, #{total_amount})
             """)
     Integer insertDonationInfo(DonationForm donationForm);
 
@@ -73,10 +67,10 @@ public interface KakaoMapper {
     List<String> findMyDonationMoneyByCampaiginId(Integer id);
 
     @Insert("""
-            INSERT INTO DonationForm(campaignId, partner_order_id, targetAmount)
-            VALUES (#{id}, #{partner_order_id}, #{targetAmount})
+            INSERT INTO DonationForm(campaignId, targetAmount)
+            VALUES (#{id}, #{targetAmount})
             """)
-    void insertDonationTargetAmount(String partner_order_id, String targetAmount, Integer id);
+    void insertDonationTargetAmount(String targetAmount, Integer id);
 
     @Select("""
             SELECT partner_order_id
@@ -88,7 +82,7 @@ public interface KakaoMapper {
     @Select("""
             SELECT targetAmount
             FROM DonationForm
-            WHERE campaignId = #{id}
+            WHERE campaignId = #{id} AND targetAmount IS NOT NULL
             """)
     Integer findCampaignTarget(Integer id);
 }
