@@ -44,11 +44,20 @@
             <option value="문화행사"> 문화행사
             <option value="안전.예방"> 안전.예방
             <option value="멘토링"> 멘토링
+            <option value="기타"> 기타
         </select>
     </div>
     <div>
         <label for="vPlaceInput" class="form-label">봉사 장소 : </label>
-        <input id="vPlaceInput" type="form-control" name="vPlace" value="${recruit.vPlace }" />
+        <input id="vPlaceInput" type="form-control" name="vPlace" value="${member.address }" readonly/>
+    </div>
+    <div>
+        <label for="addressSggNmInput" class="form-label">등록기관 : </label>
+        <input id="addressSggNmInput" type="form-control" name="addressSggNm" value="${member.addressSggNm }" readonly/>
+    </div>
+    <div>
+        <label for="telInput" class="form-label">전화번호 : </label>
+        <input id="telInput" type="form-control" name="tel" value="${member.phoneNum }" readonly/>
     </div>
     <div class="mb-3">
         <label for="bodyInput" class="from-label">본문</label> <br />

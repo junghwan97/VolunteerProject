@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("recruit")
@@ -25,8 +26,13 @@ public class RecruitController {
     private MemberService memberService;
 
     @GetMapping("recruitList")
-    public void recruitList(Model model, Authentication authentication){
-       List<Recruit> recruitList = recruitService.getRecruitList();
+    public void recruitList(Model model,
+                            Authentication authentication,
+                            @RequestParam(value = "page", defaultValue = "1") Integer page,
+                            @RequestParam(value = "search", defaultValue = "") String search,
+                            @RequestParam(value = "type", required = false) String type){
+//       List<Recruit> recruitList = recruitService.getRecruitList(page, search,type);
+       Map<String, Object> recruitList = recruitService.getRecruitList(page, search,type);
        model.addAttribute("recruitList", recruitList);
 
         if (authentication != null) {

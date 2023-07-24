@@ -64,6 +64,7 @@ public class CampaignController {
         double percent = Math.round(((double) allDonation / targetAmount) * 100 * 100) / 100;
 
         model.addAttribute("allDonation", allDonation);
+        model.addAttribute("targetAmount", targetAmount);
         model.addAttribute("percent", percent);
 
             return "campaign/getCampaign";

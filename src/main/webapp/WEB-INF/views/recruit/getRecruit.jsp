@@ -42,7 +42,7 @@
                 <div>
                     <div class="me-auto">
                         <h1>
-                            <span id="recruitIdText"> ${recruit.id }번 게시물</span>
+                            <span id="recruitIdText"> ${recruit.title }</span>
                         </h1>
                     </div>
                     <div class="mb-3">
@@ -74,13 +74,13 @@
                             </tr>
                             <tr>
                                 <th>주소</th>
-                                <td>${member.address}</td>
+                                <td>${recruit.VPlace}</td>
                                 <th>등록기관</th>
-                                <td>${member.addressSggNm}</td>
+                                <td>${recruit.addressSggNm}</td>
                             </tr>
                             <tr>
                                 <th>연락처</th>
-                                <td>${member.phoneNum}</td>
+                                <td>${recruit.tel}</td>
                                 <td colspan="3"></td>
                             </tr>
                             </tbody>

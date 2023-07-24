@@ -16,6 +16,8 @@
         <result column="vEndTime" property="vEndTime"/>
         <result column="vField" property="vField"/>
         <result column="vPlace" property="vPlace"/>
+        <result column="addressSggNm" property="addressSggNm"/>
+        <result column="tel" property="tel"/>
 <!--        <result column="likeCount" property="likeCount"/>-->
         <collection property="fileName" ofType="string">
             <result column='fileName'/>

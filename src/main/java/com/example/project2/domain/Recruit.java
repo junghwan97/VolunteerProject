@@ -22,4 +22,7 @@ public class Recruit {
     private String vField;
     private String vPlace;
 
+    private String addressSggNm;
+    private String tel;
+
 }

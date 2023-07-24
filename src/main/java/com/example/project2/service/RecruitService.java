@@ -12,7 +12,9 @@ import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RecruitService {
@@ -26,9 +28,48 @@ public class RecruitService {
     @Value("${aws.s3.bucketName}")
     private String bucketName;
 
-    public List<Recruit> getRecruitList() {
-        List<Recruit> recruitList = recruitMapper.getAllRecruit();
-        return recruitList;
+//    public List<Recruit> getRecruitList(Integer page, String search, String type) {
+    public Map<String, Object> getRecruitList(Integer page, String search, String type) {
+//        List<Recruit> recruitList = recruitMapper.getAllRecruit();
+//        return recruitList;
+
+        // 페이지 당 행의 수
+        Integer rowPerPage = 10;
+        // 쿼리 LIMIT 절에 사용할 시작 인덱스
+        Integer startIndex = (page - 1) * rowPerPage;
+
+        // 페이지네이션이 필요한 정보
+        // 전체 레코드 수
+        Integer numOfRecords = recruitMapper.countAll(search, type);
+
+        // 맨처음 페이지
+        Integer firstPageNum = 1;
+        // 마지막 페이지 번호
+        Integer lastPageNum = (numOfRecords - 1) / rowPerPage + 1;
+
+        // 페이지네이션 왼쪽번호
+        Integer leftPageNum = page - 5;
+        // 1보다 작을 수 없음
+        leftPageNum = Math.max(leftPageNum, 1);
+
+        // 페이지네이션 오른쪽번호
+        Integer rightPageNum = leftPageNum + 9;
+        // 마지막페이지보다 클 수 없음
+        rightPageNum = Math.min(rightPageNum, lastPageNum);
+
+        // 현재 페이지
+        Integer currentPageNum = page;
+
+        Map<String, Object> pageInfo = new HashMap<>();
+        pageInfo.put("rightPageNum", rightPageNum);
+        pageInfo.put("leftPageNum", leftPageNum);
+        pageInfo.put("currentPageNum", page);
+        pageInfo.put("firstPageNum", firstPageNum);
+        pageInfo.put("lastPageNum", lastPageNum);
+
+        // 게시물 목록
+        List<Recruit> list = recruitMapper.selectAllPaging(startIndex, rowPerPage, search, type);
+        return Map.of("pageInfo", pageInfo, "recruitList", list);
     }
 
     public Recruit getRecruit(String id) {

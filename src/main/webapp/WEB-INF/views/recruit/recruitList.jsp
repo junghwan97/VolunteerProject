@@ -25,6 +25,23 @@
 <my:alert></my:alert>
 <div class="container-lg">
     <h1>봉사활동 지원 / 공고 게시판</h1>
+
+    <div class="header__center">
+        <form action="./recruitList" class="d-flex" role="search">
+            <div class="input-group">
+                <select class="form-select flex-grow-0" style="width: 100px;" name="type" id="">
+                    <option value="all">전체</option>
+                    <option value="title" ${param.type eq 'title' ? 'selected' : '' }>제목</option>
+                    <option value="body" ${param.type eq 'body' ? 'selected' : '' }>본문</option>
+                    <option value="writer" ${param.type eq 'writer' ? 'selected' : '' }>작성자</option>
+                </select> <input value="${param.search }" name="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-primary" type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+
     <table class="table">
         <thead>
         <tr>
@@ -34,7 +51,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${recruitList}" var="recruitList">
+        <c:forEach items="${recruitList.recruitList}" var="recruitList">
             <tr>
                 <td><a href="/recruit/recruitId/${recruitList.id}"><span class="title"> ${recruitList.title}</span> <br></a></td>
                 <td>${recruitList.writer }</td>
@@ -44,6 +61,50 @@
         </tbody>
     </table>
     <div class="add"><a href="/recruit/addRecruit" class="btn btn-primary">모집하기</a></div>
+    <div class="container-lg" id="pagination1">
+        <div class="row">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <!-- 이전 버튼 -->
+                    <c:if test="${recruitList.pageInfo.currentPageNum gt 1 }">
+                        <c:url value="./recruitList" var="pageLink">
+                            <c:param name="page" value="${recruitList.pageInfo.currentPageNum - 1 }" />
+                            <c:if test="${not empty param.search }">
+                                <c:param name="search" value="${param.search }" />
+                            </c:if>
+                        </c:url>
+                        <li class="page-item"><a class="page-link" href="${pageLink }">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </a></li>
+                    </c:if>
+                    <c:forEach begin="${recruitList.pageInfo.leftPageNum }" end="${recruitList.pageInfo.rightPageNum }" var="pageNum">
+                        <c:url value="./recruitList" var="pageLink">
+                            <c:param name="page" value="${pageNum }" />
+                            <c:if test="${not empty param.search }">
+                                <c:param name="search" value="${param.search }" />
+                            </c:if>
+                            <c:if test="${not empty param.type }">
+                                <c:param name="type" value="${param.type }" />
+                            </c:if>
+                        </c:url>
+                        <li class="page-item"><a class="page-link ${pageNum eq recruitList.pageInfo.currentPageNum ? 'active' : '' }" href="${pageLink }">${pageNum }</a></li>
+                    </c:forEach>
+                    <!-- 다음 버튼 -->
+                    <c:if test="${recruitList.pageInfo.currentPageNum lt recruitList.pageInfo.lastPageNum }">
+                        <c:url value="./recruitList" var="pageLink">
+                            <c:param name="page" value="${recruitList.pageInfo.currentPageNum + 1 }" />
+                            <c:if test="${not empty param.search }">
+                                <c:param name="search" value="${param.search }" />
+                            </c:if>
+                        </c:url>
+                        <li class="page-item"><a class="page-link" href="${pageLink }">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </a></li>
+                    </c:if>
+                </ul>
+            </nav>
+        </div>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>

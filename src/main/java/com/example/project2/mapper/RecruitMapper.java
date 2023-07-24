@@ -27,7 +27,9 @@ public interface RecruitMapper {
                 r.vEndTime,
                 r.vField,
                 r.vPlace,
-                fr.fileName
+                fr.fileName,
+                r.addressSggNm,
+                r.tel
             FROM Recruit r LEFT JOIN FileNamesForRecruit fr ON r.id = fr.recruitId
             WHERE r.id = #{id}
             """)
@@ -35,8 +37,8 @@ public interface RecruitMapper {
     Recruit getRecruitById(String id);
 
     @Insert("""
-            INSERT INTO Recruit(title, writer, body, vStartDate, vEndDate, vStartTime, vEndTime, vField, vPlace)
-            VALUES(#{title}, #{writer}, #{body}, #{vStartDate}, #{vEndDate}, #{vStartTime}, #{vEndTime}, #{vField}, #{vPlace})
+            INSERT INTO Recruit(title, writer, body, vStartDate, vEndDate, vStartTime, vEndTime, vField, vPlace, addressSggNm, tel)
+            VALUES(#{title}, #{writer}, #{body}, #{vStartDate}, #{vEndDate}, #{vStartTime}, #{vEndTime}, #{vField}, #{vPlace}, #{addressSggNm}, #{tel})
             """)
     @Options(useGeneratedKeys = true, keyProperty = "id")
     Integer addRecruit(Recruit recruit);
@@ -51,7 +53,11 @@ public interface RecruitMapper {
             UPDATE Recruit
             SET 
                title = #{title},
-               body = #{body}
+               body = #{body},
+               vStartDate = #{vStartDate},
+               vEndDate = #{vEndDate},
+               vStartTime = #{vStartTime},
+               vEndTime = #{vEndTime}
             WHERE 
                 id = #{id}
             """)
@@ -82,4 +88,55 @@ public interface RecruitMapper {
             WHERE recruitId = #{id}
             """)
     void deleteFileNameByRecruitId(String id);
+
+    @Select("""
+			<script>
+			<bind name="pattern" value="'%' + search + '%'" />
+			SELECT COUNT(*)
+			FROM Recruit
+			<where>
+			
+			<if test="type == 'all'">
+				title LIKE #{pattern}	
+			 OR body LIKE #{pattern}
+		   	 OR writer LIKE #{pattern}
+			</if>
+			
+			<if test="type == 'title'">
+				title LIKE #{pattern}	
+			</if>						
+			
+			<if test="type == 'body'">
+			 OR body LIKE #{pattern}
+			</if>
+			
+			<if test="type == 'writer'">
+		   	 OR writer LIKE #{pattern}			
+			</if>
+		   	</where> 
+		   	 </script>
+			""")
+    Integer countAll(String search, String type);
+
+    @Select("""
+			<script>
+			<bind name="pattern" value="'%' + search + '%'" />
+			SELECT *											
+			FROM Recruit
+			<where>
+				<if test="(type eq 'all') or (type eq 'title')">
+				   title  LIKE #{pattern}
+				</if>
+				<if test="(type eq 'all') or (type eq 'body')">
+				OR body   LIKE #{pattern}
+				</if>
+				<if test="(type eq 'all') or (type eq 'writer')">
+				OR writer LIKE #{pattern}
+				</if>
+			</where>
+			ORDER BY id DESC
+			LIMIT #{startIndex}, #{rowPerPage}
+			</script>
+			""")
+    List<Recruit> selectAllPaging(Integer startIndex, Integer rowPerPage, String search, String type);
 }
