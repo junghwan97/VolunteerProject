@@ -5,6 +5,7 @@ import com.example.project2.domain.Recruit;
 import com.example.project2.service.MemberService;
 import com.example.project2.service.RecruitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,6 +54,7 @@ public class RecruitController {
     }
 
     @GetMapping("addRecruit")
+    @PreAuthorize("hasAuthority('needVolunteer') or hasAuthority('admin')")
     public void addRecruitForm(Model model, Authentication authentication){
         if (authentication != null) {
             Member userInfo = memberService.getUserInfo(authentication.getName());

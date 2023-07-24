@@ -24,7 +24,9 @@
 <my:navbar current="recruitList"/>
 <my:alert></my:alert>
 <div class="container-lg">
-    <div class="add"><a href="/recruit/addRecruit" class="btn btn-primary">모집하기</a></div>
+    <sec:authorize access="hasAuthority('needVolunteer') or hasAuthority('admin')">
+        <div class="add"><a href="/recruit/addRecruit" class="btn btn-primary">모집하기</a></div>
+    </sec:authorize>
     <h1>봉사활동 지원 / 공고 게시판</h1>
     <div class="header__center">
         <form action="./recruitList" class="d-flex" role="search">

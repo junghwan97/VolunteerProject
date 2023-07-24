@@ -121,10 +121,10 @@
           <th>주소</th>
           <td>${member.address}</td>
         </tr>
-        <tr>
-          <th>주소</th>
-          <td>${member.addressSggNm}</td>
-        </tr>
+<%--        <tr>--%>
+<%--          <th>주소</th>--%>
+<%--          <td>${member.addressSggNm}</td>--%>
+<%--        </tr>--%>
         <tr>
           <th>권한</th>
           <td>${member.authority}</td>

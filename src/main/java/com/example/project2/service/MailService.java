@@ -28,8 +28,8 @@ public class MailService {
         Random random = new Random();
         int randomNumber = random.nextInt(900000) + 100000;
 
-        simpleMailMessage.setSubject("인증메일입니다.");
-        simpleMailMessage.setText("안녕하세요! 인증메일 보내드립니다.\n" + randomNumber);
+        simpleMailMessage.setSubject("안녕하세요! HI-FIVE 인증메일입니다!");
+        simpleMailMessage.setText("안녕하세요! HI-FIVE 인증메일 보내드립니다.\n" + randomNumber + "\n 항상 저희 HI-FIVE에 관심을 가져주셔서 감사합니다!");
 
         javaMailSender.send(simpleMailMessage);
         session.setAttribute("authenticatedNum", randomNumber);
