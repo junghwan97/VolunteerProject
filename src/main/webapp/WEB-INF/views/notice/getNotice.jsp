@@ -18,12 +18,10 @@
 
             <div>
                 <div class="mb-3">
-                    <label for="" class="form-label">작성자</label> <input type="text" class="form-control"
-                                                                        value="${notice.writer }" readonly/>
+                    <label for="" class="form-label">작성자</label> <input type="text" class="form-control" value="${notice.writer }" readonly/>
                 </div>
                 <div class="mb-3">
-                    <label for="" class="form-label">작성일시</label> <input type="text" readonly class="form-control"
-                                                                         value="${notice.inserted }"/>
+                    <label for="" class="form-label">작성일시</label> <input type="text" readonly class="form-control" value="${notice.inserted }"/>
                 </div>
                 <div class="mb-3">
                     <label for="" class="form-label">본문</label>

@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("notice")
@@ -26,9 +27,14 @@ public class NoticeController {
     private MemberService memberService;
 
     @GetMapping("noticeList")
-    public void list(Model model, Authentication authentication){
+    public void list(Model model,
+                     Authentication authentication,
+                     @RequestParam(value = "page", defaultValue = "1") Integer page,
+                     @RequestParam(value = "search", defaultValue = "") String search,
+                     @RequestParam(value = "type", required = false) String type){
 
-        List<Notice> result = noticeService.noticeList();
+//        List<Notice> result = noticeService.noticeList(page, search, type);
+        Map<String, Object> result = noticeService.noticeList(page, search, type);
         model.addAttribute("noticeList", result);
 
         if(authentication != null) {

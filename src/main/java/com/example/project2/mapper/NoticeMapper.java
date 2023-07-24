@@ -62,4 +62,55 @@ public interface NoticeMapper {
                 AND fileName = #{fileName}
             """)
     void deleteFileNameByNoticeIdAndFileName(Integer id, String fileName);
+
+    @Select("""
+			<script>
+			<bind name="pattern" value="'%' + search + '%'" />
+			SELECT COUNT(*)
+			FROM Notice
+			<where>
+			
+			<if test="type == 'all'">
+				title LIKE #{pattern}	
+			 OR body LIKE #{pattern}
+		   	 OR writer LIKE #{pattern}
+			</if>
+			
+			<if test="type == 'title'">
+				title LIKE #{pattern}	
+			</if>						
+			
+			<if test="type == 'body'">
+			 OR body LIKE #{pattern}
+			</if>
+			
+			<if test="type == 'writer'">
+		   	 OR writer LIKE #{pattern}			
+			</if>
+		   	</where> 
+		   	 </script>
+			""")
+    Integer countAll(String search, String type);
+
+    @Select("""
+			<script>
+			<bind name="pattern" value="'%' + search + '%'" />
+			SELECT *											
+			FROM Notice
+			<where>
+				<if test="(type eq 'all') or (type eq 'title')">
+				   title  LIKE #{pattern}
+				</if>
+				<if test="(type eq 'all') or (type eq 'body')">
+				OR body   LIKE #{pattern}
+				</if>
+				<if test="(type eq 'all') or (type eq 'writer')">
+				OR writer LIKE #{pattern}
+				</if>
+			</where>
+			ORDER BY id DESC
+			LIMIT #{startIndex}, #{rowPerPage}
+			</script>
+			""")
+    List<Notice> selectAllPaging(Integer startIndex, Integer rowPerPage, String search, String type);
 }

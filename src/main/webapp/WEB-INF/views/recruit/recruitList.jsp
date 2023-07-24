@@ -24,8 +24,8 @@
 <my:navbar current="recruitList"/>
 <my:alert></my:alert>
 <div class="container-lg">
+    <div class="add"><a href="/recruit/addRecruit" class="btn btn-primary">모집하기</a></div>
     <h1>봉사활동 지원 / 공고 게시판</h1>
-
     <div class="header__center">
         <form action="./recruitList" class="d-flex" role="search">
             <div class="input-group">
@@ -60,7 +60,6 @@
         </c:forEach>
         </tbody>
     </table>
-    <div class="add"><a href="/recruit/addRecruit" class="btn btn-primary">모집하기</a></div>
     <div class="container-lg" id="pagination1">
         <div class="row">
             <nav aria-label="Page navigation example">

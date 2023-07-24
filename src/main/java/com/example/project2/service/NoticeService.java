@@ -1,6 +1,7 @@
 package com.example.project2.service;
 
 import com.example.project2.domain.Notice;
+import com.example.project2.domain.Recruit;
 import com.example.project2.mapper.NoticeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +14,9 @@ import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -27,6 +30,48 @@ public class NoticeService {
 
     @Autowired
     private NoticeMapper noticeMapper;
+
+
+    public Map<String, Object> noticeList(Integer page, String search, String type) {
+
+        // 페이지 당 행의 수
+        Integer rowPerPage = 10;
+        // 쿼리 LIMIT 절에 사용할 시작 인덱스
+        Integer startIndex = (page - 1) * rowPerPage;
+
+        // 페이지네이션이 필요한 정보
+        // 전체 레코드 수
+        Integer numOfRecords = noticeMapper.countAll(search, type);
+
+        // 맨처음 페이지
+        Integer firstPageNum = 1;
+        // 마지막 페이지 번호
+        Integer lastPageNum = (numOfRecords - 1) / rowPerPage + 1;
+
+        // 페이지네이션 왼쪽번호
+        Integer leftPageNum = page - 5;
+        // 1보다 작을 수 없음
+        leftPageNum = Math.max(leftPageNum, 1);
+
+        // 페이지네이션 오른쪽번호
+        Integer rightPageNum = leftPageNum + 9;
+        // 마지막페이지보다 클 수 없음
+        rightPageNum = Math.min(rightPageNum, lastPageNum);
+
+        // 현재 페이지
+        Integer currentPageNum = page;
+
+        Map<String, Object> pageInfo = new HashMap<>();
+        pageInfo.put("rightPageNum", rightPageNum);
+        pageInfo.put("leftPageNum", leftPageNum);
+        pageInfo.put("currentPageNum", page);
+        pageInfo.put("firstPageNum", firstPageNum);
+        pageInfo.put("lastPageNum", lastPageNum);
+
+        // 게시물 목록
+        List<Notice> list = noticeMapper.selectAllPaging(startIndex, rowPerPage, search, type);
+        return Map.of("pageInfo", pageInfo, "noticeList", list);
+    }
 
     public List<Notice> noticeList() {
         List<Notice> list = noticeMapper.getNoticeList();
