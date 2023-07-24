@@ -50,6 +50,10 @@
   /*.container-lg {*/
   /*  margin-top: 50px;*/
   /*}*/
+
+  p{
+    color: red;
+  }
 </style>
 <body>
 <my:navbar current="signup"></my:navbar>
@@ -58,7 +62,7 @@
   <div class="row justify-content-center">
     <div class="col-12 col-md-8 col-lg-8">
       <h1>회원 가입</h1>
-      <form method="post" id="signup-form">
+      <form method="post" id="signup-form" enctype="multipart/form-data">
         <div class="mb-3">
           <div class="input-group">
             <input id="inputId" type="text" class="form-control" name="id" value="${member.id }" placeholder="ID" />
@@ -175,22 +179,30 @@
         <div class="d-none">
           <input type="text" class="form-control" name="authority" value="user">
         </div>
-<%--        &lt;%&ndash;증빙 서류 업로드&ndash;%&gt;--%>
-<%--        <div class="mb-3">--%>
-<%--          <label for="add-file" class="form-label"></label>--%>
-<%--          <span style="font-weight: 600;">증빙자료</span>--%>
-<%--          <input id="add-file" class="form-control" type="file"  name="fileList" multiple accept=".pdf, .doc, .docx"/>--%>
-<%--        </div>--%>
 
+        <div class="mb-3">
+          <h5 style="display: flex"><p>*</p>권한 신청</h5>
+          <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="authority" id="volunteer" autocomplete="off" value="volunteer" checked>
+            <label class="btn btn-outline-success" for="volunteer">자원 봉사자 / 후원자</label>
+            <input type="radio" class="btn-check" name="authority" id="needVolunteer" autocomplete="off" value="preNeedVolunteer">
+            <label class="btn btn-outline-success" for="needVolunteer">봉사 수혜기관 / 수혜기관</label>
+          </div>
+        </div>
 
-<%--        <div class="mb-3">--%>
-<%--          <div class="btn-group" role="group" aria-label="Basic radio toggle button group">--%>
-<%--            <input type="radio" class="btn-check" name="authority" id="volunteer" autocomplete="off" value="volunteer">--%>
-<%--            <label class="btn btn-outline-success" for="volunteer">자원 봉사자 / 후원자</label>--%>
-<%--            <input type="radio" class="btn-check" name="authority" id="needVolunteer" autocomplete="off" value="needVolunteer">--%>
-<%--            <label class="btn btn-outline-success" for="needVolunteer">봉사 수혜기관 / 수혜기관</label>--%>
-<%--          </div>--%>
-<%--        </div>--%>
+            <div class="mb-3 d-none" id="submitDocu">
+              <span style="color: #EB4F43">봉사 수혜기관 / 수혜기관 선택 시 하단 파일 양식 작성 후 제출해주세요!</span> <br>
+              <h6>ex) 자원봉사 수요처 등록신청서(기관명).hwpx</h6>
+              <br>
+              <div>
+                <label for="add-file" class="form-label"></label>
+                <span style="font-weight: 600;">증빙자료</span>
+                <input id="add-file" class="form-control" type="file"  name="docu" multiple accept=".pdf, .doc, .docx, .hwpx"/>
+              </div>
+              <br>
+              <a href="${bucketUrl}/notice/10/자원봉사 수요처 등록신청서.hwpx" download>파일 양식: 자원봉사 수요처 등록신청서.hwpx
+           </div>
+
 
         <div class="mb-3">
           <input disabled id="signupSubmit" type="submit" class="btn btn-outline-success" value="가입" />

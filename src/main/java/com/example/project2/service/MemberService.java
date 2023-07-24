@@ -4,9 +4,15 @@ import com.example.project2.domain.Member;
 import com.example.project2.mapper.CampaignLikeMapper;
 import com.example.project2.mapper.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.util.Map;
 
@@ -23,13 +29,31 @@ public class MemberService {
     @Autowired
     private CampaignLikeMapper campaignLikeMapper;
 
-    public boolean signup(Member member) {
+    @Autowired
+    private S3Client s3;
+
+    @Value("${aws.s3.bucketName}")
+    private String bucketName;
+
+    public boolean signup(Member member, MultipartFile docu) throws Exception {
 
         String plain = member.getPassword();
         member.setPassword(passwordEncoder.encode(plain));
 
         int user = memberMapper.signupInsert(member);
         memberMapper.insertAuthority(member);
+
+        String objectKey = "member/" + member.getId() + "/" + docu.getOriginalFilename();
+
+        PutObjectRequest por = PutObjectRequest.builder().key(objectKey).acl(ObjectCannedACL.PUBLIC_READ)
+                .bucket(bucketName).build();
+        RequestBody rb = RequestBody.fromInputStream(docu.getInputStream(), docu.getSize());
+
+        s3.putObject(por, rb);
+        // db에 관련 정보 저장(insert)
+        System.out.println(member.getId());
+        memberMapper.insertFileName(member.getId(), docu.getOriginalFilename());
+
         return user == 1;
     }
 

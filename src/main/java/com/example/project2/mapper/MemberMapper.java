@@ -92,4 +92,9 @@ public interface MemberMapper {
             """)
     void deleteAuthority(String id);
 
+    @Insert("""
+            INSERT INTO DocuForMember(memberId, fileName)
+            VALUES (#{id}, #{originalFilename})
+            """)
+    void insertFileName(String id, String originalFilename);
 }

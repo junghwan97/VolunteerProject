@@ -24,7 +24,7 @@
     <div class="mb-3">
         <label for="add-file" class="form-label"></label>
         <span style="font-weight: 600;">증빙자료</span>
-        <input id="add-file" class="form-control" type="file"  name="docu" multiple accept=".pdf, .doc, .docx"/>
+        <input id="add-file" class="form-control" type="file"  name="docu" multiple accept=".pdf, .doc, .docx, .hwpx"/>
     </div>
 
     <div class="mb-3">

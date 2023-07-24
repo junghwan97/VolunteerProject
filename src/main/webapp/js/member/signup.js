@@ -175,8 +175,8 @@ $("#inputPhoneNum").keyup(function() {
 $("#inputNickName").keyup(function() {
     // 별명 중복확인 다시
     checkNickname = false;
-    $("#availablePhoneNumMessage").addClass("d-none");
-    $("#notAvailablePhoneNumMessage").addClass("d-none");
+    $("#availableNicknameMessage").addClass("d-none");
+    $("#notAvailableNicknameMessage").addClass("d-none");
     // submit 버튼 비활성화
     enableSubmit();
 })
@@ -262,7 +262,13 @@ function jusoCallBack(roadFullAddr, siNm, sggNm) {
 
     var addressSggNm = document.querySelector("#inputAddressSggNm");
     addressSggNm.value = siNm + " " + sggNm;
-
-
 }
+
+$("#volunteer").click(function() {
+    $("#submitDocu").addClass("d-none");
+})
+
+$("#needVolunteer").click(function() {
+    $("#submitDocu").removeClass("d-none");
+})
 

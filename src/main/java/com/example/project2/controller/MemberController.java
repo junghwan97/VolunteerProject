@@ -12,6 +12,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -36,10 +37,12 @@ public class MemberController {
     }
 
     @PostMapping("signup")
-    public String signupProcess(Member member, RedirectAttributes rttr) {
+    public String signupProcess(Member member,
+                                RedirectAttributes rttr,
+                                @RequestParam("docu")MultipartFile docu) {
 
         try {
-            memberService.signup(member);
+            memberService.signup(member, docu);
             rttr.addFlashAttribute("message", "회원가입이 완료되었습니다");
             return "redirect:/member/login";
         } catch (Exception e) {
