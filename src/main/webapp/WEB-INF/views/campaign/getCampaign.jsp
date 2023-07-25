@@ -102,7 +102,7 @@
                 <h3>${campaign.title }</h3>
                 <div>by ${campaign.writer }</div>
                 <a href="/campaign/campaignList" class="btn btn-primary" style="float: right">목록보기</a>
-                <span id="campaignIdText" class="d-none"> ${campaign.id } </span>
+                <div id="campaignIdText" class="d-none"> ${campaign.id } </div>
                 <img class="campaign-image"/>
                     <c:forEach items="${campaign.repFileName }" var="fileName">
                 <div class="mb-3">
@@ -204,14 +204,23 @@
     </div>
     <hr>
     <div id="commentContainer">
-        <div>댓글 입력창 : 전송</div>
+
+        <div id="addCommentContainer">댓글 입력창 : 전송
+            <textarea id="commentTextArea"></textarea>
+            <button id="sendCommentBtn">전송</button>
+        </div>
+        <div id="commentListContainer">
+            <div>댓글 내용 : 누가 : 언제</div>
+            <div>댓글 내용 : 누가 : 언제</div>
+            <div>댓글 내용 : 누가 : 언제</div>
+        </div>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script src="/js/campaign/like.js"></script>
-<script src="js/campaign/comment.js"></script>
+<script src="/js/campaign/comment.js"></script>
 <script>
     function resize() {
         let textarea = document.getElementById("target-textarea");
