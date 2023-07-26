@@ -1,9 +1,7 @@
 package com.example.project2.mapper;
 
 import com.example.project2.domain.Comment;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -24,4 +22,27 @@ public interface CommentMapper {
             VALUES(#{campaignId}, #{content}, #{memberId})
             """)
     Integer insert(Comment comment);
+
+    @Delete("""
+            DELETE FROM Comment
+            WHERE id = #{id}
+            """)
+    Integer deleteById(Integer id);
+
+    @Select("""
+            SELECT *
+            FROM Comment
+            WHERE id = #{id}
+            """)
+    Comment selectById(Integer id);
+
+
+    @Update("""
+            UPDATE Comment
+            SET
+                content = #{content}
+            WHERE
+                id = #{id}
+            """)
+    Integer update(Comment comment);
 }
