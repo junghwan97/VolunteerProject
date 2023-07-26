@@ -20,7 +20,23 @@ public class CommentService {
     private CommentMapper commentMapper;
 
 
-    public List<Comment> list(Integer campaignId) {
+    public List<Comment> list(Integer campaignId,
+                              Authentication authentication) {
+
+        List<Comment> comments = commentMapper.selectAllByCampaignId(campaignId);
+        if(authentication != null){
+//            List<Comment> commentWithEditable =
+//                    comments.stream()
+//                            .map(c -> {
+//                                c.setEditable(c.getMemberId().equals(authentication.getName()));
+//                                return c;
+//                            })
+//                            .toList();
+            for(Comment comment : comments){
+                comment.setEditable(comment.getMemberId().equals(authentication.getName()));
+            }
+        }
+
         return commentMapper.selectAllByCampaignId(campaignId);
     }
 

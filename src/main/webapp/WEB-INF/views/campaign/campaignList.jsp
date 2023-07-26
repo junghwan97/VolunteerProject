@@ -100,6 +100,12 @@
                                     <span class="title"> ${campaign.title}</span> <br>
                                     <span class="writer">작성자 : ${campaign.writer}</span> <br>
                                     <span class="inserted">등록일 : ${campaign.inserted}</span>
+                                    <h3 id="likeNumber">${campaign.likeCount}</h3>
+                                    <h2 id="likeIcon">
+                                        <c:if test="${campaign.liked}"><i class="like-icon fa-solid fa-heart"
+                                                                          style="color: crimson"></i></c:if>
+                                        <c:if test="${not campaign.liked}"><i class="like-icon fa-regular fa-heart"></i></c:if>
+                                    </h2>
                                 </div>
                             </div>
                         </a>

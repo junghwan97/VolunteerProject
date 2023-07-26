@@ -21,10 +21,11 @@ public class CommentController {
 
     @GetMapping("list")
     @ResponseBody
-    public List<Comment> list(@RequestParam("campaign") Integer campaignId){
+    public List<Comment> list(@RequestParam("campaign") Integer campaignId,
+                              Authentication authentication){
 
 //        return List.of("댓1", "댓2", "댓3");
-        return commentService.list(campaignId);
+        return commentService.list(campaignId, authentication);
     }
 
     @PostMapping("add")
@@ -45,6 +46,7 @@ public class CommentController {
 //    @RequestMapping(path="id/{id}", method=RequestMethod.DELETE)
     @DeleteMapping("id/{id}")
     @ResponseBody
+    @PreAuthorize("authenticated and @customSecurityChecker.checkCommentWriter(authentication, #id)")
     public ResponseEntity<Map<String, Object>> remove(@PathVariable("id") Integer id){
         Map<String, Object> res = commentService.remove(id);
         return ResponseEntity.ok().body(res);
@@ -58,6 +60,7 @@ public class CommentController {
 
     @PutMapping("update")
     @ResponseBody
+    @PreAuthorize("authenticated and @customSecurityChecker.checkCommentWriter(authentication, #comment.id)")
     public ResponseEntity<Map<String, Object>> update(@RequestBody Comment comment){
         Map<String, Object> res = commentService.update(comment);
 
