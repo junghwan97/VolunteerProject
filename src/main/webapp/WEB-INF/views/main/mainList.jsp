@@ -141,6 +141,12 @@
                                     <span class="title"> ${campaign.title}</span> <br>
                                     <span class="writer">작성자 : ${campaign.writer}</span> <br>
                                     <span class="inserted">등록일 : ${campaign.inserted}</span>
+                                    <br>
+                                    <br>
+<%--                                    <div class="graph">--%>
+<%--                                        <span style="width: ${percent}%">${percent}%</span>--%>
+<%--                                    </div>--%>
+                                    <span id="likeNumber"><i class="like-icon fa-solid fa-heart" style="color: crimson"></i> X ${campaign.likeCount}</span>
                                 </div>
                             </div>
                         </a>

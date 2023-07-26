@@ -119,12 +119,16 @@ public interface CampaignMapper {
                 c.title,
                 c.body,
                 c.inserted,
-                c.writer,
+                c.writer,             
                 f.fileName,
-                rf.repFileName
+                rf.repFileName,
+                (SELECT COUNT(*)\s
+			   				FROM CampaignLike\s
+			   				WHERE campaignId = c.id) likeCount
             FROM Campaign c
             LEFT JOIN FileNames f ON c.id = f.campaignId
             LEFT JOIN RepresentFileName rf ON c.id = rf.campaignid
+            LEFT JOIN CampaignLike cl on c.id = cl.campaignId
 			<where>
 				<if test="(type eq 'all') or (type eq 'title')">
 				   c.title  LIKE #{pattern}

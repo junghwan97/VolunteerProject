@@ -59,6 +59,36 @@
         text-decoration: none;
         color: black;
     }
+
+    .graph{
+        background-color: white;
+        border-color: black;
+        height: 40px;
+        border-radius: 40px;
+    }
+
+    .graph span{
+        display: block;
+        padding: 0 10px;
+        height: 40px;
+        line-height: 40px;
+        text-align: right;
+        /*width: 75%;*/
+        background-color: aquamarine;
+        color: black;
+        border-radius: 40px;
+        box-sizing: border-box;
+        animation: stack 2s 1;
+
+    }
+
+    @keyframes stack {
+        0% {width: 0; color: rgba(25,255,255,0);}
+        40% {color: rgba(25,255,255,1);}
+        100% {width: 100%;}
+
+    }
+
 </style>
 
 <body>
@@ -100,12 +130,6 @@
                                     <span class="title"> ${campaign.title}</span> <br>
                                     <span class="writer">작성자 : ${campaign.writer}</span> <br>
                                     <span class="inserted">등록일 : ${campaign.inserted}</span>
-                                    <h3 id="likeNumber">${campaign.likeCount}</h3>
-                                    <h2 id="likeIcon">
-                                        <c:if test="${campaign.liked}"><i class="like-icon fa-solid fa-heart"
-                                                                          style="color: crimson"></i></c:if>
-                                        <c:if test="${not campaign.liked}"><i class="like-icon fa-regular fa-heart"></i></c:if>
-                                    </h2>
                                 </div>
                             </div>
                         </a>

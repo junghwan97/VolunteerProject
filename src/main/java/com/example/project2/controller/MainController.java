@@ -57,5 +57,8 @@ public class MainController {
             Member userInfo = memberService.getUserInfo(authentication.getName());
             model.addAttribute("member", userInfo);
         }
+//        int allDonation = kakaoPay.findMyDonationMoneyByCampaignId();
+//        int targetAmount = kakaoPay.findCampaignTarget(id);
+//        double percent = Math.round(((double) allDonation / targetAmount) * 100 * 100) / 100;
     }
 }
