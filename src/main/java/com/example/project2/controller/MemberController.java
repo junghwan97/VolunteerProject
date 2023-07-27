@@ -8,6 +8,7 @@ import com.example.project2.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -150,5 +151,32 @@ public class MemberController {
 
         List<DonationForm> donationForm = kakaoPay.findMyDonation(id);
         model.addAttribute("donationForm", donationForm);
+    }
+
+    @GetMapping("adminPage")
+    public void empowerment(Model model, Authentication authentication){
+        List<Member> member = memberService.getPreAuthority();
+        model.addAttribute("preMember", member);
+
+        if(authentication != null) {
+            Member userInfo = memberService.getUserInfo(authentication.getName());
+            model.addAttribute("member", userInfo);
+        }
+    }
+
+    @PostMapping("giveAuthority/{id}")
+    public String giveAuthority(@PathVariable("id") String id, RedirectAttributes rttr){
+
+        Boolean ok = memberService.giveAuthority(id);
+
+        if(ok){
+            rttr.addFlashAttribute("message", "권한이 성공적으로 변경되었습니다.");
+            return "redirect:/member/adminPage";
+        }else {
+            rttr.addFlashAttribute("message", "권한 변경되지 않았습니다. 다시 한번 확인해주세요!");
+            return "redirect:/member/adminPage";
+        }
+
+
     }
 }

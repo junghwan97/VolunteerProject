@@ -14,6 +14,7 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -128,6 +129,16 @@ public class MemberService {
             memberMapper.deleteAuthority(member.getId());
             cnt = memberMapper.deleteMember(member.getId());
         }
+        return cnt == 1;
+    }
+
+    public List<Member> getPreAuthority() {
+        List<Member> member = memberMapper.getPreAuthority();
+        return member;
+    }
+
+    public Boolean giveAuthority(String id) {
+        int cnt = memberMapper.giveAuthority(id);
         return cnt == 1;
     }
 }

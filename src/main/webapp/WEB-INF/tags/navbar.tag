@@ -39,7 +39,7 @@
                 </sec:authorize>
                 <sec:authorize access="hasAuthority('admin')">
                     <li class="nav-item">
-                        <a class="nav-link ${current eq 'mypage' ? 'active' : '' }" href="/member/myPage?id=<sec:authentication property="name"/>">운영자 페이지</a>
+                        <a class="nav-link ${current eq 'adminPage' ? 'active' : '' }" href="/member/adminPage">운영자 페이지</a>
                     </li>
                 </sec:authorize>
 

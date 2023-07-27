@@ -97,4 +97,23 @@ public interface MemberMapper {
             VALUES (#{id}, #{originalFilename})
             """)
     void insertFileName(String id, String originalFilename);
+
+    @Select("""
+            SELECT *\s
+            FROM Member m\s
+            LEFT JOIN MemberAuthority ma ON m.id = ma.memberId
+            LEFT JOIN DocuForMember dm ON m.id = dm.memberId
+            WHERE dm.fileName IS NOT NULL
+                AND ma.authority != 'needVolunteer'  
+            """)
+    List<Member> getPreAuthority();
+
+    @Update("""
+            UPDATE MemberAuthority
+            SET
+                authority = 'needVolunteer'
+            WHERE 
+                memberId = #{id}
+            """)
+    Integer giveAuthority(String id);
 }

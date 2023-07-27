@@ -14,4 +14,5 @@ public class Member {
     private String address;
     private String authority;
     private String addressSggNm;
+    private String fileName;
 }

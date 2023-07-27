@@ -176,9 +176,9 @@
             <input name="addressSggNm" id="inputAddressSggNm" type="text" class="form-control" placeholder="Enter Address" required />
           </div>
         </div>
-        <div class="d-none">
-          <input type="text" class="form-control" name="authority" value="user">
-        </div>
+<%--        <div class="d-none">--%>
+<%--          <input type="text" class="form-control" name="authority" value="user">--%>
+<%--        </div>--%>
 
         <div class="mb-3">
           <h5 style="display: flex"><p>*</p>권한 신청</h5>

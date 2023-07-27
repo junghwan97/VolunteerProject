@@ -23,11 +23,18 @@
 <body>
 <my:navbar current="recruitList"/>
 <my:alert></my:alert>
+
+
 <div class="container-lg">
     <sec:authorize access="hasAuthority('needVolunteer') or hasAuthority('admin')">
         <div class="add"><a href="/recruit/addRecruit" class="btn btn-primary">모집하기</a></div>
     </sec:authorize>
     <h1>봉사활동 지원 / 공고 게시판</h1>
+    <sec:authorize access="hasAuthority('preNeedVolunteer') or hasAuthority('volunteer')">
+       <div class="mb-3">
+        <h4 style="text-align: center; color: #EB4F43">아직 글쓰기 권한 부여 전입니다!</h4>
+       </div>
+    </sec:authorize>
     <div class="header__center">
         <form action="./recruitList" class="d-flex" role="search">
             <div class="input-group">
