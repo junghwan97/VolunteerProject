@@ -30,7 +30,7 @@
         <div class="add"><a href="/recruit/addRecruit" class="btn btn-primary">모집하기</a></div>
     </sec:authorize>
     <h1>봉사활동 지원 / 공고 게시판</h1>
-    <sec:authorize access="hasAuthority('preNeedVolunteer') or hasAuthority('volunteer')">
+    <sec:authorize access="hasAuthority('preNeedVolunteer')">
        <div class="mb-3">
         <h4 style="text-align: center; color: #EB4F43">아직 글쓰기 권한 부여 전입니다!</h4>
        </div>

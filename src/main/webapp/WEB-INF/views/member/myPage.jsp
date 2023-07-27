@@ -56,7 +56,7 @@
 </style>
 <body>
 
-<my:navbar></my:navbar>
+<my:navbar current="mypage"></my:navbar>
 
 
 <div class="container-lg">
