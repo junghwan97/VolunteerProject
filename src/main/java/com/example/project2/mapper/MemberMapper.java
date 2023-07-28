@@ -1,5 +1,6 @@
 package com.example.project2.mapper;
 
+import com.example.project2.domain.ApplyRecruit;
 import com.example.project2.domain.Member;
 import org.apache.ibatis.annotations.*;
 
@@ -104,7 +105,7 @@ public interface MemberMapper {
             LEFT JOIN MemberAuthority ma ON m.id = ma.memberId
             LEFT JOIN DocuForMember dm ON m.id = dm.memberId
             WHERE dm.fileName IS NOT NULL
-                AND ma.authority != 'needVolunteer'  
+                AND ma.authority = 'preNeedVolunteer'  
             """)
     List<Member> getPreAuthority();
 
@@ -116,4 +117,22 @@ public interface MemberMapper {
                 memberId = #{id}
             """)
     Integer giveAuthority(String id);
+
+    @Insert("""
+            INSERT INTO ApplyRecruit(memberId, name, email, phoneNum, gender)
+            VALUES(#{id}, #{name}, #{email}, #{phoneNum}, #{gender})
+            """)
+    Integer applyRecruit(String id, String name, String email, String phoneNum, String gender);
+
+    @Select("""
+            SELECT
+                memberId, 
+                name, 
+                email,
+                phoneNum,
+                gender
+            FROM ApplyRecruit
+            WHERE memberId = #{id}
+            """)
+    ApplyRecruit selectApplyRecruitById(String id);
 }

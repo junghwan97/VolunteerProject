@@ -63,6 +63,7 @@
   <div class="row justify-content-center">
     <div class="col-12 col-md-10 col-lg-3 myTab" style="position: relative; top: 70px; right: 50px">
       <table class="table table-no-border">
+
         <sec:authorize access="hasAuthority('admin')">
           <tbody>
           <tr>
@@ -71,9 +72,19 @@
           <tr>
             <td><a href="/member/sponsored?id=${member.id }" style="color: #55A44E">${member.id}가 쓴 글</a></td>
           </tr>
-
+          <sec:authorize access="hasAuthority('volunteer')">
+            <tr>
+              <td><a href="/member/recruit?id=${member.id }" style="color: #55A44E">${member.id}가 지원한 봉사활동</a></td>
+            </tr>
+          </sec:authorize>
+          <sec:authorize access="hasAuthority('needVolunteer')">
+            <tr>
+              <td><a href="/member/recruit?id=${member.id }" style="color: #55A44E">봉사활동 신청 승인</a></td>
+            </tr>
+          </sec:authorize>
           </tbody>
         </sec:authorize>
+
         <sec:authorize access="isAuthenticated() and !hasAuthority('admin')">
           <tbody>
           <tr>
@@ -82,9 +93,16 @@
           <tr>
             <td><a href="/member/sponsored?id=${member.id }" style="color: #55A44E">내가 후원한 캠페인</a></td>
           </tr>
-
-
-
+          <sec:authorize access="hasAuthority('volunteer')">
+            <tr>
+              <td><a href="/member/applyRecruitPage?id=${member.id}" style="color: #55A44E">${member.id}가 지원한 봉사활동</a></td>
+            </tr>
+          </sec:authorize>
+          <sec:authorize access="hasAuthority('needVolunteer')">
+            <tr>
+              <td><a href="/member/recruit?id=${member.id }" style="color: #55A44E">봉사활동 신청 승인</a></td>
+            </tr>
+          </sec:authorize>
           </tbody>
         </sec:authorize>
       </table>

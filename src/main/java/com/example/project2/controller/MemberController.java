@@ -1,5 +1,6 @@
 package com.example.project2.controller;
 
+import com.example.project2.domain.ApplyRecruit;
 import com.example.project2.domain.DonationForm;
 import com.example.project2.domain.Member;
 import com.example.project2.service.KakaoPay;
@@ -7,9 +8,9 @@ import com.example.project2.service.MailService;
 import com.example.project2.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.eclipse.tags.shaded.org.apache.xpath.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -136,23 +137,6 @@ public class MemberController {
 
     }
 
-    @GetMapping("myPage")
-//    public void myPage(@PathVariable("id") String id, Model model){ // 왜 @PathVariable("id")를 쓰면 500 오류가 나오는지?
-    public void myPage(String id, Model model){
-        Member member = memberService.getInfo(id);
-        model.addAttribute("member", member);
-
-    }
-    @GetMapping("sponsored")
-//    public void sponsored(@PathVariable("id") String id, Model model){
-    public void sponsored(String id, Model model){
-        Member member = memberService.getInfo(id);
-        model.addAttribute("member", member);
-
-        List<DonationForm> donationForm = kakaoPay.findMyDonation(id);
-        model.addAttribute("donationForm", donationForm);
-    }
-
     @GetMapping("adminPage")
     public void empowerment(Model model, Authentication authentication){
         List<Member> member = memberService.getPreAuthority();
@@ -176,7 +160,52 @@ public class MemberController {
             rttr.addFlashAttribute("message", "권한 변경되지 않았습니다. 다시 한번 확인해주세요!");
             return "redirect:/member/adminPage";
         }
+    }
 
+    @GetMapping("myPage")
+//    public void myPage(@PathVariable("id") String id, Model model){ // 왜 @PathVariable("id")를 쓰면 500 오류가 나오는지?
+    public void myPage(String id, Model model){
+        Member member = memberService.getInfo(id);
+        model.addAttribute("member", member);
+
+    }
+    @GetMapping("sponsored")
+//    public void sponsored(@PathVariable("id") String id, Model model){
+    public void sponsored(String id, Model model){
+        Member member = memberService.getInfo(id);
+        model.addAttribute("member", member);
+
+        List<DonationForm> donationForm = kakaoPay.findMyDonation(id);
+        model.addAttribute("donationForm", donationForm);
+    }
+
+    @GetMapping("applyRecruitPage")
+    public void applyRecruitPage(String id, Model model){
+        Member member = memberService.getInfo(id);
+        model.addAttribute("member", member);
+        System.out.println(member);
+    }
+
+    @PostMapping("applyRecruit/{id}")
+    public void applyRecruit(@PathVariable("id") String id,
+                               @RequestParam("name") String name,
+                               @RequestParam("email") String email,
+                               @RequestParam("phoneNum") String phoneNum,
+                               @RequestParam("gender") String gender,
+                               Model model){
+
+        Boolean ok = memberService.applyRecruit(id, name, email, phoneNum, gender);
+        ApplyRecruit applyRecruit = memberService.selectApplyRecruitById(id);
+        model.addAttribute("applyRecruit", applyRecruit);
+
+        Member member = memberService.selectMember(id);
+        model.addAttribute("member", member);
+
+//        if(ok){
+//            return "redirect:/member/applyRecruit?id=" + id;
+//        }
+//
+//        return null;
 
     }
 }

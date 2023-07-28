@@ -28,6 +28,63 @@
         overflow: hidden;
         border: none
     }
+
+    /*신청하기 팝업*/
+    .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s, opacity 0.3s ease;
+    }
+    .popup-content {
+        width: 400px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+    .popup-content h2 {
+        text-align: center;
+        margin-top: 0;
+    }
+    .popup-content form {
+        display: flex;
+        flex-direction: column;
+    }
+    .popup-content input[type="text"],
+    .popup-content input[type="password"],
+    .popup-content input[type="email"],
+    .popup-content select {
+        margin-bottom: 10px;
+        padding: 8px;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+    }
+    .popup-content input[type="submit"] {
+        padding: 8px 12px;
+        border: none;
+        border-radius: 3px;
+        background-color: #3f51b5;
+        color: #fff;
+        cursor: pointer;
+    }
+    .popup-content input[type="submit"]:hover {
+        background-color: #303f9f;
+    }
+    .popup-content .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
 </style>
 </head>
 <body>
@@ -48,6 +105,23 @@
                     <div class="mb-3">
                         <label for="" class="form-label">작성일시</label>
                         <input type="text" readonly class="form-control" value="${recruit.inserted }" style="border: none"/>
+                    </div>
+                    <sec:authorize access="hasAuthority('volunteer')">
+                        <button onclick="openPopup()">신청하기</button>
+                    </sec:authorize>
+                    <div id="popup" class="popup-overlay">
+                        <div class="popup-content">
+                            <button class="close-btn btn btn-danger" onclick="closePopup()">&times;</button>
+                            <h2>봉사활동 신청하기</h2>
+                            <form action="/member/applyRecruit/${member.id}" method="post">
+                                <input type="text" class="d-done" placeholder="아이디" name="id" value="${member.id}">
+                                <input type="text" placeholder="이름" name="name" value="${member.name}">
+                                <input type="email" placeholder="이메일" name="email" value="${member.email}">
+                                <input type="text" placeholder="연락처" name="phoneNum" value="${member.phoneNum}">
+                                <input type="text" placeholder="성별" name="gender" value="${member.gender}">
+                                <input type="submit" value="신청">
+                            </form>
+                        </div>
                     </div>
                     <div class="content">
                         <!-- 그림 파일 출력 -->
@@ -136,6 +210,19 @@
             </div>
         </div>
     </div>
+    <script>
+        function openPopup() {
+            var popup = document.getElementById("popup");
+            popup.style.visibility = "visible";
+            popup.style.opacity = "1";
+        }
+
+        function closePopup() {
+            var popup = document.getElementById("popup");
+            popup.style.visibility = "hidden";
+            popup.style.opacity = "0";
+        }
+    </script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bda72dd7c59b7d94fe8ae4094af53543&libraries=services"></script>
     <script>
         // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다

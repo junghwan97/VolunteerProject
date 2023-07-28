@@ -1,5 +1,6 @@
 package com.example.project2.service;
 
+import com.example.project2.domain.ApplyRecruit;
 import com.example.project2.domain.Member;
 import com.example.project2.mapper.CampaignLikeMapper;
 import com.example.project2.mapper.MemberMapper;
@@ -140,5 +141,20 @@ public class MemberService {
     public Boolean giveAuthority(String id) {
         int cnt = memberMapper.giveAuthority(id);
         return cnt == 1;
+    }
+
+    public Boolean applyRecruit(String id, String name, String email, String phoneNum, String gender) {
+        int cnt = memberMapper.applyRecruit(id, name, email, phoneNum, gender);
+        return cnt == 1;
+    }
+
+    public ApplyRecruit selectApplyRecruitById(String id) {
+        ApplyRecruit applyRecruit = memberMapper.selectApplyRecruitById(id);
+        return applyRecruit;
+    }
+
+    public Member selectMember(String id) {
+       Member member = memberMapper.selectById(id);
+       return member;
     }
 }
