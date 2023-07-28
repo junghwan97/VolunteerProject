@@ -110,43 +110,20 @@
         <div class="col-12 col-md-10 col-lg-8 detailPage">
             <h1>${member.nickName }님의 페이지</h1>
             <table class="table table-no-border">
+                <thead>
+                    <tr>
+                        <th>제목</th>
+                        <th>이름</th>
+
+                        <th>승인 여부</th>
+                    </tr>
+                </thead>
                 <tbody>
-                <tr>
-                    <th>아이디</th>
-                    <td>${member.id}</td>
-                </tr>
-                <tr>
-                    <th>이름</th>
-                    <td>${member.name}</td>
-                </tr>
-                <tr>
-                    <th>성별</th>
-                    <td>${member.gender}</td>
-                </tr>
-                <tr>
-                    <th>이메일</th>
-                    <td>${member.email}</td>
-                </tr>
-                <tr>
-                    <th>핸드폰 번호</th>
-                    <td>${member.phoneNum}</td>
-                </tr>
-                <tr>
-                    <th>별명</th>
-                    <td>${member.nickName}</td>
-                </tr>
-                <tr>
-                    <th>주소</th>
-                    <td>${member.address}</td>
-                </tr>
-                <%--        <tr>--%>
-                <%--          <th>주소</th>--%>
-                <%--          <td>${member.addressSggNm}</td>--%>
-                <%--        </tr>--%>
-                <tr>
-                    <th>권한</th>
-                    <td>${member.authority}</td>
-                </tr>
+                    <tr>
+                        <td><a href="/recruit/recruitId/${applyRecruit.recruitId}">${applyRecruit.title}</a></td>
+                        <td>${applyRecruit.name}</td>
+                        <td>${applyRecruit.participation}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

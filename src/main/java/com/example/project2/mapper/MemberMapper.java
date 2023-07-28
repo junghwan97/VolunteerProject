@@ -119,10 +119,10 @@ public interface MemberMapper {
     Integer giveAuthority(String id);
 
     @Insert("""
-            INSERT INTO ApplyRecruit(memberId, name, email, phoneNum, gender)
-            VALUES(#{id}, #{name}, #{email}, #{phoneNum}, #{gender})
+            INSERT INTO ApplyRecruit(memberId, name, email, phoneNum, gender, title, participation, recruitId)
+            VALUES(#{id}, #{name}, #{email}, #{phoneNum}, #{gender}, #{title}, #{participation}, #{recruitId})
             """)
-    Integer applyRecruit(String id, String name, String email, String phoneNum, String gender);
+    Integer applyRecruit(String id, String name, String email, String phoneNum, String gender, String title, String participation, Integer recruitId);
 
     @Select("""
             SELECT
@@ -130,7 +130,10 @@ public interface MemberMapper {
                 name, 
                 email,
                 phoneNum,
-                gender
+                gender,
+                title,
+                participation,
+                recruitId
             FROM ApplyRecruit
             WHERE memberId = #{id}
             """)

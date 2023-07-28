@@ -143,8 +143,8 @@ public class MemberService {
         return cnt == 1;
     }
 
-    public Boolean applyRecruit(String id, String name, String email, String phoneNum, String gender) {
-        int cnt = memberMapper.applyRecruit(id, name, email, phoneNum, gender);
+    public Boolean applyRecruit(String id, String name, String email, String phoneNum, String gender, String title, String participation, Integer recruitId) {
+        int cnt = memberMapper.applyRecruit(id, name, email, phoneNum, gender, title, participation, recruitId);
         return cnt == 1;
     }
 

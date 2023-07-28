@@ -181,31 +181,29 @@ public class MemberController {
 
     @GetMapping("applyRecruitPage")
     public void applyRecruitPage(String id, Model model){
+
         Member member = memberService.getInfo(id);
         model.addAttribute("member", member);
-        System.out.println(member);
+
+        ApplyRecruit applyRecruit = memberService.selectApplyRecruitById(id);
+        model.addAttribute("applyRecruit", applyRecruit);
     }
 
     @PostMapping("applyRecruit/{id}")
-    public void applyRecruit(@PathVariable("id") String id,
+    public String applyRecruit(@PathVariable("id") String id,
                                @RequestParam("name") String name,
                                @RequestParam("email") String email,
                                @RequestParam("phoneNum") String phoneNum,
                                @RequestParam("gender") String gender,
+                               @RequestParam("title") String title,
+                               @RequestParam("participation") String participation,
+                               @RequestParam("recruitId") Integer recruitId,
                                Model model){
 
-        Boolean ok = memberService.applyRecruit(id, name, email, phoneNum, gender);
-        ApplyRecruit applyRecruit = memberService.selectApplyRecruitById(id);
-        model.addAttribute("applyRecruit", applyRecruit);
+        Boolean ok = memberService.applyRecruit(id, name, email, phoneNum, gender, title, participation, recruitId);
 
-        Member member = memberService.selectMember(id);
-        model.addAttribute("member", member);
+        return "redirect:/member/applyRecruitPage?id=" + id;
 
-//        if(ok){
-//            return "redirect:/member/applyRecruit?id=" + id;
-//        }
-//
-//        return null;
 
     }
 }

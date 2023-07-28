@@ -114,11 +114,14 @@
                             <button class="close-btn btn btn-danger" onclick="closePopup()">&times;</button>
                             <h2>봉사활동 신청하기</h2>
                             <form action="/member/applyRecruit/${member.id}" method="post">
+                                <input type="text" name="title" value="${recruit.title}" readonly>
+                                <input type="text" name="recruitId" value="${recruit.id}" class="d-none">
                                 <input type="text" class="d-done" placeholder="아이디" name="id" value="${member.id}">
                                 <input type="text" placeholder="이름" name="name" value="${member.name}">
                                 <input type="email" placeholder="이메일" name="email" value="${member.email}">
                                 <input type="text" placeholder="연락처" name="phoneNum" value="${member.phoneNum}">
                                 <input type="text" placeholder="성별" name="gender" value="${member.gender}">
+                                <input type="text" class="d-none" name="participation" value="preApproval">
                                 <input type="submit" value="신청">
                             </form>
                         </div>
