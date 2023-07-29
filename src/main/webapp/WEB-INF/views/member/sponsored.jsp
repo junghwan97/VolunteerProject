@@ -100,7 +100,7 @@
                     </sec:authorize>
                     <sec:authorize access="hasAuthority('needVolunteer')">
                         <tr>
-                            <td><a href="/member/recruit?id=${member.id }" style="color: #55A44E">봉사활동 신청 승인</a></td>
+                            <td><a href="/member/approvalPage?id=${member.id }" style="color: #55A44E">봉사활동 신청 승인</a></td>
                         </tr>
                     </sec:authorize>
                     </tbody>

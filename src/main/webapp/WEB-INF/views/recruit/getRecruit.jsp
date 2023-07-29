@@ -121,7 +121,7 @@
                                 <input type="email" placeholder="이메일" name="email" value="${member.email}">
                                 <input type="text" placeholder="연락처" name="phoneNum" value="${member.phoneNum}">
                                 <input type="text" placeholder="성별" name="gender" value="${member.gender}">
-                                <input type="text" class="d-none" name="participation" value="preApproval">
+                                <input type="text" class="d-none" name="participation" value="승인 대기중">
                                 <input type="submit" value="신청">
                             </form>
                         </div>

@@ -2,6 +2,7 @@ package com.example.project2.service;
 
 import com.example.project2.domain.ApplyRecruit;
 import com.example.project2.domain.Member;
+import com.example.project2.domain.Recruit;
 import com.example.project2.mapper.CampaignLikeMapper;
 import com.example.project2.mapper.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -156,5 +157,20 @@ public class MemberService {
     public Member selectMember(String id) {
        Member member = memberMapper.selectById(id);
        return member;
+    }
+
+    public ApplyRecruit getPreApproval(Integer recruitId) {
+       ApplyRecruit applyRecruit = memberMapper.getPreApproval(recruitId);
+       return applyRecruit;
+    }
+
+    public String getnickName(String id) {
+       String nickName = memberMapper.getNickName(id);
+       return nickName;
+    }
+
+    public Integer getRecruitId(String writer) {
+        Integer recruitId = memberMapper.getRecruitId(writer);
+        return recruitId;
     }
 }

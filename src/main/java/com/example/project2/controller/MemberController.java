@@ -3,6 +3,7 @@ package com.example.project2.controller;
 import com.example.project2.domain.ApplyRecruit;
 import com.example.project2.domain.DonationForm;
 import com.example.project2.domain.Member;
+import com.example.project2.domain.Recruit;
 import com.example.project2.service.KakaoPay;
 import com.example.project2.service.MailService;
 import com.example.project2.service.MemberService;
@@ -203,6 +204,21 @@ public class MemberController {
         Boolean ok = memberService.applyRecruit(id, name, email, phoneNum, gender, title, participation, recruitId);
 
         return "redirect:/member/applyRecruitPage?id=" + id;
+    }
+
+    @GetMapping("approvalPage")
+    public void approvalPage(String id, Model model){
+
+        Member member = memberService.getInfo(id);
+        model.addAttribute("member", member);
+
+        String writer = memberService.getNickName(id);
+        Integer recruitId = memberService.getRecruitId(writer);
+
+        ApplyRecruit applyRecruit = memberService.getPreApproval(recruitId);
+        model.addAttribute("applyRecruit", applyRecruit);
+
+
 
 
     }

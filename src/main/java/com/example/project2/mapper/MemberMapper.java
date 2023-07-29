@@ -2,6 +2,7 @@ package com.example.project2.mapper;
 
 import com.example.project2.domain.ApplyRecruit;
 import com.example.project2.domain.Member;
+import com.example.project2.domain.Recruit;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -138,4 +139,25 @@ public interface MemberMapper {
             WHERE memberId = #{id}
             """)
     ApplyRecruit selectApplyRecruitById(String id);
+
+    @Select("""
+            SELECT *
+            FROM ApplyRecruit
+            WHERE recruitId = #{recruitId}
+            """)
+    ApplyRecruit getPreApproval(Integer recruitId);
+
+    @Select("""
+            SELECT nickName
+            FROM Member
+            WHERE id = #{id}
+            """)
+    String getNickName(String id);
+
+    @Select("""
+            SELECT id
+            FROM Recruit
+            WHERE writer = #{writer}
+            """)
+    Integer getRecruitId(String writer);
 }

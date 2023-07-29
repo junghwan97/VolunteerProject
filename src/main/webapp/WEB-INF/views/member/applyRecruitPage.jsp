@@ -53,6 +53,11 @@
     .detailPage td {
         border-bottom: 1px solid #CED4DA;
     }
+
+    .mainBody{
+        justify-content: center; /* 수평 정렬 */
+        align-items: center; /* 수직 정렬 */
+    }
 </style>
 <body>
 
@@ -114,15 +119,19 @@
                     <tr>
                         <th>제목</th>
                         <th>이름</th>
-
                         <th>승인 여부</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="mainBody">
                     <tr>
                         <td><a href="/recruit/recruitId/${applyRecruit.recruitId}">${applyRecruit.title}</a></td>
                         <td>${applyRecruit.name}</td>
-                        <td>${applyRecruit.participation}</td>
+                        <c:if test="${not empty applyRecruit.participation}">
+                            <td><div class="btn btn-primary">${applyRecruit.participation}</div></td>
+                        </c:if>
+                        <c:if test="${empty applyRecruit.participation}">
+                            <td></td>
+                        </c:if>
                     </tr>
                 </tbody>
             </table>
