@@ -217,9 +217,15 @@ public class MemberController {
 
         ApplyRecruit applyRecruit = memberService.getPreApproval(recruitId);
         model.addAttribute("applyRecruit", applyRecruit);
+    }
 
+    @PostMapping("approvalRecruit")
+    public String approvalRecruit(@RequestParam("participation") String participation,
+                                  @RequestParam("id") Integer id,
+                                  Authentication authentication){
 
+        memberService.approvalRecruit(participation, id);
 
-
+        return "redirect:/member/approvalPage?id=" + authentication.getName();
     }
 }

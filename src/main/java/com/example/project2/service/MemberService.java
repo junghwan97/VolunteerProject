@@ -173,4 +173,12 @@ public class MemberService {
         Integer recruitId = memberMapper.getRecruitId(writer);
         return recruitId;
     }
+
+    public void approvalRecruit(String participation, Integer id) {
+
+        int cnt = memberMapper.approvalRecruit(participation, id);
+        System.out.println(participation);
+        System.out.println(id);
+        System.out.println(cnt);
+    }
 }

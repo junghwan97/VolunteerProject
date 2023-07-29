@@ -160,4 +160,11 @@ public interface MemberMapper {
             WHERE writer = #{writer}
             """)
     Integer getRecruitId(String writer);
+
+    @Update("""
+            UPDATE ApplyRecruit
+            SET participation = #{participation}
+            WHERE recruitId = #{id}
+            """)
+    Integer approvalRecruit(String participation, Integer id);
 }

@@ -126,12 +126,17 @@
         <tr>
           <td><a href="/recruit/recruitId/${applyRecruit.recruitId}">${applyRecruit.title}</a></td>
           <td>${applyRecruit.name}</td>
-          <c:if test="${not empty applyRecruit.participation}">
-            <td><div class="btn btn-primary">${applyRecruit.participation}</div></td>
-          </c:if>
-          <c:if test="${empty applyRecruit.participation}">
-            <td></td>
-          </c:if>
+          <td>
+            <c:if test="${applyRecruit.participation eq '승인 대기중'}">
+              <form action="/member/approvalRecruit" method="post">
+                <input type="text" name="id" value="${applyRecruit.recruitId}" class="d-none">
+                <input type="submit" class="btn btn-primary" name="participation" value="승인">
+              </form>
+            </c:if>
+            <c:if test="${applyRecruit.participation eq '승인'}">
+                <input type="button" class="btn btn-primary" name="participation" value="승인 완료">
+            </c:if>
+          </td>
         </tr>
         </tbody>
       </table>
