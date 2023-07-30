@@ -13,6 +13,17 @@
 </head>
 <style>
 
+    :root {
+        --accent-color: #607D8B;
+    }
+
+    body{
+        background-color: #F7F7F7;
+    }
+    .navbar-nav li:hover {
+        background-color: var(--accent-color);
+        border-radius: 3px;
+    }
     .flexbox {
         display: flex;
         margin-top: 120px;
@@ -44,18 +55,26 @@
     .sideMenu {
         width: 100%;
         height: 300px;
-        background-color: #F7F4F3;
+        background-color: #FFFFFF;
         padding: 20px;
         border-radius: 5px;
+        box-shadow:  5px 5px 5px #D1CDC7, /* 오른쪽 아래 방향의 그림자 */
+        -5px -5px 5px #FFFFFF, /* 왼쪽 위 방향의 그림자 */
+        5px -5px 5px #D1CDC7, /* 오른쪽 위 방향의 그림자 */
+        -5px 5px 5px #FFFFFF; /* 왼쪽 아래 방향의 그림자 */
     }
 
     .notice {
         width: 100%;
         height: 300px;
         margin-top: 17px;
-        background-color: #F7F4F3;
+        background-color: #FFFFFF;
         padding: 20px;
         border-radius: 5px;
+        box-shadow:  5px 5px 5px #D1CDC7, /* 오른쪽 아래 방향의 그림자 */
+        -5px -5px 5px #FFFFFF, /* 왼쪽 위 방향의 그림자 */
+        5px -5px 5px #D1CDC7, /* 오른쪽 위 방향의 그림자 */
+        -5px 5px 5px #FFFFFF; /* 왼쪽 아래 방향의 그림자 */
     }
 
     .items {
@@ -71,17 +90,33 @@
         border-radius: 20%;
     }
 
+    /*.inner {*/
+    /*    display: flex;*/
+    /*    background-color: #E0E0E0;*/
+    /*    border-radius: 2%;*/
+    /*}*/
+
+    /*.inner .inner-content {*/
+    /*    width: 500px;*/
+    /*    margin-top: 100px;*/
+    /*    margin-left: 80px;*/
+    /*    margin-bottom: 20px;*/
+    /*    color: black;*/
+    /*}*/
+
     .inner {
         display: flex;
-        background-color: #F7F4F3;
-        border-radius: 2%;
+        background-color: #FFFFFF;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 30px;
+        box-shadow:  5px 5px 5px #D1CDC7, /* 오른쪽 아래 방향의 그림자 */
+        -5px -5px 5px #FFFFFF, /* 왼쪽 위 방향의 그림자 */
+        5px -5px 5px #D1CDC7, /* 오른쪽 위 방향의 그림자 */
+        -5px 5px 5px #FFFFFF; /* 왼쪽 아래 방향의 그림자 */
     }
 
     .inner .inner-content {
-        width: 500px;
-        margin-top: 100px;
-        margin-left: 80px;
-        margin-bottom: 20px;
         color: black;
     }
 
@@ -109,7 +144,7 @@
 <my:navbar></my:navbar>
 
 <!-- 검색창 -->
-<div class="header__center">
+<div class="header__center" style="margin-top: 40px;">
     <form action="./mainList" class="d-flex" role="search">
         <div class="input-group">
             <select class="form-select flex-grow-0" style="width: 100px;" name="type" id="">
@@ -118,7 +153,7 @@
                 <option value="body" ${param.type eq 'body' ? 'selected' : '' }>본문</option>
                 <option value="writer" ${param.type eq 'writer' ? 'selected' : '' }>작성자</option>
             </select> <input value="${param.search }" name="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">
+            <button class="btn btn-outline-primary" type="submit">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
         </div>
@@ -137,10 +172,10 @@
                                     <img class="img-thumbnail img-fluid"
                                          src="${bucketUrl }/campaign/${campaign.id }/${campaign.repFileName}"/>
                                 </div>
-                                <div class="inner-content">
-                                    <span class="title"> ${campaign.title}</span> <br>
-                                    <span class="writer">작성자 : ${campaign.writer}</span> <br>
-                                    <span class="inserted">등록일 : ${campaign.inserted}</span>
+                                <div class="inner-content" style="margin-left: 15px; margin-top: 70px">
+                                    <span class="title" style="font-size: 20px"> ${campaign.title}</span> <br>
+                                    <span class="writer" style="font-size: 17px">작성자 : ${campaign.writer}</span> <br>
+                                    <span class="inserted" style="font-size: 17px">등록일 : ${campaign.inserted}</span>
                                     <br>
                                     <br>
 <%--                                    <div class="graph">--%>

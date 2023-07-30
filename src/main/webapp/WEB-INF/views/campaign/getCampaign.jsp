@@ -75,7 +75,7 @@
         line-height: 40px;
         text-align: right;
         /*width: 75%;*/
-        background-color: aquamarine;
+        background-color: #03A9F4;
         color: black;
         border-radius: 40px;
         box-sizing: border-box;
@@ -84,8 +84,8 @@
     }
 
         @keyframes stack {
-            0% {width: 0; color: rgba(25,255,255,0);}
-            40% {color: rgba(25,255,255,1);}
+            0% {width: 0; color: rgba(3,169,244,0);}
+            40% {color: rgba(3,169,244,1);}
             100% {width: 100%;}
 
         }

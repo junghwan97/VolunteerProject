@@ -3,10 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary mb-5">
+<nav class="navbar navbar-expand-lg" style="background-color: #03A9F4; padding-top: 20px; padding-bottom: 20px; margin-bottom: 30px">
     <div class="container-lg">
         <a class="navbar-brand" href="/main/mainList">
-            <img src="/img/volunteer.png" alt="" height="24" />
+            <img src="/img/HI.png" alt="" height="50" />
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -22,30 +22,30 @@
 <%--                    </li>--%>
 <%--                </sec:authorize>--%>
                 <li class="nav-item">
-                    <a class="nav-link ${current eq 'campaignList' ? 'active' : '' }" href="/campaign/campaignList">후원하기</a>
+                    <a class="nav-link ${current eq 'campaignList' ? 'active' : '' }" href="/campaign/campaignList" style="color: white; font-size: 24px;">후원하기</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link ${current eq 'recruitList' ? 'active' : '' }" href="/recruit/recruitList">봉사활동 지원 / 모집</a>
+                    <a class="nav-link ${current eq 'recruitList' ? 'active' : '' }" href="/recruit/recruitList" style="color: white; font-size: 24px;">봉사활동 지원 / 모집</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link ${current eq 'noticeList' ? 'active' : '' }" href="/notice/noticeList">공지사항</a>
+                    <a class="nav-link ${current eq 'noticeList' ? 'active' : '' }" href="/notice/noticeList" style="color: white; font-size: 24px;">공지사항</a>
                 </li>
                 <sec:authorize access="isAuthenticated() AND !hasAuthority('admin')">
                     <li class="nav-item">
-                        <a class="nav-link ${current eq 'mypage' ? 'active' : '' }" href="/member/myPage?id=<sec:authentication property="name"/>">마이페이지</a>
+                        <a class="nav-link ${current eq 'mypage' ? 'active' : '' }" href="/member/myPage?id=<sec:authentication property="name"/>" style="color: white; font-size: 24px;">마이페이지</a>
                     </li>
                 </sec:authorize>
                 <sec:authorize access="hasAuthority('admin')">
                     <li class="nav-item">
-                        <a class="nav-link ${current eq 'adminPage' ? 'active' : '' }" href="/member/adminPage">운영자 페이지</a>
+                        <a class="nav-link ${current eq 'adminPage' ? 'active' : '' }" href="/member/adminPage" style="color: white; font-size: 24px;">운영자 페이지</a>
                     </li>
                 </sec:authorize>
 
                 <sec:authorize access="isAuthenticated()">
                     <li class="nav-item">
-                        <a class="nav-link" href="/member/logout">로그아웃</a>
+                        <a class="nav-link" href="/member/logout" style="color: white; font-size: 24px;">로그아웃</a>
                     </li>
                 </sec:authorize>
             </ul>
@@ -68,7 +68,7 @@
         </div>
         <sec:authorize access="isAuthenticated()">
             <div class="nav-item">
-                <a class="nav-link">${member.nickName}님 환영합니다!</a>
+                <a class="nav-link" style="color: white; font-size: 20px;">${member.nickName}님 환영합니다!</a>
             </div>
         </sec:authorize>
 
