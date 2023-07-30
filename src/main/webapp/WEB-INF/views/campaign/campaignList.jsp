@@ -151,7 +151,7 @@
             </div>
         </div>
     </div>
-    <sec:authorize access="hasAuthority('admin')">
+    <sec:authorize access="hasAuthority('admin') or hasAuthority('needVolunteer')">
         <a href="/campaign/addCampaign" class="btn btn-primary">캠페인 추가</a>
     </sec:authorize>
 </div>

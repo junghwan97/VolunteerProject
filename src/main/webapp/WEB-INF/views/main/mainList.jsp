@@ -14,7 +14,7 @@
 <style>
 
     :root {
-        --accent-color: #607D8B;
+        --accent-color: #C5CAE9 ;
     }
 
     body{

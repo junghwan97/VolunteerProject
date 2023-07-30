@@ -46,13 +46,15 @@
     .sideMenu {
         /*display: flex;*/
         position: fixed;
-        top: 147px;
+        top: 237px;
         right: 85px;
         width: 20%;
         height: 50vh;
         padding: 20px;
-        background-color: #f1f1f1;
+        color: #03A9F4;
+        background-color: #E3F2FD   ;
         text-align: center;
+        box-shadow:  5px 5px 5px #D1CDC7
     }
 
     .sideMenuInner{
@@ -147,7 +149,7 @@
             </div>
 
 
-            <sec:authorize access="hasAuthority('admin')">
+            <sec:authorize access="hasAuthority('admin') or hasAuthority('needVolunteer')">
                 <a href="/campaign/modify/${campaign.id}" class="btn btn-primary">수정하기</a>
                 <button id="removeButton" class="btn btn-danger" data-bs-toggle="modal"
                         data-bs-target="#deleteConfirmModal">삭제
@@ -180,22 +182,24 @@
         </div>
         <hr>
         <div id="commentContainer">
+            <h1>
+                <i class="fa-regular fa-comment" style="color: #03a9f4;">여러분의 응원 한 마디가 필요해요!</i>
+            </h1>
             <sec:authorize access="isAuthenticated()">
-                <div id="addCommentContainer">
-                    <h6>입력</h6>
-                    <textarea id="commentTextArea"></textarea>
-                    <button id="sendCommentBtn">전송</button>
+                <div class="mb-3" id="addCommentContainer">
+                    <div class="input-group">
+                        <textarea class="form-control" id="commentTextArea" placeholder="댓글 입력"></textarea>
+                        <button class="btn btn-outline-primary" id="sendCommentBtn"><i class="fa-regular fa-paper-plane" style="color: #03a9f4;"></i></button>
+                    </div>
                 </div>
             </sec:authorize>
-            <div id="updateCommentContainer">
-                <h6>수정</h6>
-                <input type="hidden" id="commentUpdateIdInput" />
-                <textarea id="commentUpdateTextArea"></textarea>
-                <button id="updateCommentBtn">수정</button>
-            </div>
-            <div id="commentListContainer">
 
-            </div>
+
+
+            <ul class="list-group" id="commentListContainer">
+
+
+            </ul>
         </div>
     </div>
 
@@ -232,6 +236,49 @@
         </sec:authorize>
     </div>
 </div>
+
+<sec:authorize access="isAuthenticated()">
+
+<div class="modal fade" id="deleteCommentConfirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">댓글 삭제 확인</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">삭제 하시겠습니까?</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                <button id="deleteCommentModalButton" data-bs-dismiss="modal" type="submit" class="btn btn-danger">삭제</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<%--    댓글 수정 모달--%>
+    <div class="modal fade" id="commentUpdateModal" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel1">댓글 수정</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="updateCommentContainer">
+                        <input type="hidden" id="commentUpdateIdInput" />
+                        <textarea class="form-control" id="commentUpdateTextArea"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                    <button id="updateCommentBtn" type="button" class="btn btn-primary" data-bs-dismiss="modal">수정</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</sec:authorize>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 

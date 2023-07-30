@@ -70,7 +70,7 @@ public class CampaignController {
             return "campaign/getCampaign";
     }
     @GetMapping("addCampaign")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('needVolunteer')")
     public void addCampaignForm(Authentication authentication, Model model) {
 
         if(authentication != null) {
@@ -100,7 +100,7 @@ public class CampaignController {
     }
 
     @GetMapping("/modify/{id}")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('needVolunteer')")
     public String modifyCampaignForm(@PathVariable("id") Integer id, Model model, Authentication authentication) {
         Campaign campaign = campaignService.getCampaign(id);
         model.addAttribute("campaign", campaign);
@@ -124,7 +124,7 @@ public class CampaignController {
     }
 
     @PostMapping("/remove/{id}")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('needVolunteer')")
     public String removeCampaign(@PathVariable("id") Integer id) {
         boolean ok = campaignService.removeCampaign(id);
         if (ok) {
