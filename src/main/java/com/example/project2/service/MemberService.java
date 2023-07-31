@@ -159,9 +159,9 @@ public class MemberService {
        return member;
     }
 
-    public ApplyRecruit getPreApproval(Integer recruitId) {
-       ApplyRecruit applyRecruit = memberMapper.getPreApproval(recruitId);
-       return applyRecruit;
+    public List<ApplyRecruit> getPreApproval(Integer recruitId) {
+//       List<ApplyRecruit> applyRecruit = memberMapper.getPreApproval(recruitId);
+        return memberMapper.getPreApproval(recruitId);
     }
 
     public String getnickName(String id) {

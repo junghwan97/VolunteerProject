@@ -215,8 +215,10 @@ public class MemberController {
         String writer = memberService.getNickName(id);
         Integer recruitId = memberService.getRecruitId(writer);
 
-        ApplyRecruit applyRecruit = memberService.getPreApproval(recruitId);
-        model.addAttribute("applyRecruit", applyRecruit);
+//        ApplyRecruit applyRecruit = memberService.getPreApproval(recruitId);
+        List<ApplyRecruit> applyRecruit = memberService.getPreApproval(recruitId);
+        System.out.println(applyRecruit);
+        model.addAttribute("apply", applyRecruit);
     }
 
     @PostMapping("approvalRecruit")

@@ -123,21 +123,23 @@
         </tr>
         </thead>
         <tbody class="mainBody">
-        <tr>
-          <td><a href="/recruit/recruitId/${applyRecruit.recruitId}">${applyRecruit.title}</a></td>
-          <td>${applyRecruit.name}</td>
-          <td>
-            <c:if test="${applyRecruit.participation eq '승인 대기중'}">
-              <form action="/member/approvalRecruit" method="post">
-                <input type="text" name="id" value="${applyRecruit.recruitId}" class="d-none">
-                <input type="submit" class="btn btn-primary" name="participation" value="승인">
-              </form>
-            </c:if>
-            <c:if test="${applyRecruit.participation eq '승인'}">
-                <input type="button" class="btn btn-primary" name="participation" value="승인 완료">
-            </c:if>
-          </td>
-        </tr>
+        <c:forEach items="${apply}" var="apply">
+            <tr>
+              <td><a href="/recruit/recruitId/${apply.recruitId}">${apply.title}</a></td>
+              <td>${apply.name}</td>
+              <td>
+              <c:if test="${apply.participation eq '승인 대기중'}">
+                <form action="/member/approvalRecruit" method="post">
+                  <input type="text" name="id" value="${apply.recruitId}" class="d-none">
+                  <input type="submit" class="btn btn-primary" name="participation" value="승인">
+                </form>
+              </c:if>
+              <c:if test="${apply.participation eq '승인'}">
+                  <input type="button" class="btn btn-primary" name="participation" value="승인 완료">
+              </c:if>
+            </td>
+          </tr>
+        </c:forEach>
         </tbody>
       </table>
     </div>

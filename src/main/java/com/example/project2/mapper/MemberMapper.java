@@ -145,7 +145,7 @@ public interface MemberMapper {
             FROM ApplyRecruit
             WHERE recruitId = #{recruitId}
             """)
-    ApplyRecruit getPreApproval(Integer recruitId);
+    List<ApplyRecruit> getPreApproval(Integer recruitId);
 
     @Select("""
             SELECT nickName
