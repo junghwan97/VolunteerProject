@@ -55,7 +55,7 @@
             <div class="modal-body">권한을 부여하시겠습니까?</div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                <button type="submit" class="btn btn-danger" form="giveAuthority">부여</button>
+                <button type="submit" class="btn btn-success" form="giveAuthority">부여</button>
             </div>
         </div>
     </div>

@@ -325,7 +325,7 @@
                 <h4><i class="fa-solid fa-comment" style="color: #02a9f4;"></i> 나의 응원 댓글 수 : ${countComment}회</h4>
                 <h4><i class="fa-solid fa-hand-holding-dollar" style="color: #02a9f4;"></i> 나의 기부 횟수 : ${countDonaTime}건</h4>
                 <h4><i class="fa-solid fa-coins" style="color: #02a9f4;"></i> 나의 총 기부금액 : ${allDonation}원</h4>
-                <h4><a href="/member/myPage?id=${member.id}">마이페이지 바로 가기</a></h4>
+                <h4><a href="/member/myPage?id=${member.id}" class="btn btn-primary" style="background-color: #02a9f4">마이페이지 바로 가기</a></h4>
             </sec:authorize>
         </div>
         <div class="notice">
