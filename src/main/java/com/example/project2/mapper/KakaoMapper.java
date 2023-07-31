@@ -4,7 +4,6 @@ import com.example.project2.domain.DonationForm;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -85,4 +84,23 @@ public interface KakaoMapper {
             WHERE campaignId = #{id} AND targetAmount IS NOT NULL
             """)
     Integer findCampaignTarget(Integer id);
+
+    @Select("""
+            SELECT SUM(total_amount)
+            FROM DonationForm;
+            """)
+    Integer selectTotal_Amount();
+
+    @Select("""
+            SELECT count(partner_order_id)
+            FROM DonationForm
+            """)
+    Integer countDonation();
+
+    @Select("""
+            SELECT count(partner_order_id)
+            FROM DonationForm
+            WHERE partner_user_id = #{id};
+            """)
+    Integer countDonaTime(String name);
 }

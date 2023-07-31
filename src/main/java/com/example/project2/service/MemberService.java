@@ -181,4 +181,8 @@ public class MemberService {
         System.out.println(id);
         System.out.println(cnt);
     }
+
+    public Integer countVolunteer() {
+        return memberMapper.countVoulnteer();
+    }
 }

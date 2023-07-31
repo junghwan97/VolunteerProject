@@ -82,4 +82,8 @@ public class CommentService {
         }
         return res;
     }
+
+    public Integer countComment(String name) {
+        return commentMapper.countCommentById(name);
+    }
 }

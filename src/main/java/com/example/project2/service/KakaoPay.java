@@ -181,4 +181,16 @@ public class KakaoPay {
        Integer targetAmount = kakaoMapper.findCampaignTarget(id);
        return targetAmount;
     }
+
+    public Integer selectTotal_Amount() {
+        return kakaoMapper.selectTotal_Amount();
+    }
+
+    public Integer countDonation() {
+        return kakaoMapper.countDonation();
+    }
+
+    public Integer countDonaTime(String name) {
+        return kakaoMapper.countDonaTime(name);
+    }
 }

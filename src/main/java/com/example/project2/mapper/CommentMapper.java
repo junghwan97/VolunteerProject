@@ -45,4 +45,11 @@ public interface CommentMapper {
                 id = #{id}
             """)
     Integer update(Comment comment);
+
+    @Select("""
+            SELECT count(id)
+            FROM Comment
+            WHERE memberId = #{name};
+            """)
+    Integer countCommentById(String name);
 }

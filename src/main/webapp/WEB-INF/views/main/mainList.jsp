@@ -79,12 +79,14 @@
         -5px -5px 5px #FFFFFF, /* 왼쪽 위 방향의 그림자 */
         5px -5px 5px #D1CDC7, /* 오른쪽 위 방향의 그림자 */
         -5px 5px 5px #FFFFFF; /* 왼쪽 아래 방향의 그림자 */
+        overflow: hidden;
     }
 
     .notice {
         width: 100%;
         height: 300px;
         margin-top: 17px;
+        color: #03A9F4;
         background-color: #FFFFFF;
         padding: 20px;
         border-radius: 5px;
@@ -135,11 +137,12 @@
 
     .inner .inner-content {
         color: black;
+        font-size: 2vw;
     }
 
     a {
         text-decoration: none;
-        color: black;
+        color: #03A9F4;
     }
 
     @media (max-width: 992px) {
@@ -154,6 +157,89 @@
             margin-left: 0;
             margin-top: 20px;
         }
+    }
+
+    /** {*/
+    /*    padding: 0;*/
+    /*    margin: 0;*/
+    /*    border: none;*/
+    /*}*/
+
+    /*body {*/
+    /*    font-size: 14px;*/
+    /*    font-family: 'Roboto', sans-serif;*/
+    /*}*/
+
+    .login-wrapper {
+        /*width: 400px;*/
+        /*height: 350px;*/
+        /*padding: 40px;*/
+
+        /*box-sizing: border-box;*/
+        /*display: flex;*/
+        /*flex-direction: column;*/
+        /*align-items: center;*/
+        /*justify-content: center;*/
+    }
+
+    .login-wrapper>h1 {
+        font-size: 35px;
+        color: #03A9F4;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+    #login-form>.submitBtn>input {
+        width: 80%;
+        height: 48px;
+        padding: 0 10px;
+        box-sizing: border-box;
+        margin-bottom: 50px;
+        border-radius: 6px;
+        background-color: #F8F8F8;
+    }
+    #login-form>input {
+        width: 80%;
+        height: 48px;
+        padding: 0 10px;
+        box-sizing: border-box;
+        margin-bottom: 16px;
+        border-radius: 6px;
+        background-color: #F8F8F8;
+    }
+
+    #login-form>input::placeholder {
+        color: #D2D2D2;
+    }
+
+    #login-form>.submitBtn>input[type="submit"] {
+        color: #fff;
+        font-size: 16px;
+        background-color: #03A9F4;
+        margin-top: 10px;
+
+    }
+
+    #login-form>.submitBtn>input[type="button"] {
+        color: #fff;
+        font-size: 16px;
+        background-color: #03A9F4;
+
+        /* 	margin-top: 20px; */
+    }
+
+    .button-wrapper {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    .find-buttons input[type="button"] {
+        margin-top: 0;
+        width: calc(50% - 5px); /* 버튼 사이의 간격을 조정 */
+        color: #fff;
+        font-size: 16px;
+        background-color: #55A44E;
     }
 </style>
 <body>
@@ -177,7 +263,10 @@
     </form>
 </div>
 <div class="topMenu">
-    <h3>지금까지 기부된 금액은 총 원 입니다.</h3>
+    <h3><i class="fa-solid fa-hand-holding-dollar" style="color: #ffffff;"></i> 총 기부 횟수 : ${countDonation}건
+        / <i class="fa-solid fa-coins" style="color: #ffffff;"></i> 총 기부금액 : ${allDonationMoney}원
+        / <i class="fa-solid fa-handshake-angle" style="color: #ffffff;"></i> 진행된 봉사활동 : ${countVolunteer}회
+    </h3>
 </div>
 
 <div class="flexbox">
@@ -212,25 +301,31 @@
     </div>
     <div class="rightMenu">
         <div class="sideMenu">
+            <sec:authorize access="isAnonymous()">
+                <div class="login-wrapper">
+                    <h1>Login</h1>
+                    <form method="post" action="/member/login" id="login-form">
+                        <input id="inputUsername" type="text" name="username" placeholder="ID"> <br>
+                        <input id="inputPassword" type="password" name="password" placeholder="Password"><br>
+                        <div class="submitBtn" style="margin-bottom: 30px;">
+                            <input type="submit" value="Login">
+                        </div>
+<%--                        <input type="button" value="Sign Up" onclick="location.href='/member/signup'"/>--%>
+                            <%--        <div class="find-buttons">--%>
+                            <%--            <input type="button" value="아이디 찾기" onclick="location.href='/member/userSearch '" />--%>
+                            <%--            <input type="button" value="임시 비밀번호 발급" onclick="location.href='/member/sendTempPw'" />--%>
+                            <%--        </div>--%>
+                    </form>
+                </div>
+            </sec:authorize>
             <sec:authorize access="isAuthenticated()">
                 <h3>${member.nickName}님의 정보</h3>
-                <p>간단한 나의 정보</p>
-                <p>간단한 나의 정보</p>
-                <h4>나의 총 기부금액 : ${allDonation}원</h4>
+                <br>
+                <br>
+                <h4><i class="fa-solid fa-comment" style="color: #02a9f4;"></i> 나의 응원 댓글 수 : ${countComment}회</h4>
+                <h4><i class="fa-solid fa-hand-holding-dollar" style="color: #02a9f4;"></i> 나의 기부 횟수 : ${countDonaTime}건</h4>
+                <h4><i class="fa-solid fa-coins" style="color: #02a9f4;"></i> 나의 총 기부금액 : ${allDonation}원</h4>
                 <h4><a href="/member/myPage?id=${member.id}">마이페이지 바로 가기</a></h4>
-            </sec:authorize>
-            <sec:authorize access="isAnonymous()">
-                <h1>Login</h1>
-                <form method="post" action="/member/login" id="login-form">
-                    <input id="inputUsername" type="text" name="username" placeholder="ID"> <br>
-                    <input id="inputPassword" type="password" name="password" placeholder="Password"><br>
-                    <input type="submit" value="Login">
-                    <input type="button" value="Sign Up" onclick="location.href='/member/signup'"/>
-                        <%--        <div class="find-buttons">--%>
-                        <%--            <input type="button" value="아이디 찾기" onclick="location.href='/member/userSearch '" />--%>
-                        <%--            <input type="button" value="임시 비밀번호 발급" onclick="location.href='/member/sendTempPw'" />--%>
-                        <%--        </div>--%>
-                </form>
             </sec:authorize>
         </div>
         <div class="notice">

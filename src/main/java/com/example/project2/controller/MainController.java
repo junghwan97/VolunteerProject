@@ -4,10 +4,7 @@ import com.example.project2.domain.Campaign;
 import com.example.project2.domain.DonationForm;
 import com.example.project2.domain.Member;
 import com.example.project2.domain.Notice;
-import com.example.project2.service.CampaignService;
-import com.example.project2.service.KakaoPay;
-import com.example.project2.service.MemberService;
-import com.example.project2.service.NoticeService;
+import com.example.project2.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -36,6 +33,9 @@ public class MainController {
     @Autowired
     private KakaoPay kakaoPay;
 
+    @Autowired
+    private CommentService commentService;
+
     @GetMapping("mainList")
     public void getMainList(Model model,
                             Authentication authentication,
@@ -57,6 +57,25 @@ public class MainController {
             Member userInfo = memberService.getUserInfo(authentication.getName());
             model.addAttribute("member", userInfo);
         }
+
+        Integer SumOfDonation = kakaoPay.selectTotal_Amount();
+        model.addAttribute("allDonationMoney", SumOfDonation);
+
+        Integer countDonation = kakaoPay.countDonation();
+        model.addAttribute("countDonation",countDonation);
+
+        if(authentication != null){
+            Integer countDonaTime = kakaoPay.countDonaTime(authentication.getName());
+            model.addAttribute("countDonaTime", countDonaTime);
+        }
+        if(authentication != null){
+            Integer countComment = commentService.countComment(authentication.getName());
+            model.addAttribute("countComment", countComment);
+        }
+
+        Integer countVolunteer = memberService.countVolunteer();
+        model.addAttribute("countVolunteer", countVolunteer);
+
 //        int allDonation = kakaoPay.findMyDonationMoneyByCampaignId();
 //        int targetAmount = kakaoPay.findCampaignTarget(id);
 //        double percent = Math.round(((double) allDonation / targetAmount) * 100 * 100) / 100;

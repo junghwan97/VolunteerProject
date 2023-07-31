@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<nav class="navbar navbar-expand-lg" style="background-color: #03A9F4;">
+<nav class="navbar navbar-expand-lg" style="background-color: #03A9F4; margin-bottom: 20px">
     <div class="container-lg">
         <a class="navbar-brand" href="/main/mainList" >
             <img src="/img/HI.png" alt="" style="height: 70px" />
@@ -36,6 +36,12 @@
                     <li class="nav-item">
                         <a class="nav-link ${current eq 'mypage' ? 'active' : '' }" href="/member/myPage?id=<sec:authentication property="name"/>" style="color: white; font-size: 20px;">마이페이지</a>
                     </li>
+                </sec:authorize>
+<%--                <sec:authorize access="isAnonymous()">--%>
+<%--                    <a class="nav-link ${current eq 'login' ? 'active' : '' }" style="color: white; font-size: 20px;" href="/member/login">로그인</a>--%>
+<%--                </sec:authorize>--%>
+                <sec:authorize access="isAnonymous()">
+                    <a class="nav-link ${current eq 'signup' ? 'active' : '' }" style="color: white; font-size: 20px;" href="/member/signup">회원가입</a>
                 </sec:authorize>
                 <sec:authorize access="hasAuthority('admin')">
                     <li class="nav-item">

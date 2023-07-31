@@ -167,4 +167,11 @@ public interface MemberMapper {
             WHERE recruitId = #{id}
             """)
     Integer approvalRecruit(String participation, Integer id);
+
+    @Select("""
+            SELECT count(participation)\s
+            FROM ApplyRecruit\s
+            WHERE participation = '승인'
+            """)
+    Integer countVoulnteer();
 }
