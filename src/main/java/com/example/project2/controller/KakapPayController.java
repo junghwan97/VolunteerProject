@@ -1,8 +1,10 @@
 package com.example.project2.controller;
 
 import com.example.project2.domain.DonationForm;
+import com.example.project2.domain.Member;
 import com.example.project2.service.CampaignService;
 import com.example.project2.service.KakaoPay;
+import com.example.project2.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -21,6 +23,9 @@ public class KakapPayController {
 
     @Autowired
     private CampaignService campaignService;
+
+    @Autowired
+    private MemberService memberService;
 
     @Setter(onMethod_ = @Autowired)
     private KakaoPay kakaopay;
@@ -58,7 +63,8 @@ public class KakapPayController {
     public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token,
                                 HttpSession session,
                                 Model model,
-                                RedirectAttributes rttr) {
+                                RedirectAttributes rttr,
+                                Authentication authentication) {
         log.info("kakaoPaySuccess get............................................");
         log.info("kakaoPaySuccess pg_token : " + pg_token);
         String orderId = (String) session.getAttribute("orderId");
@@ -67,6 +73,11 @@ public class KakapPayController {
         DonationForm donationForm1 = kakaopay.selectDonation(orderId);
 
         model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token, donationForm1));
+
+        if(authentication != null) {
+            Member userInfo = memberService.getUserInfo(authentication.getName());
+            model.addAttribute("member", userInfo);
+        }
     }
 
 }

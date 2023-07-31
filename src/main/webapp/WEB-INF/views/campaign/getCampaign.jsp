@@ -210,27 +210,32 @@
             <p>
             <h3 id="likeNumber">${campaign.likeCount}</h3>번의
             <h2 id="likeIcon">
-                <c:if test="${campaign.liked}"><i class="like-icon fa-solid fa-heart"
-                                                  style="color: crimson"></i></c:if>
+                <c:if test="${campaign.liked}"><i class="like-icon fa-solid fa-heart" style="color: crimson"></i></c:if>
                 <c:if test="${not campaign.liked}"><i class="like-icon fa-regular fa-heart"></i></c:if>
             </h2>
             을 받고 있습니다!
             </p>
 
         </div>
+            <br>
+            <br>
         <div>
             <h4>기부 금액 현황 : ${allDonation}원</h4>
+            <br>
             <h5>목표 기부 금액 : ${targetAmount}원</h5>
         </div>
+            <br>
         <div class="graph">
             <span style="width: ${percent}%">${percent}%</span>
         </div>
+            <br>
+            <br>
         <sec:authorize access="isAuthenticated()">
             <div class="donation" id="donation">
                 <form action="/kakaoPay">
                     <input id="" type="hidden" class="form-control" name="campaignId" value="${campaign.id }" readonly/>
                     <input id="" type="hidden" class="form-control" name="campaignName" value="${campaign.title }" readonly/>
-                    <input id="donationSubmit" type="submit" class="btn btn-outline-success" value="기부하기"/>
+                    <input id="donationSubmit" type="submit" class="btn btn-outline-primary" value="기부하기"/>
                 </form>
             </div>
         </sec:authorize>
