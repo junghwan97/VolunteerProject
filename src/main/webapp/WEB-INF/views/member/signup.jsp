@@ -66,7 +66,7 @@
         <div class="mb-3">
           <div class="input-group">
             <input id="inputId" type="text" class="form-control" name="id" value="${member.id }" placeholder="ID" />
-            <button class="btn btn-outline-success" type="button" id="checkIdBtn">중복확인</button>
+            <button class="btn btn-outline-primary" type="button" id="checkIdBtn">중복확인</button>
           </div>
 
           <div class="d-none form-text text-primary" id="availableIdMessage">
@@ -96,7 +96,7 @@
         <div class="mb-3">
           <div class="input-group">
             <input id="inputName" type="text" class="form-control" name="name" value="${member.name }" placeholder="이름" />
-            <button class="btn btn-outline-success" type="button" id="checkNameBtn">확인</button>
+            <button class="btn btn-outline-primary" type="button" id="checkNameBtn">확인</button>
           </div>
           <div class="d-none form-text text-primary" id="availableNameMessage">
             <i class="fa-solid fa-check"></i> 이름이 확인되었습니다.
@@ -105,14 +105,14 @@
 
         <div class="mb-3">
           <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" name="gender" id="inputGenderM" autocomplete="off" value="남"> <label class="btn btn-outline-success" for="inputGenderM">남</label> <input type="radio" class="btn-check" name="gender" id="inputGenderW" autocomplete="off" value="여"> <label class="btn btn-outline-success" for="inputGenderW">여</label> <input type="radio" class="btn-check" name="gender" id="inputGenderX" autocomplete="off" value="선택 안함"> <label class="btn btn-outline-success" for="inputGenderX">선택 안함</label>
+            <input type="radio" class="btn-check" name="gender" id="inputGenderM" autocomplete="off" value="남"> <label class="btn btn-outline-primary" for="inputGenderM">남</label> <input type="radio" class="btn-check" name="gender" id="inputGenderW" autocomplete="off" value="여"> <label class="btn btn-outline-success" for="inputGenderW">여</label> <input type="radio" class="btn-check" name="gender" id="inputGenderX" autocomplete="off" value="선택 안함"> <label class="btn btn-outline-success" for="inputGenderX">선택 안함</label>
           </div>
         </div>
 
         <div class="mb-3">
           <div class="input-group">
             <input id="inputEmail" type="email" class="form-control" name="email" value="${member.email }" placeholder="E-mail" />
-            <button class="btn btn-outline-success" type="button" id="checkEmailBtn">인증하기</button>
+            <button class="btn btn-outline-primary" type="button" id="checkEmailBtn">인증하기</button>
           </div>
           <div class="d-none form-text text-primary" id="availableEmailMessage">
             <i class="fa-solid fa-check"></i>사용 가능한 메일입니다.
@@ -126,7 +126,7 @@
         <div class="mb-3 d-none" id="inputVerificationCode">
           <div class="input-group">
             <input type="text" class="form-control" id="verificationCode" name="verificationCode" placeholder="인증번호를 입력하세요" />
-            <button class="btn btn-outline-success" type="button" id="verifyEmailBtn" style="display: none;">확인</button>
+            <button class="btn btn-outline-primary" type="button" id="verifyEmailBtn" style="display: none;">확인</button>
           </div>
         </div>
 
@@ -141,7 +141,7 @@
           <div class="input-group">
             <input id="inputPhoneNum" type="tell" class="form-control" name="phoneNum" value="${member.phoneNum }" title="전화번호를 입력하세요." placeholder="핸드폰 번호" />
             <%-- 							<input id="inputPhoneNum" type="tell" class="form-control" name="phoneNum" value="${member.phoneNum }" title="전화번호를 입력하세요." placeholder="010-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" /> --%>
-            <button class="btn btn-outline-success" type="button" id="checkPhoneNumBtn">중복확인</button>
+            <button class="btn btn-outline-primary" type="button" id="checkPhoneNumBtn">중복확인</button>
           </div>
           <div class="d-none form-text text-primary" id="availablePhoneNumMessage">
             <i class="fa-solid fa-check"></i>등록 가능한 핸드폰 번호입니다.
@@ -154,7 +154,7 @@
         <div class="mb-3">
           <div class="input-group">
             <input id="inputNickName" type="text" class="form-control" name="nickName" value="${member.nickName }" placeholder="별명" />
-            <button class="btn btn-outline-success" type="button" id="checkNicknameBtn">중복확인</button>
+            <button class="btn btn-outline-primary" type="button" id="checkNicknameBtn">중복확인</button>
           </div>
 
           <div class="d-none form-text text-primary" id="availableNicknameMessage">
@@ -168,7 +168,7 @@
 
         <!-- 도로명 주소 API 사용 -->
         <div class="mb-3">
-          <button type="button" class="btn btn-success" onClick="goPopup();">주소 검색</button>
+          <button type="button" class="btn btn-primary" onClick="goPopup();">주소 검색</button>
           <div class="input-group">
             <input name="address" id="inputAddress" type="text" class="form-control" placeholder="Enter Address" required readonly />
           </div>
@@ -184,9 +184,9 @@
           <h5 style="display: flex"><p>*</p>권한 신청</h5>
           <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
             <input type="radio" class="btn-check" name="authority" id="volunteer" autocomplete="off" value="volunteer" checked>
-            <label class="btn btn-outline-success" for="volunteer">자원 봉사자 / 후원자</label>
+            <label class="btn btn-outline-primary" for="volunteer">자원 봉사자 / 후원자</label>
             <input type="radio" class="btn-check" name="authority" id="needVolunteer" autocomplete="off" value="preNeedVolunteer">
-            <label class="btn btn-outline-success" for="needVolunteer">봉사 수혜기관 / 수혜기관</label>
+            <label class="btn btn-outline-primary" for="needVolunteer">봉사 수혜기관 / 수혜기관</label>
           </div>
         </div>
 
@@ -205,7 +205,7 @@
 
 
         <div class="mb-3">
-          <input disabled id="signupSubmit" type="submit" class="btn btn-outline-success" value="가입" />
+          <input disabled id="signupSubmit" type="submit" class="btn btn-outline-primary" value="가입" />
         </div>
       </form>
     </div>

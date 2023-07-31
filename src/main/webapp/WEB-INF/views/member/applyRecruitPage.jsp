@@ -14,7 +14,7 @@
 <style>
     h1 {
         font-size: 45px;
-        color: #55A44E;
+        color: #03A9F4;
         margin: 20px;
     }
 
@@ -72,19 +72,19 @@
                 <sec:authorize access="hasAuthority('admin')">
                     <tbody>
                     <tr>
-                        <td><a href="/member/myPage?id=${member.id}" style="color: #55A44E">${member.id} 정보</a></td>
+                        <td><a href="/member/myPage?id=${member.id}" style="color: #03A9F4">${member.id} 정보</a></td>
                     </tr>
                     <tr>
-                        <td><a href="/member/sponsored?id=${member.id }" style="color: #55A44E">${member.id}가 쓴 글</a></td>
+                        <td><a href="/member/sponsored?id=${member.id }" style="color: #03A9F4">${member.id}가 쓴 글</a></td>
                     </tr>
                     <sec:authorize access="hasAuthority('volunteer')">
                         <tr>
-                            <td><a href="/member/recruit?id=${member.id }" style="color: #55A44E">${member.id}가 지원한 봉사활동</a></td>
+                            <td><a href="/member/recruit?id=${member.id }" style="color: #03A9F4">${member.id}가 지원한 봉사활동</a></td>
                         </tr>
                     </sec:authorize>
                     <sec:authorize access="hasAuthority('needVolunteer')">
                         <tr>
-                            <td><a href="/member/recruit?id=${member.id }" style="color: #55A44E">봉사활동 신청 승인</a></td>
+                            <td><a href="/member/recruit?id=${member.id }" style="color: #03A9F4">봉사활동 신청 승인</a></td>
                         </tr>
                     </sec:authorize>
                     </tbody>
@@ -93,19 +93,19 @@
                 <sec:authorize access="isAuthenticated() and !hasAuthority('admin')">
                     <tbody>
                     <tr>
-                        <td><a href="/member/myPage?id=${member.id}" style="color: #55A44E">내 정보</a></td>
+                        <td><a href="/member/myPage?id=${member.id}" style="color: #03A9F4">내 정보</a></td>
                     </tr>
                     <tr>
-                        <td><a href="/member/sponsored?id=${member.id }" style="color: #55A44E">내가 후원한 캠페인</a></td>
+                        <td><a href="/member/sponsored?id=${member.id }" style="color: #03A9F4">내가 후원한 캠페인</a></td>
                     </tr>
                     <sec:authorize access="hasAuthority('volunteer')">
                         <tr>
-                            <td><a href="/member/applyRecruitPage?id=${member.id}" style="color: #55A44E">${member.id}가 지원한 봉사활동</a></td>
+                            <td><a href="/member/applyRecruitPage?id=${member.id}" style="color: #03A9F4">${member.id}가 지원한 봉사활동</a></td>
                         </tr>
                     </sec:authorize>
                     <sec:authorize access="hasAuthority('needVolunteer')">
                         <tr>
-                            <td><a href="/member/recruit?id=${member.id }" style="color: #55A44E">봉사활동 신청 승인</a></td>
+                            <td><a href="/member/recruit?id=${member.id }" style="color: #03A9F4">봉사활동 신청 승인</a></td>
                         </tr>
                     </sec:authorize>
                     </tbody>
