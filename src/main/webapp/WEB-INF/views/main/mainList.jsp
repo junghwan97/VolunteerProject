@@ -26,7 +26,7 @@
     }
     .flexbox {
         display: flex;
-        margin-top: 120px;
+        margin-top: 50px;
         margin-left: 150px;
         margin-right: 115px;
     }
@@ -41,6 +41,23 @@
     .input-group{
         width: 900px;
     }
+
+    .topMenu{
+        width: 80vw; /* 화면 너비의 80% */
+        height: 10vh; /* 화면 높이의 10% */
+        background-color: #03A9F4;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: calc((100vw - 78vw) / 2);;
+        /*position: absolute;*/
+        /*left: 50%;*/
+        /*top: 31%;*/
+        /*transform: translate(-50%, -50%);*/
+        color: #F7F7F7;
+    }
+
     .mainContainer {
         flex: 1; /* mainContainer가 확장 가능하도록 설정 */
         margin-right: 40px;
@@ -158,6 +175,9 @@
             </button>
         </div>
     </form>
+</div>
+<div class="topMenu">
+    <h3>지금까지 기부된 금액은 총 원 입니다.</h3>
 </div>
 
 <div class="flexbox">
