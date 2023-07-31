@@ -186,7 +186,7 @@ public class MemberController {
         Member member = memberService.getInfo(id);
         model.addAttribute("member", member);
 
-        ApplyRecruit applyRecruit = memberService.selectApplyRecruitById(id);
+        List<ApplyRecruit> applyRecruit = memberService.selectApplyRecruitById(id);
         model.addAttribute("applyRecruit", applyRecruit);
     }
 
@@ -214,10 +214,10 @@ public class MemberController {
 
         String writer = memberService.getNickName(id);
         Integer recruitId = memberService.getRecruitId(writer);
+        System.out.println(recruitId);
 
 //        ApplyRecruit applyRecruit = memberService.getPreApproval(recruitId);
         List<ApplyRecruit> applyRecruit = memberService.getPreApproval(recruitId);
-        System.out.println(applyRecruit);
         model.addAttribute("apply", applyRecruit);
     }
 

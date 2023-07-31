@@ -123,6 +123,7 @@
                     </tr>
                 </thead>
                 <tbody class="mainBody">
+                <c:forEach items="${applyRecruit}" var="applyRecruit">
                     <tr>
                         <td><a href="/recruit/recruitId/${applyRecruit.recruitId}">${applyRecruit.title}</a></td>
                         <td>${applyRecruit.name}</td>
@@ -133,6 +134,7 @@
                             <td></td>
                         </c:if>
                     </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>

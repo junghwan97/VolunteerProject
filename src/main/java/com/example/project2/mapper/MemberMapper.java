@@ -138,7 +138,7 @@ public interface MemberMapper {
             FROM ApplyRecruit
             WHERE memberId = #{id}
             """)
-    ApplyRecruit selectApplyRecruitById(String id);
+    List<ApplyRecruit> selectApplyRecruitById(String id);
 
     @Select("""
             SELECT *

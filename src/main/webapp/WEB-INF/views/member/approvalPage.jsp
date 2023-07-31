@@ -135,7 +135,7 @@
                 </form>
               </c:if>
               <c:if test="${apply.participation eq '승인'}">
-                  <input type="button" class="btn btn-primary" name="participation" value="승인 완료">
+                  <input type="button" class="btn btn-success" name="participation" value="승인 완료">
               </c:if>
             </td>
           </tr>

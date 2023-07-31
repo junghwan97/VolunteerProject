@@ -149,8 +149,8 @@ public class MemberService {
         return cnt == 1;
     }
 
-    public ApplyRecruit selectApplyRecruitById(String id) {
-        ApplyRecruit applyRecruit = memberMapper.selectApplyRecruitById(id);
+    public List<ApplyRecruit> selectApplyRecruitById(String id) {
+        List<ApplyRecruit> applyRecruit = memberMapper.selectApplyRecruitById(id);
         return applyRecruit;
     }
 
